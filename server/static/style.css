@@ -1,0 +1,32 @@
+body{
+    background-color: #444444; 
+}
+
+.color-square{
+    width: 30vw;
+    height: 30vw;
+}
+
+#square1{
+    border-top-left-radius: 5%;
+    background-color: #dd3737; 
+}
+
+#square2{
+    border-top-right-radius: 5%;
+    background-color: #37e037;
+}
+
+#square3{
+    border-bottom-left-radius: 5%;
+    background-color: #3737da;
+}
+
+#square4{
+    border-bottom-right-radius: 5%;
+    background-color: #000000;
+}
+
+.disabled{
+    opacity: 0.3;
+}

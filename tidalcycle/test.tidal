@@ -16,11 +16,22 @@ setcps (160/60/4)
 
 
 --OSC message example
-/ctrl sf hello 0.4
+/ctrl sf param 0.4
+/ctrl ss code msgn
 
 --the first value is a (s)tring and the second value is a(f)loat
 --cF is what you use for floating point controls. The second parameter1 is the default value, for when tidal hasn't received that control yet. There is also cS for strings and cI for integers
 
 --audio test
 
-d1 $ sound "bd" # speed (cF 1 "hello")
+d1 $ s "bd" # speed (cF 1 "param")
+
+
+--let code = cS code
+/ctrl ss param cpu
+
+d1 $ s (cS "param")
+
+d2 $ s "bd snare"
+
+d2 silence

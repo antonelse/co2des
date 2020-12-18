@@ -1,4 +1,4 @@
---useful command
+-- *********************** useful command
 
 tidal_version
 
@@ -11,27 +11,29 @@ hush
 setcps (160/60/4)
 
 
---comment
---by default Tidal will automatically listen for external control messages over the OSC (Open Sound Control) network protocol, on localhost (127.0.0.1), port 6010.
+-- *********************** comments section
+--see osc_test.scl for OSC server initialization
 
 
---OSC message example
+-- *********************** OSC message examples
 /ctrl sf param 0.4
 /ctrl ss code msgn
-
 --the first value is a (s)tring and the second value is a(f)loat
---cF is what you use for floating point controls. The second parameter1 is the default value, for when tidal hasn't received that control yet. There is also cS for strings and cI for integers
+--cF is what you use for floating point controls. The second 0 or 1, for when tidal hasn't received that control yet.
+--cS for strings
+--cI for integers
+--cT for time values (for using e.g. as the first parameter of fast/slow)
+--cR for ratios
 
---audio test
-
-d1 $ s "bd" # speed (cF 1 "param")
+-- *********************** audio/OSC test
 
 
---let code = cS code
-/ctrl ss param cpu
+d1 $ every 2 (# djf (cF 1 "user1")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
 
-d1 $ s (cS "param")
+d2 $ slow (cT 0 "user2") $ loopAt (cT 0 "user4") $ striate 4 $ sound "break:8 break:9"
 
-d2 $ s "bd snare"
+d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
 
-d2 silence
+d4 $ s "808" # n (cF 1 "user4")
+
+d4 silence

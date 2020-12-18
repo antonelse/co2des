@@ -1,0 +1,26 @@
+--useful command
+
+tidal_version
+
+:t --command for understand a function
+
+cmd + "dot" -- alternative way for hush
+
+hush
+
+setcps (160/60/4)
+
+
+--comment
+--by default Tidal will automatically listen for external control messages over the OSC (Open Sound Control) network protocol, on localhost (127.0.0.1), port 6010.
+
+
+--OSC message example
+/ctrl sf hello 0.4
+
+--the first value is a (s)tring and the second value is a(f)loat
+--cF is what you use for floating point controls. The second parameter1 is the default value, for when tidal hasn't received that control yet. There is also cS for strings and cI for integers
+
+--audio test
+
+d1 $ sound "bd" # speed (cF 1 "hello")

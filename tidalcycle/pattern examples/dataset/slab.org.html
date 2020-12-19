@@ -1,0 +1,1232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0032)https://slab.org/tmp/patternlib/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="generator" content="pandoc">
+  <title></title>
+<link href="./slab.org_files/css" rel="stylesheet" type="text/css">
+<link href="./slab.org_files/css(1)" rel="stylesheet" type="text/css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+body {font-family: 'Open Sans', sans-serif;}
+code {font-family: 'Inconsolata', Courier, monospace;}
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+</head>
+<body data-new-gr-c-s-check-loaded="14.987.0" data-gr-ext-installed="">
+
+<h1>Patternlib</h1>
+
+Patterns made with <a href="http://tidal.lurk.org/">Tidal</a>.
+
+<em>(c) Yaxu 2015, code released under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPLv3</a>, soundfiles under <a href="https://creativecommons.org/licenses/by/3.0/">CC-BY 3.0</a>, originally released as part of <a href="https://computerclub.bandcamp.com/album/peak-cut">Peak Cut EP</a> on <a href="https://computerclub.bandcamp.com/">Computer Club</a> (digital EP still available).</em>
+
+<h2 id="bad-blue-monday-remix">bad blue monday remix</h2>
+<div id="bad_blue_monday_remix">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> spin (<span class="dv">3</span>) <span class="fu">$</span> smash <span class="dv">4</span> [<span class="dv">1</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>,<span class="dv">2</span>] <span class="fu">$</span> sound <span class="st">"odx*4"</span>
+            <span class="fu">|+|</span> speed <span class="st">"0.5"</span>
+          </code></pre>
+<audio controls=""><source src="bad_blue_monday_remix.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="weave-vocal-strands">Weave vocal strands</h2>
+<div id="weave_vocal_strands">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d2 <span class="fu">$</span> weave' <span class="dv">16</span> ((slow <span class="dv">16</span> <span class="fu">$</span> striate' <span class="dv">128</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">64</span>) <span class="fu">$</span> sound <span class="st">"bev*2"</span>) <span class="fu">|+|</span> pan sine1)
+            [(vowel <span class="st">"a e i o u"</span> <span class="fu">|+|</span>),
+             (vowel <span class="st">"i e p u"</span> <span class="fu">|+|</span>),
+             (speed (<span class="st">"1 1.5 0.5"</span>) <span class="fu">|+|</span>)
+            ]
+          </code></pre>
+<audio controls=""><source src="weave_vocal_strands.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="pour-the-wine">pour the wine</h2>
+<div id="pour_the_wine">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">4</span> <span class="fu">$</span> every <span class="dv">2</span> (rev) <span class="fu">$</span> slow <span class="dv">32</span> <span class="fu">$</span> striate <span class="dv">256</span> <span class="fu">$</span> sound <span class="st">"[bev]*6"</span>
+                      <span class="fu">|+|</span> pan <span class="st">"1"</span>
+                     ,
+                      slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">2</span> (rev) <span class="fu">$</span> slow <span class="dv">32</span> <span class="fu">$</span> striate <span class="dv">256</span> <span class="fu">$</span> sound <span class="st">"[bev]*4"</span>
+                      <span class="fu">|+|</span> pan <span class="st">"0"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="pour_the_wine.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="weave-kicks">Weave kicks</h2>
+<div id="weave_kicks">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> weave <span class="dv">16</span> (shape (scale <span class="dv">0</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">8</span> sine1)) (map (every <span class="dv">4</span> rev) <span class="fu">$</span> [sound <span class="st">"bd8(3,8)"</span>, sound <span class="st">"drum(5,8)"</span>])
+            <span class="fu">|+|</span> speed <span class="st">"1"</span>
+            <span class="fu">|+|</span> accelerate <span class="st">"-1"</span>
+          </code></pre>
+<audio controls=""><source src="weave_kicks.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="plastik">plastik</h2>
+<div id="plastik">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave <span class="dv">16</span> (speed (scale <span class="dv">1</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">4</span> sine1)) [jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"sd8:4*4"</span>,
+                                                     jux (iter <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"bd*2"</span>,
+                                                     jux (iter <span class="dv">3</span>) <span class="fu">$</span> sound <span class="st">"sd8:3*4"</span>
+                                                    ]
+          
+          d1 <span class="fu">$</span> weave <span class="dv">32</span> (speed (scale <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> <span class="dv">1</span><span class="fu">.</span><span class="dv">6</span> sine1)) [jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"sd8:4*4"</span>,
+                                                       jux (iter <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"bd*2"</span>,
+                                                       jux (iter <span class="dv">3</span>) <span class="fu">$</span> sound <span class="st">"sd8:3*4"</span>
+                                                      ]
+          </code></pre>
+<audio controls=""><source src="plastik.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="scrape-it">scrape it</h2>
+<div id="scrape_it">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> sometimes rev <span class="fu">$</span> slowspread (stut <span class="dv">4</span> <span class="dv">1</span>) [<span class="dv">0</span><span class="fu">.</span><span class="dv">03</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">1</span>, <span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>, <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>] <span class="fu">$</span> jux (<span class="fu">|+|</span> speed <span class="st">"4"</span>) <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> sound <span class="st">"bd8*2"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.5"</span>
+          
+          </code></pre>
+<audio controls=""><source src="scrape_it.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="rissetesque-rise-try-replacing-rev-with-iter-4">rissetesque rise, try replacing (rev) with (iter 4)</h2>
+<div id="rissetesque_rise_try_replacing_rev_with_iter_4">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (rev) <span class="fu">$</span> weave <span class="dv">16</span> (sound (samples <span class="st">"arpy*8"</span> (run <span class="dv">8</span>)))
+            [vowel <span class="st">"a e o"</span>,
+             vowel <span class="st">"a e o i"</span>,
+             vowel <span class="st">"o i a o i"</span>,
+             speed <span class="st">"2 3 1"</span>,
+             speed <span class="st">"-0.75 -0.5"</span>
+            ]
+          
+          d1 <span class="fu">$</span> jux (rev) <span class="fu">$</span> weave' <span class="dv">16</span> (sound (samples <span class="st">"arpy*8"</span> (run <span class="dv">8</span>)))
+            [density <span class="dv">2</span> <span class="fu">.</span> (vowel <span class="st">"a e o"</span> <span class="fu">|+|</span>),
+             every <span class="dv">2</span> rev <span class="fu">.</span> (vowel <span class="st">"a e o i"</span> <span class="fu">|+|</span>),
+             rev <span class="fu">.</span> chop <span class="dv">2</span> <span class="fu">.</span> (vowel <span class="st">"o i a o i"</span> <span class="fu">|+|</span>),
+             slow <span class="dv">2</span> <span class="fu">.</span> rev <span class="fu">.</span> chop <span class="dv">4</span> <span class="fu">.</span> (speed <span class="st">"2 3 1"</span> <span class="fu">|+|</span>),
+             rev <span class="fu">.</span> chop <span class="dv">4</span> <span class="fu">.</span> (speed <span class="st">"-0.75 -0.5"</span> <span class="fu">|+|</span>)
+            ]
+          </code></pre>
+<audio controls=""><source src="rissetesque_rise_try_replacing_rev_with_iter_4.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="shackup-cut-up">shackup cut up</h2>
+<div id="shackup_cut_up">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> weave <span class="dv">16</span> (chop <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"shackup"</span>) [vowel <span class="st">"a e o"</span> <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                                                                    speed <span class="st">"2 3 1 0.5"</span>,
+                                                                    crush <span class="st">"[8 4 5 8]*2"</span>
+                                                                   ]
+          </code></pre>
+<audio controls=""><source src="shackup_cut_up.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="additive-rhythm">additive rhythm</h2>
+<div id="additive_rhythm">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> sound (samples <span class="st">"[sd8, jvbass]*8"</span> (slow <span class="dv">8</span> <span class="fu">$</span> scan <span class="dv">8</span>))
+          </code></pre>
+<audio controls=""><source src="additive_rhythm.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="additive-rhythm-woven-parameters">additive rhythm + woven parameters</h2>
+<div id="additive_rhythm__woven_parameters">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave' <span class="dv">4</span> (sound (samples <span class="st">"[sd8, ht8]*8"</span> (slow <span class="dv">8</span> <span class="fu">$</span> scan <span class="dv">8</span>)))
+            [(<span class="fu">|+|</span> speed <span class="st">"1 2 3"</span>),
+             chop <span class="dv">8</span> <span class="fu">.</span> (pan <span class="st">"0 0.25 0.5 0.75"</span> <span class="fu">|+|</span>)
+            ]
+          </code></pre>
+<audio controls=""><source src="additive_rhythm__woven_parameters.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="dance-hall">dance hall</h2>
+<div id="dance_hall">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave' <span class="dv">16</span> (sound <span class="st">"bd sn [bd ~ ht] [~ sn:1]"</span>)
+            [
+             (<span class="fu">|+|</span> (pan <span class="st">"1"</span> <span class="fu">|+|</span> speed <span class="st">"2"</span>)),
+             (<span class="fu">|+|</span> (pan <span class="st">"0"</span> <span class="fu">|+|</span> speed <span class="st">"3"</span>)),
+             (<span class="fu">|+|</span> (pan <span class="st">"0.5"</span> <span class="fu">|+|</span> speed <span class="st">"2"</span>))
+            ]
+          </code></pre>
+<audio controls=""><source src="dance_hall.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="move-densities-between-sounds">move densities between sounds</h2>
+<div id="move_densities_between_sounds">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> spread' density (iter <span class="dv">4</span> <span class="st">"1 8 2 4"</span>) <span class="fu">$</span> sound <span class="st">"bd sd8:2 bd sd8"</span>
+          </code></pre>
+<audio controls=""><source src="move_densities_between_sounds.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="layer-up-different-pitches-with-woven-offset-gabba-tech-house">layer up different pitches, with woven offset (gabba tech house)</h2>
+<div id="layer_up_different_pitches_with_woven_offset_gabba_tech_house">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">4</span> (within (<span class="dv">0</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) (density <span class="dv">2</span>)) <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> weave' <span class="dv">4</span> (sound <span class="st">"rave2 [drum [~ rave2:3 ~]]"</span>)
+            (map (\x <span class="ot">-&gt;</span> (<span class="fu">|+|</span> speed (pure x))) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">75</span>])
+            <span class="fu">|+|</span> end <span class="st">"[0.2 0.5]/8"</span>
+          </code></pre>
+<audio controls=""><source src="layer_up_different_pitches_with_woven_offset_gabba_tech_house.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="every-four-times-twice-as-fast-every-other-of-those-reversed">every four times, twice as fast, every other of those, reversed</h2>
+<div id="every_four_times_twice_as_fast_every_other_of_those_reversed">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">4</span> (every <span class="dv">8</span> (rev) <span class="fu">.</span> density <span class="dv">2</span>) <span class="fu">$</span> brak <span class="fu">$</span> sound <span class="st">"drum drum:1"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.8"</span>
+            <span class="fu">|+|</span> speed <span class="st">"2"</span>
+          </code></pre>
+<audio controls=""><source src="every_four_times_twice_as_fast_every_other_of_those_reversed.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="do-something-random-twice-and-it-stops-sounding-random">Do something random twice, and it stops sounding random</h2>
+<div id="do_something_random_twice_and_it_stops_sounding_random">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> <span class="kw">let</span> e'' c a b <span class="fu">=</span> e a b c <span class="kw">in</span> jux (<span class="dv">1</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> sound <span class="fu">$</span> unwrap ((e'' (samples <span class="st">"bd sd8"</span> (irand <span class="dv">16</span>))) <span class="fu">&lt;$&gt;</span> <span class="st">"[3 6 2 8 4 3]/6"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[8 4 16 12]/4"</span>)
+          </code></pre>
+<audio controls=""><source src="do_something_random_twice_and_it_stops_sounding_random.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="is-it-on-or-off">is it on or off?</h2>
+<div id="is_it_on_or_off">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> smash <span class="dv">4</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>] <span class="fu">$</span> sound <span class="st">"onoff onoff:3"</span>
+          </code></pre>
+<audio controls=""><source src="is_it_on_or_off.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="broken-dub">broken dub</h2>
+<div id="broken_dub">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (slowspread (chop) [<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">16</span>])
+            <span class="fu">$</span> slowspread (<span class="fu">$</span>) [density <span class="dv">2</span>, rev, iter <span class="dv">4</span>, density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>]
+            <span class="fu">$</span> sound (samples <span class="st">"feel less"</span> (slow <span class="dv">16</span> <span class="fu">$</span> scan <span class="dv">16</span>))
+          
+          </code></pre>
+<audio controls=""><source src="broken_dub.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="random-gabber-offsets">random gabber offsets</h2>
+<div id="random_gabber_offsets">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (spread' (<span class="fu">&lt;~</span>) (toRational <span class="fu">&lt;$&gt;</span> rand)) <span class="fu">$</span> sound (samples <span class="st">"gab*2"</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">8</span>))
+          </code></pre>
+<audio controls=""><source src="random_gabber_offsets.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="round-we-go">round we go</h2>
+<div id="round_we_go">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (stut <span class="dv">3</span> <span class="dv">1</span>) ([<span class="dv">0</span><span class="fu">.</span><span class="dv">001</span>, <span class="dv">0</span><span class="fu">.</span><span class="dv">005</span> <span class="fu">..</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>]) <span class="fu">$</span> jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"bd sn:2 sn drum:1"</span>
+          </code></pre>
+<audio controls=""><source src="round_we_go.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="down-we-go">down we go</h2>
+<div id="down_we_go">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> superimpose (iter <span class="dv">3</span>) <span class="fu">$</span> slowspread (<span class="fu">$</span>) [id, slow <span class="dv">2</span>] <span class="fu">$</span> sound <span class="st">"bd ~ [bd:5*4]"</span>
+             <span class="fu">|+|</span> speed <span class="st">"[2 1.5 3]/2"</span>
+          </code></pre>
+<audio controls=""><source src="down_we_go.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="comb-rave">comb rave</h2>
+<div id="comb_rave">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (every <span class="dv">3</span> (density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"bd [sn rave2]"</span> <span class="fu">&lt;*&gt;</span> ((floor <span class="fu">.</span> (<span class="fu">*</span><span class="dv">12</span>)) <span class="fu">&lt;$&gt;</span> rand)))
+             <span class="fu">|+|</span> speed (slow <span class="dv">4</span> <span class="fu">$</span> (<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span> sine1)
+             <span class="fu">|+|</span> delay <span class="st">"1"</span>
+             <span class="fu">|+|</span> delayfeedback <span class="st">"0.7"</span>
+             <span class="fu">|+|</span> delaytime <span class="st">"[0.02 0.01 0.03 0.02]/4"</span>
+          </code></pre>
+<audio controls=""><source src="comb_rave.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="da">da</h2>
+<div id="da">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (every <span class="dv">4</span> (stut <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">9</span>) (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>)) <span class="fu">$</span> every <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> every <span class="dv">3</span> (rev) <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"rave:6"</span>)
+             <span class="fu">|+|</span> speed (every <span class="dv">3</span> (superimpose (\x <span class="ot">-&gt;</span> (<span class="fu">+</span>) <span class="fu">&lt;$&gt;</span> x <span class="fu">&lt;*&gt;</span> sine1)) <span class="st">"[2 1.5]/3"</span>)
+             <span class="fu">|+|</span> accelerate <span class="st">"4"</span>
+          </code></pre>
+<audio controls=""><source src="da.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="nobukazu-takemura">nobukazu takemura</h2>
+<div id="nobukazu_takemura">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          
+          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> jux (whenmod <span class="dv">6</span> <span class="dv">4</span> (density <span class="dv">2</span>)) <span class="fu">$</span> brak <span class="fu">$</span> sound (samples <span class="st">"newnotes newnotes"</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">9</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"[1,2 4 3]/4"</span>,
+                      slow <span class="dv">2</span> <span class="fu">$</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">32</span>) <span class="fu">&lt;~</span> (rev <span class="fu">$</span> brak <span class="fu">$</span> sound (samples <span class="st">"newnotes newnotes newnotes"</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">12</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"[1,2 4 8]/4"</span>)
+                     ]
+          </code></pre>
+<audio controls=""><source src="nobakazu_takemura.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="blues">blues</h2>
+<div id="blues">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (whenmod <span class="dv">8</span> <span class="dv">6</span> (density <span class="dv">2</span>) <span class="fu">$</span> whenmod <span class="dv">8</span> <span class="dv">2</span> (rev) <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="st">"[bass3 ~ bass3/3] bass3/4"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[[1.8,2,4] [3.5,5,8]]*1/4"</span>)
+            <span class="fu">|+|</span> vowel <span class="st">"a e i o u"</span>
+          </code></pre>
+<audio controls=""><source src="blues.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="kitchen-techno">kitchen techno</h2>
+<div id="kitchen_techno">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> stack [sound <span class="st">"{jungbass*3 jungbass:1*4, jungbass:5 [east*3 east:3*2] east:2*4}"</span>
+                                            <span class="fu">|+|</span> speed <span class="st">"[2 1 3]/2"</span>
+                                            <span class="fu">|+|</span> shape <span class="st">"0.5"</span>,
+                                            every <span class="dv">3</span> (density <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">2</span> (jux rev) <span class="fu">$</span> sound (samples <span class="st">"east*8"</span> <span class="st">"{1 2 3, 4 5 6 7, 8 9 10 11 12}"</span>)
+                                            <span class="fu">|+|</span> speed <span class="st">"[2 1]/2"</span>
+                                            <span class="fu">|+|</span> end <span class="st">"0.2"</span>
+                                           ]
+          </code></pre>
+<audio controls=""><source src="kitchen_techno.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="what-he-said">What he said</h2>
+<div id="what_he_said">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave <span class="dv">16</span> (shape <span class="fu">$</span> ((<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">6</span>) <span class="fu">&lt;$&gt;</span> sinewave1))
+            [slow <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">32</span> (sound <span class="fu">$</span> samples <span class="st">"diphone2/1 diphone2 diphone2/5"</span> (irand <span class="dv">16</span>))
+             <span class="fu">|+|</span> speed ((<span class="fu">+</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">8</span>) <span class="fu">.</span> (<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">05</span>) <span class="fu">&lt;$&gt;</span> sinewave1),
+             (<span class="dv">1</span><span class="fu">%</span><span class="dv">8</span>) <span class="fu">&lt;~</span> (slow <span class="dv">8</span> <span class="fu">$</span> striate <span class="dv">16</span> (sound <span class="st">"diphone2/0 diphone2/3*2 diphone2/4"</span>)
+                       <span class="fu">|+|</span> speed ((<span class="fu">+</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span>) <span class="fu">.</span> (<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">05</span>) <span class="fu">&lt;$&gt;</span> sinewave1)
+                      )
+            ]
+          </code></pre>
+<audio controls=""><source src="what_he_said.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="bossanova">bossanova</h2>
+<div id="bossanova">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="fu">$</span> pick <span class="fu">&lt;$&gt;</span> <span class="st">"[casio]*8"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"1 0 2 0 1 0 2 2"</span>
+          </code></pre>
+<audio controls=""><source src="bossanova.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="difficult-gabber">difficult gabber</h2>
+<div id="difficult_gabber">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stut <span class="dv">8</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">7</span> (<span class="fu">-</span>(<span class="dv">1</span><span class="fu">/</span><span class="dv">8</span>))<span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"[gabbalouder*2 gabba*3 less*2]/3 hc"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[4 3 24 4]/5"</span>
+          </code></pre>
+<audio controls=""><source src="difficult_gabber.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="steps">steps</h2>
+<div id="steps">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stut <span class="dv">2</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">7</span> (<span class="fu">-</span>(<span class="dv">1</span><span class="fu">/</span><span class="dv">4</span>)) <span class="fu">$</span> every <span class="dv">2</span> (<span class="fu">|+|</span> speed <span class="st">"1"</span>) <span class="fu">$</span> sound <span class="st">"[feel feel:2 feel:5]"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[0.5, 1 2, 3] 2"</span>
+          </code></pre>
+<audio controls=""><source src="steps.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="gets-round-in-the-end">gets round in the end</h2>
+<div id="gets_round_in_the_end">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [id, trunc <span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>, slow <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>, trunc (<span class="dv">1</span><span class="fu">/</span><span class="dv">8</span>)] <span class="fu">$</span> sound <span class="st">"{bd ~ [~ hc], future bd*2 bd*3 sn:2 drum}%4"</span>
+            <span class="fu">|+|</span> gain <span class="st">"1.4"</span>
+          </code></pre>
+<audio controls=""><source src="gets_round_in_the_end.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="nonrandom-melody">nonrandom melody</h2>
+<div id="nonrandom_melody">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stut <span class="dv">4</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">7</span> (<span class="fu">-</span>(<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>)) <span class="fu">$</span> jux ((<span class="dv">1</span><span class="fu">/</span><span class="dv">8</span>) <span class="fu">&lt;~</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"arpy*4"</span> <span class="fu">&lt;*&gt;</span> (every <span class="dv">2</span> (slow <span class="dv">3</span>) <span class="fu">$</span> slow <span class="dv">5</span> <span class="fu">$</span> scan <span class="dv">12</span>))
+             <span class="fu">|+|</span> speed <span class="st">"-0.25"</span>
+          </code></pre>
+<audio controls=""><source src="nonrandom_melody.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="drum-solo">drum solo</h2>
+<div id="drum_solo">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slowspread density [<span class="dv">1</span>,<span class="dv">64</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">12</span>] <span class="fu">$</span> striate <span class="dv">8</span> <span class="fu">$</span> sound <span class="st">"[bd sn/2 [~ bd] sn/2]/4"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"0.9"</span>
+                      <span class="fu">|+|</span> pan <span class="st">"1"</span>,
+                      slowspread density [<span class="dv">1</span>,<span class="dv">128</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">12</span>] <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="st">"[bd sn/2 [~ bd] sn/2]/4"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"0.9"</span>
+                      <span class="fu">|+|</span> pan <span class="st">"0"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="drum_solo.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="disparate-gabber">disparate gabber</h2>
+<div id="disparate_gabber">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [(spread' density (<span class="st">"[3 2 5 [~ 128 32 256]/2]/2"</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[bd ~ sn ~, hc]"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[0 1 2 4 5 6 7]*1%6"</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"[1 2]/4"</span>,
+                      sound <span class="st">"[gabba gabba, [hc]*16]/8"</span>
+                      <span class="fu">|+|</span> shape <span class="st">"0.5"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="disparate_gabber.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="kicks-are-all-around">kicks are all around</h2>
+<div id="kicks_are_all_around">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">3</span> (iter <span class="dv">4</span>) <span class="fu">$</span> jux (slow <span class="dv">2</span> <span class="fu">.</span> rev) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> brak <span class="fu">$</span> sound <span class="st">"bd*16 drum*8 bd*12 drum*12"</span>
+          </code></pre>
+<audio controls=""><source src="kicks_are_all_around.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="new-romantic">new romantic</h2>
+<div id="new_romantic">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (superimpose (iter <span class="dv">8</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"bd arpy voodoo arpy"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[1 2 3 4]/5"</span>))
+            <span class="fu">|+|</span> speed <span class="st">"[1 0.75 0.5 1]/2"</span>
+          </code></pre>
+<audio controls=""><source src="new_romantic.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="breaks">breaks</h2>
+<div id="breaks">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> (juxcut (rev <span class="fu">.</span> iter <span class="dv">8</span>) <span class="fu">$</span> every <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="st">"[breaks165, breaks125]"</span>)
+            <span class="fu">|+|</span> speed <span class="st">"[2 1 1]/2"</span>
+          </code></pre>
+<audio controls=""><source src="breaks.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="bubbles">bubbles</h2>
+<div id="bubbles">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> smash <span class="dv">4</span> [<span class="dv">2</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>] <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (density <span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">2</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> juxcut (rev) <span class="fu">$</span> sound <span class="st">"dr55:5 dr55 dr55:3 bass1:2 dr55:1 ~ dr55 dr55:2"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                      sound <span class="st">"~ hc"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="bubbles.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="unbelievable">unbelievable</h2>
+<div id="unbelievable">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave <span class="dv">32</span> (crush (scale <span class="dv">2</span> <span class="dv">4</span> sine1)) <span class="fu">$</span>
+            [jux rev <span class="fu">$</span> slowspread (<span class="fu">$</span>) [id, iter <span class="dv">8</span>] <span class="fu">$</span> sound <span class="st">"bd ~ sn:2*3?"</span>,
+             every <span class="dv">2</span> (<span class="fu">|+|</span> vowel <span class="st">"a"</span>) <span class="fu">$</span> jux rev <span class="fu">$</span> iter <span class="dv">4</span> <span class="fu">$</span> chop <span class="dv">128</span> <span class="fu">$</span> sound <span class="st">"breaks165"</span>
+               <span class="fu">|+|</span> gain <span class="st">"1.7"</span>,
+             spin <span class="dv">2</span> <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> chop <span class="dv">16</span> <span class="fu">$</span> superimpose (slowspread (<span class="fu">&lt;~</span>) [<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>, <span class="dv">0</span><span class="fu">.</span><span class="dv">75</span>]) <span class="fu">$</span>
+               sound <span class="st">"bass3 bass3:3"</span>
+               <span class="fu">|+|</span> shape <span class="st">"0.8"</span>
+               <span class="fu">|+|</span> speed <span class="st">"[2, -2.03]"</span>,
+             palindrome <span class="fu">.</span> chop <span class="dv">8</span> <span class="fu">$</span> jux (<span class="dv">2</span> <span class="fu">&lt;~</span>) <span class="fu">$</span>
+               sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"h*4"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> floor <span class="fu">&lt;$&gt;</span> scale <span class="dv">0</span> <span class="dv">16</span> sine1))
+               <span class="fu">|+|</span> speed <span class="st">"0.7"</span>
+            ]
+          </code></pre>
+<audio controls=""><source src="unbelievable.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="orderly">orderly</h2>
+<div id="orderly">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">8</span> (<span class="fu">|+|</span> speed <span class="st">"-1"</span>) <span class="fu">$</span>
+            stack [slow <span class="dv">2</span> <span class="fu">$</span> (every <span class="dv">4</span> (trunc (<span class="dv">1</span><span class="fu">%</span><span class="dv">4</span>)) <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[bd sn [~ bd] sn, bd bass3 sn bd [bd sn] sn ht lt]"</span>)
+                   <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                   every <span class="dv">4</span> (density <span class="dv">2</span>) <span class="fu">$</span> sound <span class="st">"~ [bass3:2 ~ 2, drum:1, cp]"</span>,
+                   superimpose rev <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> slowspread (<span class="fu">$</span>) [striate <span class="dv">2</span>, (<span class="fu">|+|</span> speed <span class="st">"2"</span>), rev, (<span class="fu">|+|</span> speed <span class="st">"3"</span>)] <span class="fu">$</span> sound <span class="st">"[jvbass*2 rave2 rave2:2 ~]"</span>,
+                   jux rev <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[rave2*2 ~ rave2 ~ , rave2 ~ rave2]"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[[1 4]/4 2, ~ 7 ~]/7"</span>)
+                   <span class="fu">|+|</span> gain <span class="st">"0.87"</span>
+                  ]
+          </code></pre>
+<audio controls=""><source src="orderly.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="hardly">hardly</h2>
+<div id="hardly">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">3</span> (rev) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"[atlast ! atlast [atlast:2 atlast:1]/2]/4"</span>
+            <span class="fu">|+|</span> gain <span class="st">"1.6"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[1,1.01]"</span>
+          </code></pre>
+<audio controls=""><source src="hardly.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cut-pulse">cut pulse</h2>
+<div id="cut_pulse">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">4</span> (const (sound <span class="st">"feel:2"</span>))  <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> stut <span class="dv">4</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">4</span> rev <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="st">"[[bd*4, can] [bass3:2, can:2]]/2"</span>
+             <span class="fu">|+|</span> speed <span class="st">"4"</span>
+          </code></pre>
+<audio controls=""><source src="cut_pulse.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="up-and-down">up and down</h2>
+<div id="up_and_down">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">3</span> (slow <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> (density <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"wobble wobble wobble wobble"</span>)
+             <span class="fu">|+|</span> speed <span class="st">"2 8 ~ 5"</span>
+          </code></pre>
+<audio controls=""><source src="up_and_down.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="jolly-old-rave">jolly old rave</h2>
+<div id="jolly_old_rave">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"feel [rave2 rave2:4]/2 feel:2 ~"</span>
+             <span class="fu">|+|</span> speed <span class="st">"[1 2 3 2]/4"</span>
+          </code></pre>
+<audio controls=""><source src="jolly_old_rave.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="very-quiet-nibbling">very quiet nibbling</h2>
+<div id="very_quiet_nibbling">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> superimpose (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"chin*4 chin*3 ~ chin*4"</span>
+          </code></pre>
+<audio controls=""><source src="very_quiet_nibbling.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="roll-over">roll over</h2>
+<div id="roll_over">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (smash <span class="dv">4</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]) <span class="fu">$</span> sound <span class="st">"bd8:4 ~ sd8 bd8:2*2 bd8:4 ~ [~ bd] sn"</span>
+          </code></pre>
+<audio controls=""><source src="roll_over.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="err">err</h2>
+<div id="err">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> stut <span class="dv">5</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>) <span class="fu">$</span> every <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"{bd bd bd ~ , cp [~ sn:2] [kurt:4 kurt:8]}"</span>
+             <span class="fu">|+|</span> gain <span class="st">"0.9"</span>
+             <span class="fu">|+|</span> end <span class="st">"0.2"</span>
+          </code></pre>
+<audio controls=""><source src="err.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="optimistic-bass">optimistic bass</h2>
+<div id="optimistic_bass">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> jux (rev) <span class="fu">$</span> slowspread (<span class="fu">$</span>) [rev, iter <span class="dv">8</span>, density <span class="dv">2</span>, slow <span class="dv">4</span>] <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"bass3*5 bass3:4*3"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[2 1 0.5,[8 4 12]/2]/4"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"0.8"</span>,
+                      density <span class="dv">2</span> <span class="fu">$</span> jux (rev) <span class="fu">$</span> slowspread (<span class="fu">$</span>) [striate <span class="dv">4</span>, iter <span class="dv">2</span>, density <span class="dv">1</span>, slow <span class="dv">2</span>] <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"bass3*5 bass3:4*3"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[4 2 0.5,[8 4 12, 2]/2]/4"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"0.8"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="optimistic_bass.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="overdone-rave">overdone rave</h2>
+<div id="overdone_rave">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [rev, iter <span class="dv">8</span>, rev, density <span class="dv">2</span>] <span class="fu">$</span> jux (rev) <span class="fu">$</span> every <span class="dv">3</span> (striate <span class="dv">64</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"rave2*2 bass2 rave2"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[1 2 3 4 6]/7"</span>)
+            <span class="fu">|+|</span> speed <span class="st">"2"</span>
+            <span class="fu">|+|</span> gain <span class="st">"1.2"</span>
+            <span class="fu">|+|</span> accelerate <span class="st">"[0.2]/2"</span>
+          </code></pre>
+<audio controls=""><source src="overdone_rave.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="soft-cell-gabber-remix">soft cell gabber remix</h2>
+<div id="soft_cell_gabber_remix">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [iter <span class="dv">8</span>, rev, density <span class="dv">2</span>, slow <span class="dv">2</span>] <span class="fu">$</span>  jux (rev) <span class="fu">$</span> every <span class="dv">3</span> (<span class="fu">|+|</span> speed <span class="st">"2"</span>) <span class="fu">$</span> every <span class="dv">2</span> (striate <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"if if:2 if:3 ~"</span>
+            <span class="fu">|+|</span> speed <span class="st">"8"</span>
+          </code></pre>
+<audio controls=""><source src="soft_cell_gabber_remix.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="minimal-spinback">minimal spinback</h2>
+<div id="minimal_spinback">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> jux (rev <span class="fu">.</span> (<span class="dv">2</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>)) <span class="fu">$</span> slow <span class="dv">8</span> <span class="fu">$</span> sound <span class="st">"jungbass jungbass*2 jungbass*32 jungbass jungbass*16 jungbass*14 jungbass*64 jungbass*12"</span>
+            <span class="fu">|+|</span> (slow <span class="dv">8</span> <span class="fu">$</span> speed <span class="fu">$</span> (every <span class="dv">2</span> ((<span class="fu">+</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span>) <span class="fu">$</span> (<span class="fu">*</span><span class="dv">8</span>) <span class="fu">&lt;$&gt;</span> sinewave))
+          </code></pre>
+<audio controls=""><source src="minimal_spinback.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="slightly-electroacoustic-dnb-intro">slightly electroacoustic dnb intro</h2>
+<div id="slightly_electroacoustic_dnb_intro">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> slowspread (<span class="fu">$</span>) [rev, (<span class="fu">|+|</span> speed <span class="st">"[0.5]"</span>), density <span class="dv">2</span>, (<span class="fu">|+|</span> speed <span class="st">"[1,2]"</span>)] <span class="fu">$</span>  every <span class="dv">3</span> (<span class="fu">|+|</span> vowel <span class="st">"a e"</span>) <span class="fu">$</span> every <span class="dv">4</span> (<span class="fu">|+|</span> speed <span class="st">"0.25"</span>) <span class="fu">$</span> jux (rev) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"pad:3"</span>
+            <span class="fu">|+|</span> speed <span class="st">"0.5"</span>
+            <span class="fu">|+|</span> gain <span class="st">"0.8"</span>
+          </code></pre>
+<audio controls=""><source src="slightly_electroacoustic_dnb_intro.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="resonant-thumps-various">resonant thumps (various)</h2>
+<div id="resonant_thumps_various">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> every <span class="dv">4</span> (density <span class="dv">2</span>) <span class="fu">$</span> jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"drum mouth:2"</span>
+            <span class="fu">|+|</span> speed (every <span class="dv">3</span> ((<span class="fu">*</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span>) <span class="fu">$</span> <span class="st">"0.75"</span>)
+            <span class="fu">|+|</span> resonance <span class="st">"0.7"</span>
+            <span class="fu">|+|</span> cutoff (slow <span class="dv">12</span> <span class="fu">$</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span> sine1)
+            <span class="fu">|+|</span> gain <span class="st">"1.8"</span>
+          </code></pre>
+<audio controls=""><source src="resonant_thumps_various.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="wobbletech">wobbletech</h2>
+<div id="wobbletech">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (slow <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">3</span> (slow <span class="dv">3</span>) <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> sound <span class="st">"~ jvbass*12 ~ bass3:3 wobble bass3:4"</span>
+            <span class="fu">|+|</span> accelerate <span class="st">"[-5 6]/5"</span>
+            <span class="fu">|+|</span> resonance <span class="st">"0.7"</span>
+            <span class="fu">|+|</span> cutoff ((<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">07</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">16</span> <span class="fu">$</span> sine1))
+            <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[4,6,8]"</span>
+          </code></pre>
+<audio controls=""><source src="wobbletech.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="tap">tap</h2>
+<div id="tap">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stut <span class="dv">4</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="fu">-</span><span class="dv">3</span>) <span class="fu">$</span> slowspread (<span class="fu">$</span>) [id, density <span class="dv">2</span>, iter <span class="dv">8</span>, density <span class="dv">3</span>] <span class="fu">$</span> jux (<span class="fu">|+|</span> speed <span class="st">"1.3"</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"bd8*2 sd8"</span>
+             <span class="fu">|+|</span> shape <span class="st">"0.2"</span>
+             <span class="fu">|+|</span> speed <span class="st">"[1.2 3]/2"</span>
+          </code></pre>
+<audio controls=""><source src="tap.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="walking">walking</h2>
+<div id="walking">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">4</span> (density <span class="dv">2</span>) <span class="fu">$</span> jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"bass3*2 bass3"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">3</span> <span class="fu">$</span> <span class="st">"1 2 3 4 5"</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>
+                      <span class="fu">|+|</span> vowel (every <span class="dv">3</span> rev <span class="st">"a e"</span>),
+                      brak <span class="fu">$</span> every <span class="dv">3</span> (slow <span class="dv">2</span>) <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"jvbass*2 jvbass*3"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">3</span> <span class="fu">$</span> <span class="st">"1 2 3 4 5"</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>
+                      <span class="fu">|+|</span> shape <span class="st">"0.7"</span>
+                      <span class="fu">|+|</span> vowel (every <span class="dv">3</span> rev <span class="st">"a e"</span>)
+                     ]
+          </code></pre>
+<audio controls=""><source src="walking.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="buildup">buildup</h2>
+<div id="buildup">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave' <span class="dv">16</span> (sound (samples <span class="st">"arpy*8"</span> (slow <span class="dv">8</span> <span class="fu">$</span> scan <span class="dv">8</span>)))
+            [(vowel <span class="st">"a e o"</span> <span class="fu">|+|</span>),
+             (vowel <span class="st">"a e i o"</span> <span class="fu">|+|</span>)
+            ]
+            <span class="fu">|+|</span> gain <span class="st">"1.3"</span>
+          </code></pre>
+<audio controls=""><source src="buildup.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="itch-no-more">itch no more</h2>
+<div id="itch_no_more">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">4</span> (rev <span class="fu">.</span> chop <span class="dv">8</span>) <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span>
+               every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> stack [sound (samples <span class="st">"lt8(3,8)"</span> (slow <span class="dv">10</span> <span class="fu">$</span> scan <span class="dv">12</span>)) <span class="fu">|+|</span> speed <span class="st">"1"</span> <span class="fu">|+|</span> pan <span class="st">"0"</span>,
+                                         sound (samples <span class="st">"bd8(5,8)"</span> (slow <span class="dv">12</span> <span class="fu">$</span> scan <span class="dv">12</span>)) <span class="fu">|+|</span> speed <span class="st">"0.9"</span> <span class="fu">|+|</span> pan <span class="st">"1"</span>
+                                        ]
+             <span class="fu">|+|</span> delay <span class="st">"0.9"</span>
+             <span class="fu">|+|</span> delaytime <span class="st">"0.02 0.01"</span>
+          </code></pre>
+<audio controls=""><source src="itch_no_more.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="morning">morning</h2>
+<div id="morning">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [every <span class="dv">3</span> (density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> sound <span class="st">"drum drum:1"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[1,0.9]"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"0.96"</span>
+                      <span class="fu">|+|</span> end <span class="st">"0.25"</span>,
+                      slow <span class="dv">2</span> <span class="fu">$</span> (stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="fu">-</span>(<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>)) <span class="fu">$</span> sound <span class="st">"bass3 bass3:5"</span>)
+                      <span class="fu">|+|</span> speed <span class="st">"[1.5 2,1]"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="morning.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="here-we-are-and-there-we-are">here we are and there we are</h2>
+<div id="here_we_are_and_there_we_are">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> rev <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"[tabla tabla:2]"</span>
+            <span class="fu">|+|</span> speed (slow <span class="dv">4</span> <span class="fu">$</span> (<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">4</span>) <span class="fu">&lt;$&gt;</span> sine1)
+          </code></pre>
+<audio controls=""><source src="here_we_are_and_there_we_are.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="clapclap">clapclap</h2>
+<div id="clapclap">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">3</span> (rev) <span class="fu">$</span> superimpose (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"bd ~ sn:2 cp"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[1 2]/2"</span>
+          </code></pre>
+<audio controls=""><source src="clapclap.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="scratchmachine">scratchmachine</h2>
+<div id="scratchmachine">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [(<span class="fu">|+|</span> speed <span class="st">"2"</span>), rev, iter <span class="dv">4</span>, rev] <span class="fu">$</span> stut <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) (<span class="fu">-</span><span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"industrial*8"</span> <span class="fu">&lt;*&gt;</span> (every <span class="dv">6</span> (const (irand <span class="dv">32</span>)) <span class="st">"[0 [1 4]/3 2 [3 6 4]/3]*2"</span>))
+            <span class="fu">|+|</span> end (every <span class="dv">8</span> (const <span class="dv">0</span><span class="fu">.</span><span class="dv">04</span> <span class="fu">&lt;$&gt;</span>) <span class="fu">$</span> <span class="st">"0.03"</span>)
+            <span class="fu">|+|</span> cutoff (every <span class="dv">4</span> ((<span class="fu">*</span><span class="dv">4</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"0.04 0.05"</span>)
+            <span class="fu">|+|</span> resonance <span class="st">"[0.6 0.4 0.1]/3"</span>
+            <span class="fu">|+|</span> gain <span class="st">"1.5"</span>
+          </code></pre>
+<audio controls=""><source src="scratchmachine.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="rasp">rasp</h2>
+<div id="rasp">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> spin <span class="dv">2</span> <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">0</span><span class="fu">.</span><span class="dv">75</span>) <span class="fu">$</span> sound <span class="st">"bd*8 bd:3*2 bd*32 ~"</span>
+             <span class="fu">|+|</span> gain <span class="st">"0.9"</span>
+          </code></pre>
+<audio controls=""><source src="rasp.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="righteous-happysadcore">righteous happysadcore</h2>
+<div id="righteous_happysadcore">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [(slowspread (chop) [<span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">3</span>] <span class="fu">$</span> sound <span class="st">"~ off"</span>)
+                      <span class="fu">|+|</span> speed (slow <span class="dv">4</span> <span class="fu">$</span> scale <span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="dv">2</span> <span class="fu">$</span> sine1),
+                      slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">2</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">75</span>) <span class="fu">$</span> every <span class="dv">2</span> (within (<span class="dv">0</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) (density <span class="dv">2</span>)) <span class="fu">$</span> chop <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"breaks125"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="righteous_happysadcore.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="blank">blank</h2>
+<div id="blank">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [jux rev <span class="fu">$</span> every <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> sound <span class="st">"{odx [~ odx*2] sn odx, bd/8 bd bd sn/3 cp}"</span>
+                      <span class="fu">|+|</span> end <span class="st">"0.2"</span>,
+                      every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> jux rev <span class="fu">$</span> smash <span class="dv">4</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>] <span class="fu">$</span> sound <span class="st">"[~ off, odx ~ odx/4]"</span>
+                      ]
+          </code></pre>
+<audio controls=""><source src="blank.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="smashed-melody">smashed melody</h2>
+<div id="smashed_melody">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (slow <span class="dv">4</span> <span class="fu">$</span> jux rev <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> (striate <span class="dv">32</span> <span class="fu">$</span> sound (samples <span class="st">"[newnotes*8 newnotes*12 newnotes*8 newnotes]"</span> (slow <span class="dv">5</span> <span class="fu">$</span> run <span class="dv">16</span>))))
+            <span class="fu">|+|</span> speed ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> sinewave1))
+            <span class="fu">|+|</span> vowel <span class="st">"[a o o e i o u]"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.4"</span>
+          </code></pre>
+<audio controls=""><source src="smashed_melody.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="laserglass">laserglass</h2>
+<div id="laserglass">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> stut <span class="dv">8</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">4</span> (<span class="fu">-</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>)) <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> spin <span class="dv">4</span> <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"newnotes [newnotes newnotes:2*2 newnotes]/3"</span>
+                      <span class="fu">|+|</span> accelerate <span class="st">"[-3 0]/3"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[1 4 1 2 0.5, 1.5 3]/3"</span>,
+                      jux (iter <span class="dv">8</span> <span class="fu">.</span> rev <span class="fu">.</span> (<span class="fu">|+|</span> speed <span class="st">"-1"</span>)) <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"toys"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[1 1 1 0.5]/3"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="laserglass.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="poignant-duet">poignant duet</h2>
+<div id="poignant_duet">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span>
+            stack [
+              every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> jux4 (iter <span class="dv">8</span>) <span class="fu">$</span> slowspread (<span class="fu">$</span>) [slow <span class="dv">2</span>, iter <span class="dv">8</span>, id, (<span class="fu">|+|</span> speed <span class="st">"0.9"</span>)] <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"kurt*8"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">3</span> <span class="fu">$</span> run <span class="dv">12</span>))
+              <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+              smash <span class="dv">4</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>] <span class="fu">$</span> brak <span class="fu">$</span> spin <span class="dv">2</span> <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> chop <span class="dv">3</span> <span class="fu">$</span> sound <span class="st">"rave:6"</span>
+              ]
+          
+          </code></pre>
+<audio controls=""><source src="poignant_duet.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="all-you-need">all you need</h2>
+<div id="all_you_need">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [jux (((every <span class="dv">3</span> rev) <span class="fu">.</span> every <span class="dv">2</span> ((<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>) <span class="fu">&lt;~</span>)) <span class="fu">.</span> (<span class="fu">|+|</span> speed <span class="st">"[2,3]"</span>)) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (samples <span class="st">"jvbass*2 jvbass*4 jvbass*2"</span> <span class="st">"[3 5 2,8 2 1]/4"</span>)
+                      <span class="fu">|+|</span> shape <span class="st">"0.3"</span>
+                      <span class="fu">|+|</span> end <span class="st">"0.25"</span>,
+                      jux (rev) <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound (samples <span class="st">"[newnotes*2] newnotes"</span> <span class="st">"3 2 1"</span>)
+                      <span class="fu">|+|</span> speed (every <span class="dv">2</span> ((<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"[1 0.75 1 0.5, 3 2 1]/3"</span>)
+                     ]
+          </code></pre>
+<audio controls=""><source src="all_you_need.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="buy-my-plugin">buy my plugin</h2>
+<div id="buy_my_plugin">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> slowcat [superimpose (smash <span class="dv">4</span> [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>]) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (samples <span class="st">"{gretsch*4, gretsch*3 bd*2 sn/2}"</span> (stack [(slow <span class="dv">3</span> <span class="fu">$</span> run <span class="dv">8</span>), <span class="st">"1 5 2"</span>]))
+                        <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                        interlace (jux (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> (striate <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"bd/4*4 bleep/7"</span>)
+            (sound (samples <span class="st">"mouth*8"</span> (every <span class="dv">3</span> rev <span class="fu">$</span> run <span class="dv">8</span>)))
+                       ]
+          </code></pre>
+<audio controls=""><source src="buy_my_plugin.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="dont-buy-this">don't buy this</h2>
+<div id="dont_buy_this">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> (spread' (striate' <span class="dv">4</span>) ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> slow <span class="dv">8</span> sine1)) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (samples <span class="st">"[latibro*6,bd]/2"</span> <span class="st">"0 7 4"</span>) <span class="fu">|+|</span> speed <span class="st">"[1 2 1.5]/4"</span>
+          </code></pre>
+<audio controls=""><source src="dont_buy_this.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="whats-going-on-here">what's going on here</h2>
+<div id="whats_going_on_here">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (rev) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> stack [brak <span class="fu">$</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="st">"bd [sn [[sn bd] sn]]*1/3"</span> <span class="kw">in</span> interlace (sound <span class="fu">$</span> slow <span class="dv">3</span> <span class="fu">$</span> x) (sound <span class="fu">$</span> every <span class="dv">3</span> (append <span class="st">"[bd]*6"</span>) x),
+                      weave <span class="dv">4</span> (speed <span class="fu">$</span> (<span class="dv">1</span><span class="fu">+</span>) <span class="fu">&lt;$&gt;</span> sinewave1) [density <span class="dv">4</span> <span class="fu">$</span> every <span class="dv">5</span> ((<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">.</span> rev) <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound<span class="st">"[bd sn/2]/2"</span>, sound <span class="st">"bd [~ hc]*3"</span>],
+                      echo (<span class="dv">1</span><span class="fu">/</span><span class="dv">32</span>) <span class="fu">$</span> whenmod <span class="dv">8</span> <span class="dv">6</span> (rev) <span class="fu">$</span> density <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="fu">$</span> samples <span class="st">"[bd [sn]*3]*1/4"</span> (slow <span class="dv">13</span> <span class="fu">$</span> run <span class="dv">12</span>)
+                     ]
+            <span class="fu">|+|</span> speed <span class="st">"1"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+          </code></pre>
+<audio controls=""><source src="whats_going_on_here.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="raise-your-hands">raise your hands</h2>
+<div id="raise_your_hands">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          
+          d1 <span class="fu">$</span> stack [(every <span class="dv">4</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> striate <span class="dv">64</span> <span class="fu">$</span> sound <span class="st">"breaks125"</span>)
+                      <span class="fu">|+|</span> speed <span class="st">"[1 2 3]/5"</span>,
+                      (spin <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> striate <span class="dv">64</span> <span class="fu">$</span> sound <span class="st">"breaks125"</span>)
+                      <span class="fu">|+|</span> speed <span class="st">"[1 2 3 4]/5"</span>
+                      ]
+          </code></pre>
+<audio controls=""><source src="raise_your_hands.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="spot-the-tactus">spot the tactus</h2>
+<div id="spot_the_tactus">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          
+          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> (superimpose (iter <span class="dv">8</span>) <span class="fu">$</span> every <span class="dv">4</span> (slow <span class="dv">3</span>) <span class="fu">$</span> every <span class="dv">3</span> (density <span class="dv">5</span>) <span class="fu">$</span> sound <span class="st">"[feel ~ lt8:5, sd8:3 ht8:3]"</span> <span class="fu">|+|</span> speed ((<span class="fu">+</span><span class="dv">1</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> slow <span class="dv">4</span> sine1))
+          </code></pre>
+<audio controls=""><source src="spot_the_tactus.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="bass-interlace">bass interlace</h2>
+<div id="bass_interlace">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          
+          d1 <span class="fu">$</span> interlace (sound <span class="st">"bass3:2 ~ jvbass:3 jvbass:4"</span>)
+            (rev <span class="fu">$</span> sound <span class="st">"bass3:2 jvbass:3 jvbass:4"</span>)
+          </code></pre>
+<audio controls=""><source src="bass_interlace.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="glottal">glottal</h2>
+<div id="glottal">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (slow <span class="dv">4</span> <span class="fu">$</span> every <span class="dv">3</span> (density <span class="dv">8</span>) <span class="fu">$</span> striate <span class="dv">5</span> <span class="fu">$</span> slow <span class="dv">3</span> <span class="fu">$</span> sound <span class="st">"[[bd]*8]/3 [bd]*5"</span>)
+            <span class="fu">|+|</span> vowel <span class="st">"a e o e i"</span>
+          </code></pre>
+<audio controls=""><source src="glottal.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="final-answer">final answer</h2>
+<div id="final_answer">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> smash <span class="dv">8</span> [<span class="dv">1</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>]<span class="fu">$</span> weave <span class="dv">16</span> (shape <span class="fu">$</span> (<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span>) <span class="fu">&lt;$&gt;</span> sinewave1) [every <span class="dv">2</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[[bd]*8 kurt diphone2 can]/2 [bd lighter mouth]/3"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">5</span> <span class="st">"1 2 3 4 5"</span>))
+            <span class="fu">|+|</span> end (slow <span class="dv">4</span> <span class="fu">$</span> sinewave1)
+            <span class="fu">|+|</span> speed <span class="st">"[0.9 2]*3"</span>,
+                                                                              slow <span class="dv">3</span> <span class="fu">$</span> sound <span class="st">"[wobble off diphone2/4]/2 [mouth/2 mouth/2, gabba]/3"</span>
+            ]
+          </code></pre>
+<audio controls=""><source src="final_answer.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="metallic-squelch">metallic squelch</h2>
+<div id="metallic_squelch">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> smash <span class="dv">5</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>] <span class="fu">$</span> every <span class="dv">3</span> (density <span class="dv">3</span>) <span class="fu">$</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">4</span> <span class="fu">&lt;~</span> (every <span class="dv">2</span> ((striate <span class="dv">8</span>) <span class="fu">.</span> (density <span class="dv">3</span>)) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[printshort ~ [bd]*3]/2"</span> <span class="fu">&lt;*&gt;</span> (rev <span class="st">"[0 1 2 4 2]/3"</span>))
+            <span class="fu">|+|</span> speed <span class="st">"0.8"</span>)
+            <span class="fu">|+|</span> pan <span class="st">"1"</span>
+          </code></pre>
+<audio controls=""><source src="metallic_squelch.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="expecting-contact">expecting contact</h2>
+<div id="expecting_contact">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowcat [slow <span class="dv">4</span> <span class="fu">$</span> stack [spin <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">8</span> <span class="fu">$</span> sound <span class="st">"[bass3:6 bass3:3 bass3]/4"</span>,
+                               (smash <span class="dv">2</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>,<span class="dv">4</span>] <span class="fu">$</span> every <span class="dv">4</span> (rev) <span class="fu">$</span>
+                                sound <span class="st">"{bd drum*3, hh hh hh*2}"</span>
+                                <span class="fu">|+|</span> shape <span class="st">"0.5"</span>
+                                <span class="fu">|+|</span> speed <span class="st">"0.5"</span>
+                                <span class="fu">|+|</span> cutoff <span class="st">"0.1"</span>)
+                               <span class="fu">|+|</span> resonance (slow <span class="dv">4</span> <span class="fu">$</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">8</span>) <span class="fu">&lt;$&gt;</span> sinewave1),
+                               every <span class="dv">3</span> (density <span class="dv">3</span>) <span class="fu">$</span> slow <span class="dv">8</span> <span class="fu">$</span> striate <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"pad:2"</span>,
+                               every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">32</span> <span class="fu">$</span> sound <span class="st">"pad:2"</span>
+                               <span class="fu">|+|</span> speed <span class="st">"[1.5, 2 4]*2"</span>,
+                               slow <span class="dv">4</span> <span class="fu">$</span> sound <span class="st">"bleep:4 bleep:2"</span>
+                               <span class="fu">|+|</span> end <span class="st">"0.15"</span>
+                                 ]
+                       ]
+          </code></pre>
+<audio controls=""><source src="expecting_contact.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="stereopoly">stereopoly</h2>
+<div id="stereopoly">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [jux (density (<span class="dv">2</span><span class="fu">%</span><span class="dv">3</span>)) <span class="fu">$</span> sound <span class="st">"[cp hit, hc*4 ho]"</span>,
+                      jux rev <span class="fu">$</span> sound <span class="st">"[jvbass jvbass*2, jvbass*3]"</span>
+                      <span class="fu">|+|</span> shape <span class="st">"0.3"</span>
+                      <span class="fu">|+|</span> speed ((<span class="fu">/</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> <span class="st">"[4 4 [4.2 5] 3.5]/4"</span>)
+                     ]
+          </code></pre>
+<audio controls=""><source src="stereopoly.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="both-ends">both ends</h2>
+<div id="both_ends">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (((every <span class="dv">3</span> rev) <span class="fu">.</span> every <span class="dv">2</span> ((<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>) <span class="fu">&lt;~</span>)) <span class="fu">.</span> (<span class="fu">|+|</span> speed <span class="st">"[2,3]"</span>)) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (samples <span class="st">"jvbass*2 jvbass*4 jvbass*2"</span> <span class="st">"[3 5 2,8 2 1]/4"</span>)
+            <span class="fu">|+|</span> shape <span class="st">"0.3"</span>
+            <span class="fu">|+|</span> end <span class="st">"0.25"</span>
+          </code></pre>
+<audio controls=""><source src="both_ends.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="box-beater">box beater</h2>
+<div id="box_beater">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> slowcat [superimpose (smash <span class="dv">4</span> [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>]) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (samples <span class="st">"{gretsch*4, gretsch*3 bd*2 sn/2}"</span> (stack [(slow <span class="dv">3</span> <span class="fu">$</span> run <span class="dv">8</span>), <span class="st">"1 5 2"</span>]))
+                        <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                        interlace (jux (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> (striate <span class="dv">4</span>) <span class="fu">$</span> sound <span class="st">"bd/4*4 bleep/7"</span>)
+            (sound (samples <span class="st">"mouth*8"</span> (every <span class="dv">3</span> rev <span class="fu">$</span> run <span class="dv">8</span>)))
+                       ]
+          </code></pre>
+<audio controls=""><source src="box_beater.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="recital">recital</h2>
+<div id="recital">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (spread' (striate' <span class="dv">4</span>) ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> slow <span class="dv">8</span> sine1)) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (samples <span class="st">"[latibro*6,bd]/2"</span> <span class="st">"0 7 4"</span>) <span class="fu">|+|</span> speed <span class="st">"[1 2 1.5]/4"</span>
+          </code></pre>
+<audio controls=""><source src="recital.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="heavy-hardcore">heavy hardcore</h2>
+<div id="heavy_hardcore">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">4</span> rev <span class="fu">$</span> sound <span class="st">"[[feel feel:0] feel*3, haw:4*3 haw]"</span>,
+                      sound <span class="st">"~ sid:2 peri:1 ~"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"1.5"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"1 2 3"</span>,
+                      slow <span class="dv">2</span> <span class="fu">$</span> stut <span class="dv">4</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">98</span> (<span class="fu">-</span><span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[feel*2 feel:2 [~ feel*2] feel:2, ~ feel mod:2]"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"4"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"1.4"</span>,
+                      slow <span class="dv">16</span> <span class="fu">$</span> striate <span class="dv">128</span> <span class="fu">$</span> sound <span class="st">"bev*2"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"1.4"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"1.5"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="heavy_hardcore.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cave-rave">cave rave</h2>
+<div id="cave_rave">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> spin (<span class="dv">4</span>) <span class="fu">$</span> (every <span class="dv">3</span> (density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[rave2 ~ rave2] [rave2*8]"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[3 4 2 3]/3"</span>))
+            <span class="fu">|+|</span> speed (slow <span class="dv">4</span> <span class="fu">$</span> (<span class="fu">+</span><span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>) <span class="fu">&lt;$&gt;</span> sine1)
+          </code></pre>
+<audio controls=""><source src="cave_rave.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="dont-sneeze">don't sneeze</h2>
+<div id="dont_sneeze">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [echo <span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>, rev, density <span class="dv">2</span>, density <span class="dv">1</span><span class="fu">.</span><span class="dv">5</span>] <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">2</span> (iter <span class="dv">3</span>) <span class="fu">$</span> sound <span class="st">"bd:3 [sn:1 ~ sn:1]"</span>
+            <span class="fu">|+|</span> speed (every <span class="dv">3</span> rev <span class="st">"2 1"</span>)
+            <span class="fu">|+|</span> end <span class="st">"0.2"</span>
+          </code></pre>
+<audio controls=""><source src="dont_sneeze.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="distorted-hill">distorted hill</h2>
+<div id="distorted_hill">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (rev) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> stack [brak <span class="fu">$</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="st">"bd [sn [[sn bd] sn]]*1/3"</span> <span class="kw">in</span> interlace (sound <span class="fu">$</span> slow <span class="dv">3</span> <span class="fu">$</span> x) (sound <span class="fu">$</span> every <span class="dv">3</span> (append <span class="st">"[bd]*6"</span>) x),
+                      weave <span class="dv">4</span> (speed <span class="fu">$</span> (<span class="dv">1</span><span class="fu">+</span>) <span class="fu">&lt;$&gt;</span> sinewave1) [density <span class="dv">4</span> <span class="fu">$</span> every <span class="dv">5</span> ((<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">.</span> rev) <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound<span class="st">"[bd sn/2]/2"</span>, sound <span class="st">"bd [~ hc]*3"</span>],
+                      echo (<span class="dv">1</span><span class="fu">/</span><span class="dv">32</span>) <span class="fu">$</span> whenmod <span class="dv">8</span> <span class="dv">6</span> (rev) <span class="fu">$</span> density <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="fu">$</span> samples <span class="st">"[bd [sn]*3]*1/4"</span> (slow <span class="dv">13</span> <span class="fu">$</span> run <span class="dv">12</span>)
+                     ]
+            <span class="fu">|+|</span> speed <span class="st">"1"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+          </code></pre>
+<audio controls=""><source src="distorted_hill.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="put-some-effort-in-todo---broke">put some effort in TODO - broke</h2>
+<div id="put_some_effort_in_todo__broke">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">2</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> superimpose (rev) <span class="fu">$</span> every <span class="dv">4</span> (striate <span class="dv">4</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"bd*2 bd*4"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">4</span> <span class="fu">$</span> ((floor <span class="fu">.</span> (<span class="fu">*</span><span class="dv">16</span>)) <span class="fu">&lt;$&gt;</span> sine1))),
+                      smash <span class="dv">2</span> [<span class="dv">1</span>,<span class="dv">2</span>] <span class="fu">$</span> jux (brak) <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"amencutup*8"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">4</span> <span class="fu">$</span> run <span class="dv">32</span>))
+                      <span class="fu">|+|</span> speed ((<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span>sine1)
+                     ]
+          </code></pre>
+<audio controls=""><source src="put_some_effort_in_todo__broke.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="euphoric-squee">euphoric squee</h2>
+<div id="euphoric_squee">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> interlace (smash <span class="dv">8</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>] <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> jux (brak) <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"future*8"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">4</span> <span class="fu">$</span> run <span class="dv">32</span>))
+            <span class="fu">|+|</span> speed ((<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span>sine1))
+            (sound <span class="st">"~ bleep:9"</span>
+            <span class="fu">|+|</span> speed (slow <span class="dv">8</span> sine1))
+          </code></pre>
+<audio controls=""><source src="euphoric_squee.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="woodpeckstep">woodpeckstep</h2>
+<div id="woodpeckstep">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">3</span> (slow <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">4</span> (density <span class="dv">2</span>) <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> jux (every <span class="dv">2</span> rev) <span class="fu">$</span> sound <span class="st">"bd ~ sn*16 ~ bd*8 ~ sn*6 ~"</span>
+            <span class="fu">|+|</span> speed <span class="st">"2"</span>
+            <span class="fu">|+|</span> vowel <span class="st">"a"</span>
+          </code></pre>
+<audio controls=""><source src="woodpeckstep.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="line-em-up">line em up</h2>
+<div id="line_em_up">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">8</span> ((<span class="dv">1</span><span class="fu">/</span><span class="dv">4</span>) <span class="fu">&lt;~</span>) <span class="fu">$</span> sound <span class="st">"future*3 bd*2 wobble [cp bd bd]"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[2,3,4]"</span>
+            <span class="fu">|+|</span> cutoff ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">16</span> <span class="fu">$</span> scale <span class="dv">0</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span> sine1))
+            <span class="fu">|+|</span> resonance ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">12</span> <span class="fu">$</span> scale <span class="dv">0</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> sine1))
+          </code></pre>
+<audio controls=""><source src="line_em_up.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="knock-em-back">knock em back</h2>
+<div id="knock_em_back">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">8</span> ((<span class="dv">1</span><span class="fu">/</span><span class="dv">4</span>) <span class="fu">&lt;~</span>) <span class="fu">$</span> sound <span class="st">"future*3 bd*2 wobble [cp bd bd]"</span>
+                      <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"[2,3,4]"</span>
+                      <span class="fu">|+|</span> cutoff ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">16</span> <span class="fu">$</span> scale <span class="dv">0</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span> sine1))
+                      <span class="fu">|+|</span> resonance ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">12</span> <span class="fu">$</span> scale <span class="dv">0</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> sine1)),
+                      slowspread (<span class="fu">$</span>) [rev, iter <span class="dv">8</span>, (<span class="fu">|+|</span> speed <span class="st">"0.75"</span>), density <span class="dv">2</span>] <span class="fu">$</span> jux (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"amencutup*4 amencutup*2"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">128</span>))
+                      <span class="fu">|+|</span> shape <span class="st">"0.7"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="knock_em_back.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="electro-basically">electro basically</h2>
+<div id="electro_basically">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowcat [every <span class="dv">3</span> (jux (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>)) <span class="fu">$</span> every <span class="dv">2</span> (rev) <span class="fu">$</span> brak <span class="fu">$</span> sound <span class="st">"[drum [off]/4 [sid:1 sid:1 drum:1*3 drum:1*2]/4 cp]"</span>
+                        <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+                        <span class="fu">|+|</span> speed <span class="st">"[1 2 1 2 [4,2] 1]/4"</span>
+                        <span class="fu">|+|</span> accelerate <span class="st">"[1 2 3 4]/12"</span>
+                        <span class="fu">|+|</span> delay <span class="st">"[0.8 0 0 0]/3"</span>,
+                        jux (iter <span class="dv">8</span>) <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"rave2"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> (floor <span class="fu">.</span> (<span class="fu">*</span><span class="dv">128</span>) <span class="fu">&lt;$&gt;</span>) rand))
+                        <span class="fu">|+|</span> shape <span class="st">"0.7"</span>
+                        <span class="fu">|+|</span> speed <span class="st">"[-0.5,-2 -1]/2"</span>
+                        <span class="fu">|+|</span> delay <span class="st">"[0.8]/3"</span>
+                        <span class="fu">|+|</span> delaytime <span class="st">"0.04"</span>
+                        <span class="fu">|+|</span> delayfeedback <span class="st">"0.7"</span>
+                       ]
+          </code></pre>
+<audio controls=""><source src="electro_basically.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="if-a-cat-made-techno">if a cat made techno</h2>
+<div id="if_a_cat_made_techno">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slowspread (<span class="fu">$</span>) [rev, iter <span class="dv">4</span>, (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>)] <span class="fu">$</span> slowspread (stut <span class="dv">8</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">95</span>) [<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span><span class="fu">.</span><span class="dv">75</span>] <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> superimpose rev <span class="fu">$</span> sound <span class="st">"[bd bleep:5 bd*2 bd bd cp drum:1 ~, gabbalouder ~ rave2:4 ~]"</span>
+            <span class="fu">|+|</span> gain <span class="st">"0.5"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[1,[2 3 0.75]/3]"</span></code></pre>
+<audio controls=""><source src="if_a_cat_made_techno.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="delay-1">|+| delay "1"</h2>
+<div id="_delay_1">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          </code></pre>
+<audio controls=""><source src="_delay_1.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="stupid-stabs">stupid stabs</h2>
+<div id="stupid_stabs">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">4</span> (slow <span class="dv">2</span>) <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> superimpose ((<span class="dv">1</span><span class="fu">%</span><span class="dv">8</span>) <span class="fu">&lt;~</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> jux (iter <span class="dv">8</span>) <span class="fu">$</span> sound <span class="st">"{arpy ~ arpy*2 arpy, arpy:2 [arpy:3*2] arpy:2 arpy:5}"</span>
+            <span class="fu">|+|</span> shape <span class="st">"0"</span>
+            <span class="fu">|+|</span> speed <span class="st">"[0.5,0.25]"</span>
+            <span class="fu">|+|</span> delay <span class="st">"1"</span>
+            <span class="fu">|+|</span> delaytime <span class="st">"[0.01 0.02 0.8]/4"</span>
+            <span class="fu">|+|</span> delayfeedback <span class="st">"0.1"</span>
+          </code></pre>
+<audio controls=""><source src="stupid_stabs.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="smashed">smashed</h2>
+<div id="smashed">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          <span class="kw">let</span> x <span class="fu">=</span> <span class="st">"bd [[sn/2 [mt lt]] printshort/4] [[jvbass/2 jvbass/7] [bd sn/2]] [printshort/2 [bd [bd bd bd] bd]]"</span> <span class="kw">in</span>
+            d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> stack [every <span class="dv">16</span> rev <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound x <span class="fu">|+|</span> pan <span class="st">"1"</span>,  (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound x <span class="fu">|+|</span> pan <span class="st">"0"</span>]
+                           <span class="fu">|+|</span> speed (every <span class="dv">8</span> ((<span class="fu">*</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"1"</span>)
+                           <span class="fu">|+|</span> (every <span class="dv">4</span> (rev) <span class="fu">$</span> cutoff (((<span class="fu">+</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>) <span class="fu">.</span> (<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">05</span>)) <span class="fu">&lt;$&gt;</span> density <span class="dv">2</span> sinewave1))
+                           <span class="fu">|+|</span> resonance <span class="st">"0.6"</span>
+                           <span class="fu">|+|</span> shape <span class="st">"0.9"</span>,
+                           every <span class="dv">6</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> every <span class="dv">8</span> (slow <span class="dv">2</span>) <span class="fu">$</span> sound <span class="st">"bd [ht mt] [tabla2:8 [bd [bd bd] bd]] lt"</span>,
+                           every <span class="dv">4</span> (<span class="fu">|+|</span> speed <span class="st">"4"</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[mouth:2 mouth:4] psr:4 [mouth:1 mouth:3] psr:4"</span>
+                           <span class="fu">|+|</span> cutoff (((<span class="fu">+</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>) <span class="fu">.</span> (<span class="fu">*</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">1</span>)) <span class="fu">&lt;$&gt;</span> density <span class="dv">2</span> sinewave1)
+                           <span class="fu">|+|</span> resonance <span class="st">"0.5"</span>
+                          ]
+          </code></pre>
+<audio controls=""><source src="smashed.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="snapped">snapped</h2>
+<div id="snapped">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          <span class="kw">let</span> x <span class="fu">=</span> (slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">2</span> (slow <span class="dv">2</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[bd lt] mt lt [bd [bd lt] bd sn]"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">5</span> <span class="fu">$</span> run <span class="dv">16</span>))) <span class="kw">in</span>
+            d1 <span class="fu">$</span> stack [x <span class="fu">|+|</span> pan <span class="st">"0.4"</span> <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                        <span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span> (x <span class="fu">|+|</span> pan <span class="st">"0.6"</span>) <span class="fu">|+|</span> speed <span class="st">"2"</span>
+                       ]
+          </code></pre>
+<audio controls=""><source src="snapped.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="snel-hest">snel hest</h2>
+<div id="snel_hest">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [every <span class="dv">3</span> (stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">3</span>)) <span class="fu">$</span> sound <span class="st">"{lighter lighter:3 ~ lighter:4, lighter:9 bd drum:2}"</span>,
+                      slow <span class="dv">2</span> <span class="fu">$</span> slowspread (<span class="fu">$</span>) [id, density <span class="dv">2</span>, iter <span class="dv">4</span>, rev] <span class="fu">$</span> sound <span class="st">"~ [jungbass:4 ! jungbass:4*2 jungbass:5]/2"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                      every <span class="dv">4</span> (within (<span class="dv">0</span>, <span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) (density <span class="dv">2</span>)) <span class="fu">$</span> (slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"{lighter ~ can ~ bd rave2 bd sn, bd*3 cp:2 bd}"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">5</span> <span class="fu">$</span> run <span class="dv">12</span>)))
+                      <span class="fu">|+|</span> speed <span class="st">"16"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="snel_hest.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="stubnitz">stubnitz</h2>
+<div id="stubnitz">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> <span class="kw">let</span> x <span class="fu">=</span> slow <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[[bd ades2] [ades2 [[bd bd] bd]]] [ades2 bd]"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">5</span> <span class="fu">$</span> run <span class="dv">16</span>)) <span class="kw">in</span>
+               slowcat [stack [every <span class="dv">2</span> rev <span class="fu">$</span> density <span class="dv">4</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[bubble ades2]"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">8</span>))
+                               <span class="fu">|+|</span> shape <span class="st">"0.7"</span>,
+                               (slow <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"[bd [bd bd] bd] [bd sn]"</span>)
+                               <span class="co">-- |+| (slow 2 $ vowel "a e i o u")</span>
+                               <span class="fu">|+|</span> pan <span class="st">"0"</span>
+                              ,
+                               (slow <span class="dv">6</span> <span class="fu">$</span> striate <span class="dv">8</span> <span class="fu">$</span> sound <span class="st">"[bd [jvbass/8 bd] bd] [bd sn]"</span>)
+                               <span class="fu">|+|</span> vowel <span class="st">"a e i o u"</span>
+                               <span class="fu">|+|</span> pan <span class="st">"1"</span>,
+                               (striate <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[bd, [~ jvbass/2]*2]"</span>)
+                               <span class="fu">|+|</span> shape <span class="st">"0.8"</span>
+                               <span class="fu">|+|</span> speed <span class="st">"1.2"</span>
+                              ],
+                        stack [sound <span class="st">"[future wobble] bd [bd bd] bd/3"</span>
+                               <span class="fu">|+|</span> shape <span class="st">"0.6"</span>
+                               <span class="fu">|+|</span> (slow <span class="dv">8</span> <span class="fu">$</span> every <span class="dv">4</span> rev <span class="fu">$</span> speed <span class="st">"1 1 1 3 1 2 1 4"</span>),
+                               x <span class="fu">|+|</span> pan <span class="st">"0.6"</span>,
+                               (<span class="dv">1</span><span class="fu">%</span><span class="dv">8</span>) <span class="fu">&lt;~</span> (x <span class="fu">|+|</span> pan <span class="st">"0.4"</span>)]
+                        <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+                        <span class="fu">|+|</span> (slow <span class="dv">4</span> <span class="fu">$</span> cutoff <span class="fu">$</span> ((<span class="fu">+</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">01</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>)) <span class="fu">&lt;$&gt;</span> sinewave1)
+                        <span class="fu">|+|</span> resonance <span class="st">"0.5"</span>
+                       ]
+          </code></pre>
+<audio controls=""><source src="stubnitz.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="wakkawakka">wakkawakka</h2>
+<div id="wakkawakka">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slowspread (<span class="fu">$</span>) [(<span class="fu">|+|</span> speed <span class="st">"2"</span>), rev, iter <span class="dv">4</span>, rev] <span class="fu">$</span> stut <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) (<span class="fu">-</span><span class="dv">0</span><span class="fu">.</span><span class="dv">25</span>) <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"industrial*8"</span> <span class="fu">&lt;*&gt;</span> (every <span class="dv">6</span> (const (irand <span class="dv">32</span>)) <span class="st">"[0 [1 4]/3 2 [3 6 4]/3]*2"</span>))
+                      <span class="fu">|+|</span> end (every <span class="dv">8</span> (const <span class="dv">0</span><span class="fu">.</span><span class="dv">04</span> <span class="fu">&lt;$&gt;</span>) <span class="fu">$</span> <span class="st">"0.03"</span>)
+                      <span class="fu">|+|</span> cutoff (every <span class="dv">4</span> ((<span class="fu">*</span><span class="dv">4</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"0.04 0.05"</span>)
+                      <span class="fu">|+|</span> resonance <span class="st">"[0.6 0.4 0.1]/3"</span>,
+                      jux rev <span class="fu">$</span> density <span class="dv">4</span> <span class="fu">$</span> striate' <span class="dv">2</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[bass3:2 bass3:7]/2"</span> <span class="fu">&lt;*&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> run <span class="dv">8</span>))
+                      <span class="fu">|+|</span> speed (every <span class="dv">4</span> ((<span class="fu">*</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> ) <span class="st">"[[1,2] 1 1 [4.1 2]/2]/4"</span>)
+                      <span class="co">--  |+| delay "0.96"</span>
+                      <span class="co">--  |+| delayfeedback "[0.9 0.8]/4"</span>
+                      <span class="co">--  |+| delaytime "0.1 0.01"</span>
+                      <span class="fu">|+|</span> accelerate <span class="st">"1"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"0.8"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="wakkawakka.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="rotor-rave">rotor rave</h2>
+<div id="rotor_rave">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">8</span> <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> jux (rev) <span class="fu">$</span> stut <span class="dv">8</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">9</span> (<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>) <span class="fu">$</span> every <span class="dv">3</span> rev <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound <span class="st">"rave2:4*4 rave2:1*4"</span>
+            <span class="fu">|+|</span> gain <span class="st">"1"</span>
+          </code></pre>
+<audio controls=""><source src="rotor_rave.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="bad-noise-dont-run">bad noise, don't run</h2>
+<div id="bad_noise_dont_run">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span>
+            stack [slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"{jungbass*3 jungbass/1*4, jungbass/5 [east*3 east/3*2] east/2*4}"</span>
+                   <span class="fu">|+|</span> speed <span class="st">"[2 1 0.5]/2"</span>
+                   <span class="fu">|+|</span> shape <span class="st">"0.5"</span>,
+                   every <span class="dv">3</span> (density <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">2</span> (jux rev) <span class="fu">$</span> sound (samples <span class="st">"east*8"</span> <span class="st">"{1 2 3, 4 5 6 7, 8 9 10 11 12}"</span>)
+                   <span class="fu">|+|</span> speed <span class="st">"[0.5 1]/2"</span>
+                   <span class="fu">|+|</span> end <span class="st">"0.2"</span>
+                  ]
+          </code></pre>
+<audio controls=""><source src="bad_noise_dont_run.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle0">cycle0</h2>
+<div id="cycle0">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> brak <span class="fu">$</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="st">"bd [sn [[sn bd] sn]]*1/3"</span> <span class="kw">in</span> interlace (sound <span class="fu">$</span> slow <span class="dv">3</span> <span class="fu">$</span> x) (sound <span class="fu">$</span> every <span class="dv">3</span> (append <span class="st">"[bd]*6"</span>) x)
+            <span class="fu">|+|</span> speed <span class="st">"4"</span>
+          </code></pre>
+<audio controls=""><source src="cycle0.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle1">cycle1</h2>
+<div id="cycle1">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> weave <span class="dv">4</span> (speed <span class="fu">$</span> (<span class="dv">1</span><span class="fu">+</span>) <span class="fu">&lt;$&gt;</span> sinewave1) [density <span class="dv">4</span> <span class="fu">$</span> every <span class="dv">5</span> ((<span class="dv">0</span><span class="fu">.</span><span class="dv">25</span> <span class="fu">&lt;~</span>) <span class="fu">.</span> rev) <span class="fu">$</span> striate <span class="dv">16</span> <span class="fu">$</span> sound<span class="st">"[bd sn/2]/2"</span>, sound <span class="st">"bd [~ hc]*3"</span>]
+            <span class="fu">|+|</span> speed <span class="st">"3"</span>
+          </code></pre>
+<audio controls=""><source src="cycle1.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle2">cycle2</h2>
+<div id="cycle2">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (echo (<span class="dv">1</span><span class="fu">/</span><span class="dv">32</span>) <span class="fu">$</span> whenmod <span class="dv">8</span> <span class="dv">6</span> (rev) <span class="fu">$</span> density <span class="dv">4</span> <span class="fu">$</span> striate <span class="dv">4</span> <span class="fu">$</span> sound <span class="fu">$</span> samples <span class="st">"[bd [sn]*3]*1/4"</span> (slow <span class="dv">13</span> <span class="fu">$</span> run <span class="dv">12</span>))
+            <span class="fu">|+|</span> speed <span class="st">"2"</span>
+          </code></pre>
+<audio controls=""><source src="cycle2.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle3">cycle3</h2>
+<div id="cycle3">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> rev <span class="fu">$</span> spread' (striate) <span class="st">"[8 3 4, 5]"</span> <span class="fu">$</span> sound <span class="st">"[[nn/6 nn/4, [nn/5 nn/2 nn/3]*1/2]*1/3, kurt/1]"</span>
+          </code></pre>
+<audio controls=""><source src="cycle3.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle4">cycle4</h2>
+<div id="cycle4">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> sound (samples <span class="st">"bd*3 [bd sn]*1/3 [bd*12 bd*6]/3 cp"</span> <span class="st">"[0 2 4]/3"</span>) <span class="fu">|+|</span> end (slow <span class="dv">5</span> <span class="fu">$</span> sinewave1) <span class="fu">|+|</span> speed ((<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span> triwave1)
+          </code></pre>
+<audio controls=""><source src="cycle4.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle5">cycle5</h2>
+<div id="cycle5">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> stack [spread' (slow) <span class="st">"3 4 5 2"</span> <span class="fu">$</span> sound <span class="st">"[bd*5 ht*5, [sid/4]*3 lt*2/5 mt*3, [sid/3]*3]"</span>] <span class="fu">|+|</span> speed <span class="st">"2"</span>
+          </code></pre>
+<audio controls=""><source src="cycle5.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle6">cycle6</h2>
+<div id="cycle6">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> rev <span class="fu">$</span> spread' (striate' <span class="dv">6</span>) (((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">1</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>)) <span class="fu">&lt;$&gt;</span> slow <span class="dv">32</span> sinewave1) <span class="fu">$</span> sound <span class="st">"[diphone2/6 diphone2]/4"</span>
+          </code></pre>
+<audio controls=""><source src="cycle6.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle6.1">cycle6.1</h2>
+<div id="cycle61">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">16</span> <span class="fu">$</span> spread' (striate' <span class="dv">32</span>) (((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">04</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">08</span>)) <span class="fu">&lt;$&gt;</span> slow <span class="dv">128</span> sinewave1) <span class="fu">$</span> sound (samples <span class="st">"amencutup"</span> (slow <span class="dv">12</span> <span class="fu">$</span> run <span class="dv">16</span>))
+          </code></pre>
+<audio controls=""><source src="cycle61.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle6.2">cycle6.2</h2>
+<div id="cycle62">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> jux (rev <span class="fu">.</span> every <span class="dv">2</span> ((<span class="dv">26</span><span class="fu">/</span><span class="dv">8</span>) <span class="fu">&lt;~</span>)) <span class="fu">$</span> spread' (striate' <span class="dv">8</span>) (((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">04</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">04</span>)) <span class="fu">&lt;$&gt;</span> slow <span class="dv">4</span> sinewave1) <span class="fu">$</span> sound <span class="st">"breaks157"</span>
+          </code></pre>
+<audio controls=""><source src="cycle62.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle7">cycle7</h2>
+<div id="cycle7">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span><span class="fu">$</span>spread' striate <span class="st">"[4 2 3 8]/3"</span> <span class="fu">$</span> whenmod <span class="dv">4</span> <span class="dv">2</span> (jux (rev)) <span class="fu">$</span> sound <span class="st">"[[bd mt*3 bd [sn*8 bd] [lt*4 bd] [~ sn*4] ht/5*6 ht*2]]"</span>
+          </code></pre>
+<audio controls=""><source src="cycle7.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle7.1">cycle7.1</h2>
+<div id="cycle71">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> spread' striate <span class="st">"[4 2 8 1]/3"</span> <span class="fu">$</span> jux palindrome <span class="fu">$</span> sound <span class="st">"[jvbass*4 jvbass/5*8 ~ jvbass/9*6, drum*2 sn/2 drum/2*6 rave/3]"</span>
+          </code></pre>
+<audio controls=""><source src="cycle71.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle8">cycle8</h2>
+<div id="cycle8">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">8</span> <span class="fu">$</span> every <span class="dv">4</span> (rev) <span class="fu">$</span> jux (<span class="fu">|+|</span> speed <span class="st">"[2,3]"</span>) <span class="fu">$</span> spread' striate <span class="st">"[4 3 2, 6]"</span> <span class="fu">$</span> sound (samples <span class="st">"stab*4 sn"</span> <span class="fu">$</span> run <span class="dv">8</span>)
+          </code></pre>
+<audio controls=""><source src="cycle8.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle9">cycle9</h2>
+<div id="cycle9">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">2</span> (density <span class="dv">2</span>) <span class="fu">$</span> jux (spread' (striate) <span class="st">"[1 16 4 8]/3"</span>) <span class="fu">$</span> sound (samples <span class="st">"[drum bd*12]"</span> <span class="st">"[1 2 3 0]"</span>) <span class="fu">|+|</span> speed <span class="st">"[2 1.5 1]/4"</span>
+          </code></pre>
+<audio controls=""><source src="cycle9.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle10">cycle10</h2>
+<div id="cycle10">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> jux (iter <span class="dv">32</span>) <span class="fu">$</span> sound <span class="st">"bass3/2 bass3/0"</span> <span class="fu">|+|</span> (speed <span class="fu">$</span> every <span class="dv">2</span> rev  <span class="fu">$</span> <span class="st">"[8 3 4]/3"</span>)
+          </code></pre>
+<audio controls=""><source src="cycle10.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle11">cycle11</h2>
+<div id="cycle11">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> superimpose ((<span class="fu">|+|</span>vowel<span class="st">"a"</span>)<span class="fu">.</span>iter <span class="dv">4</span>)<span class="fu">$</span>jux rev<span class="fu">$</span>sound (samples <span class="st">"[amencutup*8 bass3*2,[jvbass*8]/3]"</span> <span class="fu">$</span> slow (<span class="dv">3</span><span class="fu">/</span><span class="dv">5</span>)<span class="fu">$</span>run <span class="dv">12</span>)
+          </code></pre>
+<audio controls=""><source src="cycle11.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle12">cycle12</h2>
+<div id="cycle12">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (jux (spread' (<span class="fu">&lt;~</span>) (toRational <span class="fu">&lt;$&gt;</span> (slow <span class="dv">16</span> sinewave1))) <span class="fu">$</span> sound <span class="st">"bd*2 pluck/2 sn/2 [pluck/0 pluck/1]"</span>) <span class="fu">|+|</span> speed <span class="st">"1 2 3 2"</span>
+          </code></pre>
+<audio controls=""><source src="cycle12.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle12.1">cycle12.1</h2>
+<div id="cycle121">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (jux (spread' (<span class="fu">&lt;~</span>) (toRational <span class="fu">&lt;$&gt;</span> (slow <span class="dv">2</span> sinewave1))) <span class="fu">$</span> striate <span class="dv">2</span> <span class="fu">$</span> sound (samples <span class="st">"odx*2"</span> (slow <span class="dv">3</span> <span class="fu">$</span> run <span class="dv">4</span>)))
+          </code></pre>
+<audio controls=""><source src="cycle121.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle13">cycle13</h2>
+<div id="cycle13">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> <span class="kw">let</span> sinerat1 <span class="fu">=</span> fmap toRational sinewave1 <span class="kw">in</span> stack [smash <span class="dv">4</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">16</span>] <span class="fu">$</span> (jux (spread' (<span class="fu">&lt;~</span>) (slow <span class="dv">64</span> <span class="fu">$</span> sinerat1)) <span class="fu">$</span> sound <span class="fu">$</span> samples <span class="st">"[bd bd*4, jvbass*8]"</span> (slow <span class="dv">4</span> <span class="fu">$</span> run <span class="dv">8</span>)), sound <span class="st">"future/1"</span>]
+          </code></pre>
+<audio controls=""><source src="cycle13.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle14">cycle14</h2>
+<div id="cycle14">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> jux (spread' (density) ((<span class="fu">*</span><span class="dv">4</span>) <span class="fu">.</span> (<span class="dv">1</span><span class="fu">-</span>) <span class="fu">&lt;$&gt;</span> (slow <span class="dv">8</span> <span class="fu">$</span> toRational <span class="fu">&lt;$&gt;</span> tri1))) <span class="fu">$</span> sound <span class="st">"bd drum*2 drum/2 [bass3/2,bd]"</span> <span class="fu">|+|</span> speed (slow <span class="dv">8</span> <span class="fu">$</span> (<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span> tri1)
+          </code></pre>
+<audio controls=""><source src="cycle14.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle15">cycle15</h2>
+<div id="cycle15">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> (spread' (striate' <span class="dv">4</span>) ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">2</span>) <span class="fu">&lt;$&gt;</span> slow <span class="dv">8</span> sine1)) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (samples <span class="st">"[latibro*6,bd]/2"</span> <span class="st">"0 7 4"</span>) <span class="fu">|+|</span> speed <span class="st">"[1 2 1.5]/4"</span>
+          </code></pre>
+<audio controls=""><source src="cycle15.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle16">cycle16</h2>
+<div id="cycle16">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span><span class="fu">$</span>weave <span class="dv">16</span>(pan sine1)<span class="fu">$</span>map sound[<span class="st">"[[odx*4[odx*2odx*8],[hh*4,~odx/12]*4],[blue/1]/2~~[~odx/13*2]]"</span>,(<span class="dv">1</span><span class="fu">/</span><span class="dv">16</span>)<span class="fu">~&gt;</span>samples<span class="st">"jvbass*16""2 2[3 4]1"</span>]
+          </code></pre>
+<audio controls=""><source src="cycle16.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle17">cycle17</h2>
+<div id="cycle17">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> sound (samples <span class="st">"{casio ~ bd*3, bd*2 rm*3, numbers lt [mt sn, lt*3 voodoo] sn bass3*2}"</span> (<span class="st">"{7 2, 3 1 5}"</span>)) <span class="fu">|+|</span> end rand
+          </code></pre>
+<audio controls=""><source src="cycle17.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle18">cycle18</h2>
+<div id="cycle18">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">3</span> (<span class="dv">0</span><span class="fu">.</span><span class="dv">5</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> jux (spread' (density) <span class="st">"[2 1 3]/4"</span>) <span class="fu">$</span> sound <span class="st">"{drum drum odx*2, drum/2 drum/3 hit/7 drum/2 ~}"</span> <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+          </code></pre>
+<audio controls=""><source src="cycle18.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle19">cycle19</h2>
+<div id="cycle19">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> every <span class="dv">8</span> (<span class="fu">|+|</span> speed <span class="st">"-1"</span>) <span class="fu">$</span>
+            stack [slow <span class="dv">2</span> <span class="fu">$</span> (every <span class="dv">4</span> (trunc (<span class="dv">1</span><span class="fu">%</span><span class="dv">4</span>)) <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[bd sn [~ bd] sn, bd bass3 sn bd [bd sn] sn ht lt]"</span>)
+                   <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                   every <span class="dv">4</span> (density <span class="dv">2</span>) <span class="fu">$</span> sound <span class="st">"~ [bass3:2 ~ 2, drum:1, cp]"</span>,
+                   superimpose rev <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> slowspread (<span class="fu">$</span>) [striate <span class="dv">2</span>, (<span class="fu">|+|</span> speed <span class="st">"2"</span>), rev, (<span class="fu">|+|</span> speed <span class="st">"3"</span>)] <span class="fu">$</span> sound <span class="st">"[jvbass*2 rave2 rave2:2 ~]"</span>,
+                   jux rev <span class="fu">$</span> density <span class="dv">2</span> <span class="fu">$</span> striate <span class="dv">2</span> <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"[rave2*2 ~ rave2 ~ , rave2 ~ rave2]"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"[[1 4]/4 2, ~ 7 ~]/7"</span>)
+                   <span class="fu">|+|</span> gain <span class="st">"0.87"</span>
+                  ]
+          </code></pre>
+<audio controls=""><source src="cycle19.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle20">cycle20</h2>
+<div id="cycle20">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> stack [jux (echo (<span class="dv">1</span><span class="fu">%</span><span class="dv">8</span>)) <span class="fu">$</span> sound <span class="st">"drum*2 [bass2:4 ~ bass2:3]"</span>
+                               <span class="fu">|+|</span> gain <span class="st">"1.15"</span>
+                               <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                               sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"amencutup*16"</span> <span class="fu">&lt;*&gt;</span> ((floor <span class="fu">.</span> (<span class="fu">*</span><span class="dv">16</span>))<span class="fu">&lt;$&gt;</span> rand))
+                               <span class="fu">|+|</span> gain <span class="st">"1.5"</span>
+                               <span class="fu">|+|</span> speed <span class="st">"[1 1 1 -1, 1.5 2]/3"</span>,
+                               slow <span class="dv">2</span> <span class="fu">$</span> every <span class="dv">3</span> (slow <span class="dv">2</span>) <span class="fu">$</span> every <span class="dv">2</span> (echo (<span class="dv">1</span><span class="fu">%</span><span class="dv">64</span>)) <span class="fu">$</span> jux rev <span class="fu">$</span> sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"arpy*16"</span> <span class="fu">&lt;*&gt;</span> (superimpose ((<span class="dv">7</span><span class="fu">-</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"0 0 4 0  0 4 7 4  4 3 4 2  2 2 2 6"</span>))
+                               <span class="fu">|+|</span> speed (every <span class="dv">8</span> ((<span class="fu">+</span><span class="dv">1</span>) <span class="fu">&lt;$&gt;</span>) <span class="st">"[2 3, 1]"</span>)
+                               <span class="fu">|+|</span> cutoff (slow <span class="dv">8</span> <span class="fu">$</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">4</span>) <span class="fu">&lt;$&gt;</span> sine1)
+                               <span class="fu">|+|</span> resonance <span class="st">"0.8"</span>
+                              ]
+          </code></pre>
+<audio controls=""><source src="cycle20.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle21">cycle21</h2>
+<div id="cycle21">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> stack [every <span class="dv">4</span> rev <span class="fu">$</span> (jux ((<span class="fu">|+|</span> speed <span class="st">"0.5"</span>) <span class="fu">.</span> rev) <span class="fu">$</span> sound <span class="st">"arpy ~ arpy:5 ~ arpy:3 ~"</span>)
+                      <span class="fu">|+|</span> end <span class="st">"0.6"</span>
+                      <span class="fu">|+|</span> delay <span class="st">"0.9"</span>,
+                      jux rev <span class="fu">$</span> superimpose (iter <span class="dv">4</span>) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> sound <span class="st">"[bass3 ~ bass3:3*2 ~ bass3*2 bass3:2]"</span>
+                      <span class="fu">|+|</span> speed (<span class="st">"[4 8 6]/4"</span>)
+                      <span class="fu">|+|</span> shape <span class="st">"0.4"</span> <span class="fu">|+|</span> gain <span class="st">"0.9"</span> <span class="fu">|+|</span> delay <span class="st">"0.4"</span>,
+                      slowspread (<span class="fu">$</span>) [id, brak, id, density <span class="dv">2</span>, trunc (<span class="dv">1</span><span class="fu">%</span><span class="dv">4</span>), rev] <span class="fu">$</span> sound <span class="st">"ht lt future sn drum ~"</span>
+                      <span class="fu">|+|</span> shape <span class="st">"0.9"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"4"</span>
+                     ]
+            <span class="fu">|+|</span> delayfeedback <span class="st">"[0.3 0.5]/3"</span>
+            <span class="fu">|+|</span> delaytime (every <span class="dv">8</span> (const <span class="st">"0.5"</span>) <span class="fu">$</span> slow <span class="dv">4</span> <span class="fu">$</span> ((<span class="fu">+</span><span class="dv">0</span><span class="fu">.</span><span class="dv">03</span>) <span class="fu">.</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">04</span>)) <span class="fu">&lt;$&gt;</span> sine1)
+          </code></pre>
+<audio controls=""><source src="cycle21.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="cycle22">cycle22</h2>
+<div id="cycle22">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          d1 <span class="fu">$</span> stack [slow <span class="dv">2</span> <span class="fu">$</span> slowspread (stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">8</span>) [<span class="dv">1</span><span class="fu">%</span><span class="dv">8</span>,<span class="dv">1</span><span class="fu">%</span><span class="dv">3</span>,<span class="dv">1</span><span class="fu">%</span><span class="dv">4</span>,<span class="dv">1</span><span class="fu">%</span><span class="dv">5</span>] <span class="fu">$</span> sound <span class="st">"[bd*4 bd*3]/2 bd*3 bd*1"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"1.9"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>,
+                      jux (slow <span class="dv">2</span> <span class="fu">.</span> rev) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">6</span> (<span class="dv">1</span><span class="fu">%</span><span class="dv">2</span>) (sound (pick <span class="fu">&lt;$&gt;</span> <span class="st">"arpy*3 arpy:2 arpy*2 arpy:3"</span> <span class="fu">&lt;*&gt;</span> <span class="st">"{2 1 3 0 4, 7 10 9}/7"</span>))
+                      <span class="fu">|+|</span> speed <span class="st">"[1, 2 3]/4"</span>
+                      <span class="fu">|+|</span> end <span class="st">"0.4"</span>,
+                      jux rev <span class="fu">$</span> every <span class="dv">4</span> (jux (iter <span class="dv">8</span>)) <span class="fu">$</span> slow <span class="dv">2</span> <span class="fu">$</span> stut <span class="dv">3</span> <span class="dv">0</span><span class="fu">.</span><span class="dv">6</span> (<span class="dv">1</span><span class="fu">%</span><span class="dv">2</span>) <span class="fu">$</span> sound <span class="st">"rave2*3 rave2:7 rave2:4*2 rave2:4"</span>
+                      <span class="fu">|+|</span> speed <span class="st">"2"</span>
+                      <span class="fu">|+|</span> gain <span class="st">"1.5"</span>
+                      <span class="fu">|+|</span> cutoff (slow <span class="dv">3</span> <span class="fu">$</span> (<span class="fu">*</span><span class="dv">0</span><span class="fu">.</span><span class="dv">3</span>) <span class="fu">&lt;$&gt;</span> sine1)
+                      <span class="fu">|+|</span> resonance <span class="st">"0.65"</span>
+                     ]
+          </code></pre>
+<audio controls=""><source src="cycle22.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+<h2 id="karlsruhe-groove">karlsruhe groove</h2>
+<div id="karlsruhe_groove">
+<pre class="sourceCode haskell"><code class="sourceCode haskell">          solo <span class="fu">$</span> d1 <span class="fu">$</span> stack [jux (<span class="dv">1</span> <span class="fu">&lt;~</span>) <span class="fu">$</span> sometimes (density <span class="dv">2</span>)<span class="fu">$</span>  sometimes (<span class="fu">|+|</span> speed <span class="st">"[2 1.5 0.5 2,3]/3"</span>) <span class="fu">$</span> sound <span class="st">"[drum drum*2, ~ off]"</span>,
+                      slow <span class="dv">2</span> <span class="fu">$</span> jux (iter <span class="dv">4</span>) <span class="fu">$</span> every <span class="dv">2</span> (smash (<span class="dv">4</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]) <span class="fu">$</span> sound (samples <span class="st">"onoff alphabet"</span> (irand <span class="dv">26</span>)) <span class="fu">|+|</span> gain <span class="st">"1.2"</span>
+                     ]
+          
+          
+          
+          cps <span class="dv">1</span><span class="fu">.</span><span class="dv">1</span>
+          </code></pre>
+<audio controls=""><source src="karlsruhe_groove.mp3" type="audio/mpeg"> Your browser does not support the audio element.</audio>
+</div>
+
+
+</body></html>

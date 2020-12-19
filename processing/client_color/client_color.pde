@@ -23,6 +23,7 @@ ArrayList <Interaction> interaction=new ArrayList<Interaction>();
 /*VISUAL VARIABLES*/
 ArrayList <Borg> borgs;
 int newBorgQuantity = 10;
+int borgsDistance;
 
 
 void setup(){
@@ -59,7 +60,7 @@ void draw(){
 
 
   //VISUAL
-  fill(borgs.size(), 200, 200, 1);
+  fill(25, 14, 51, 10);
   rect(0, 0, width, height);
 
   for (Borg b : borgs) {
@@ -82,20 +83,20 @@ void sendosc(String param, float value){
 
 TidalParameter mapMessage(Interaction inter){
     TidalParameter map;
-    if(inter.r==255) {
-      map=new TidalParameter("filter",inter.value);
+    if(inter.r==245 && inter.g==203 && inter.b==54) {
+      map=new TidalParameter("slow",map(inter.value, 0, 1, 2, 6));
       return map;
     }
-    else if(inter.g==255){
-      map=new TidalParameter("delay",map(inter.value,0,1,0,0.6));
+    else if(inter.r==10 && inter.g==209 && inter.b==183){
+      map=new TidalParameter("crusher",map(inter.value, 0 ,1 , 1, 15));
       return map;
     }
-    else if(inter.b==255) {
-      map=new TidalParameter("every",map(inter.value,0,1,0,6));
+    else if(inter.r==190 && inter.g==9 && inter.b==206) {
+      map=new TidalParameter("cutoff",map(inter.value, 0, 1, 400, 15000));
       return map;
     }
     else{
-      map=new TidalParameter("pan",inter.value);
+      map=new TidalParameter("offset",inter.value);
       return map;
     }
 }
@@ -124,12 +125,18 @@ void requestData(){
 void checkCollisions() {
   //ArrayList <Borg> toDie = new ArrayList();
   //ArrayList <Borg> toCreate = new ArrayList();
-  for (int a = 0; a < borgs.size(); a++) {
+  int size = borgs.size();
+  for (int a = 0; a < size; a++) {
     Borg p = borgs.get(a);
-    for (int b = a+1; b < borgs.size(); b++) {
+    for (int b = a+1; b < size; b++) {
       Borg q = borgs.get(b);
       PVector pq = new PVector(q.x-p.x, q.y-p.y);
-      if (pq.mag()<150 && p.c == q.c) {
+      
+      if(size<=100) borgsDistance = 150;
+      else if(size<=300) borgsDistance = 100;
+      else borgsDistance = 75;
+      
+      if (pq.mag()<borgsDistance && p.c == q.c) {
         
         stroke(p.c);
         //println("Line color: " + c);
@@ -159,8 +166,8 @@ void createBorgs(Interaction inter){
   color c = color(inter.r, inter.g, inter.b);
   
   for (int i=0; i<newBorgQuantity; i++){
-    float x = random(-1, 1)*random(0, r) + center_x;
-    float y = random(-1, 1)*random(0, r) + center_y;
+    float x = random(-1, 1)*random(10, r) + center_x;
+    float y = random(-1, 1)*random(10, r) + center_y;
     
     borgs.add(new Borg(x, y, c));
   }

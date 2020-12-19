@@ -7,8 +7,8 @@ class Borg {
   public Borg(float x, float y, color c) {
     this.x = x;
     this.y = y;
-    this.vx = random(-0.1, 0.1);
-    this.vy = random(-0.1, 0.1);
+    this.vx = random(-1, 1);
+    this.vy = random(-1, 1);
     this.c = c;
   }
   void update() {

@@ -9,26 +9,27 @@ OscP5 oscP5;
 
 /* GLOBAL VARIABLES */ 
 API_Client client;
-float text_eta=0;
 float reload_eta=0;
-float time_index=0;
 String[] msgs;
-boolean VERBOSE=true;
+
+int counter=0;
 
 int msgN=0;
 int msgI=0;
-float msgAlpha=0;
-int msgStatus=0;
-float c=color(255,0,0);
+
 int cont=0;
 ArrayList <Interaction> interaction=new ArrayList<Interaction>();
 
+/*VISUAL VARIABLES*/
+ArrayList <Borg> borgs;
+int newBorgQuantity = 10;
+
 
 void setup(){
-  size(100, 100);
-  background(200);
-  noStroke();
-  println(frameRate);
+  size(600, 600);
+  //background(200);
+  //noStroke();
+ 
   
   oscP5 = new OscP5(this,12000);
   remote = new NetAddress("127.0.0.1",6010);
@@ -37,43 +38,39 @@ void setup(){
   client=new API_Client(API_URL);
   msgs= client.get_msgs();
   msgN= msgs.length;
-  msgI=msgN-1;
-  msgStatus=-1;  
-  if(VERBOSE){
-    println("Found ", msgN, "new messages");
-  }  
-  TIME_RELOAD*=frameRate; // period to try to reaload
+  msgI=msgN-1;  
+  println("Found ", msgN, "new messages");
+
+  
+  reload_eta = TIME_RELOAD*frameRate;
+  /*TIME_RELOAD*=frameRate; // period to try to reaload
   if(msgN==0){reload_eta=TIME_RELOAD;}
-  else{reload_eta=0;}
-  colorMode(HSB);
+  else{reload_eta=0;}*/
+  //colorMode(HSB);
+
+  //VISUAL
+  borgs = new ArrayList();
 }
 
 void draw(){
-  msgs=client.get_msgs();
-  fill(250);
-  rectMode(CENTER);
-  frameRate(1);
-  rect(width/2, height/2, width, height);
-  if(msgs.length>0){
-    int startPoint=0;
-    for(int i=cont;i<msgs.length;i++){
-      println(msgs[i]);
-      println(interaction.get(i).r);
-      println(interaction.get(i).g);
-      println(interaction.get(i).b);
-      c=color(int(msgs[0]),0,0);
-      fill(c);
-      noStroke();
-      circle(50,50,50);
-      Interaction currentInteraction=interaction.get(i);
-      TidalParameter map=mapMessage(currentInteraction);
-      sendosc(map.param,map.value);
-      println(map.param);
-      println(map.value);
-      startPoint++;
-    }
-    cont+=startPoint;
+  if(counter == reload_eta){
+    thread("requestData"); //Executed on a different thread in order not to stop the animation
   }
+
+
+  //VISUAL
+  fill(borgs.size(), 200, 200, 1);
+  rect(0, 0, width, height);
+
+  for (Borg b : borgs) {
+    b.update();
+  }
+  checkCollisions();
+  
+  /*for (Borg b : borgs) {
+    b.draw();
+  }*/
+  counter++;
 }
 
 void sendosc(String param, float value){
@@ -101,4 +98,73 @@ TidalParameter mapMessage(Interaction inter){
       map=new TidalParameter("pan",inter.value);
       return map;
     }
+}
+
+void requestData(){
+  counter=0;
+  msgs=client.get_msgs();
+  if(msgs.length>cont){
+    for(int i=cont;i<msgs.length;i++){
+      println(msgs[i]);
+      println(interaction.get(i).r);
+      println(interaction.get(i).g);
+      println(interaction.get(i).b);
+      Interaction currentInteraction=interaction.get(i);
+      TidalParameter map=mapMessage(currentInteraction);
+      sendosc(map.param,map.value);
+      println(map.param);
+      println(map.value);
+      createBorgs(currentInteraction);
+    }
+    cont=msgs.length;
+  }
+}
+
+
+void checkCollisions() {
+  //ArrayList <Borg> toDie = new ArrayList();
+  //ArrayList <Borg> toCreate = new ArrayList();
+  for (int a = 0; a < borgs.size(); a++) {
+    Borg p = borgs.get(a);
+    for (int b = a+1; b < borgs.size(); b++) {
+      Borg q = borgs.get(b);
+      PVector pq = new PVector(q.x-p.x, q.y-p.y);
+      if (pq.mag()<150 && p.c == q.c) {
+        
+        stroke(p.c);
+        //println("Line color: " + c);
+        line(p.x, p.y, q.x, q.y);
+
+        /*float sim = p.vx * q.vx + p.vy * q.vy;
+
+        if (sim>1) {
+          //toCreate.add(new Borg((p.x+q.y)/2.0, (p.y+q.y)/2.0));
+        }
+        if (sim<-0.5) {
+          toDie.add(p);
+        }*/
+      }
+    }
+  }
+  //borgs.removeAll(toDie);
+  //borgs.addAll(toCreate);
+}
+
+
+void createBorgs(Interaction inter){
+  float center_x = random(width);
+  float center_y = random(height);
+  float r = map(inter.value, 0, 1, 1, 50);
+  
+  color c = color(inter.r, inter.g, inter.b);
+  
+  for (int i=0; i<newBorgQuantity; i++){
+    float x = random(-1, 1)*random(0, r) + center_x;
+    float y = random(-1, 1)*random(0, r) + center_y;
+    
+    borgs.add(new Borg(x, y, c));
+  }
+  
+  
+  
 }

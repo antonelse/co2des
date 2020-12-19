@@ -1,5 +1,10 @@
 -- *********************** useful command
 
+--for update
+. ~/.ghcup/env
+cabal update
+cabal install tidal --lib
+
 tidal_version
 
 :t --command for understand a function
@@ -9,6 +14,9 @@ cmd + "dot" -- alternative way for hush
 hush
 
 setcps (160/60/4)
+
+--metronome
+d1 $ n "2 1 1 1" # s "hi"
 
 
 -- *********************** comments section
@@ -28,13 +36,13 @@ setcps (160/60/4)
 -- *********************** audio/OSC test
 
 
-d1 $ every 2 (# djf (cF 1 "user1")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
+d1 $ every 2 (# djf (cF 1 "filter")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
 
-d2 $ slow (cT 0 "user2") $ loopAt (cT 0 "user4") $ striate 4 $ sound "break:8 break:9"
+d2 $ slow (cT 0 "every") $ loopAt (cT 0 "pan") $ striate 4 $ sound "break:8 break:9"
 
-d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+d3 $ every 2 (hurry (cT 0 "pan")) $ loopAt (cT 0 "delay") $ chop 8 $ n "3 4" # sound "theme:10"
 
-d4 $ s "808" # n (cF 1 "user4")
+d4 $ s "808" # n (cF 1 "filter")
 
 d4 silence
 
@@ -50,13 +58,11 @@ xfadeIn 1 8 $ every 2 (hurry 4) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sou
 
 xfadeIn 1 8 $ s "808" # n (cF 1 "user4")
 
-p 1 $ sound "bd sd bd cp"
+do d1 $ s "bd*8?"
 
-p 2 $ sound "bd*4"
+let userPattern = every 2 (hurry (cT 0 "pan")) $
 
-xfadeIn 2 5 $ sound "hc*4"
 
-xfadeIn "drums" 8 $ s "arpy*8" # n (run 8)
 
 
 -- *********************** haskell various tests
@@ -68,13 +74,13 @@ addSix x = x + 6
 addSix 3
 --returns 9
 
+-- *********************** PATTERN CHOICE TEST
 
--- *********************** AUDIO TEST
+:t every
 
-xfadeIn 1 4 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
 
-d1 $ chunk 4 (hurry 2) $
-  stack [(fast "1 2 3 4" $ sound "lt mt ht ~"),
-         (sound "clap:4(3,8)" # speed 2),
-         sound "[kick:5(5,8), snare:3(7,16,3)]"
-        ]
+xfadeIn 3 8 $ slowspread (striate) [8,16,32,64,128]
+    $ sound "ct-noise:19 ct-noise:20 ct-noise:19"
+    # cut "3 2"
+    # gain "0.6"
+    # up rand #pan rand

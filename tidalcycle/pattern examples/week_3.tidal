@@ -151,8 +151,6 @@ d1 $ splice 8 (fast "1 [0.5 0.75]" "6 1 [2 3] ~ 4 1 6*2 7")
 -- Here I put six slices from a loop originally in 4/4, to create
 -- a 3/4 waltz
 d1 $ splice 8 ("0 1 2 3 4 5") $ sound "break:4" # gain 1.1
-d2 $ sound "kick snare*2 clap:4" # speed 2
-
 
 ===WEEK 3 LECT 4
 

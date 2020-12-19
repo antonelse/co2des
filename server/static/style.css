@@ -9,22 +9,22 @@ body{
 
 #square1{
     border-top-left-radius: 5%;
-    background-color: #dd3737; 
+    background-color: rgb(255, 0, 0); 
 }
 
 #square2{
     border-top-right-radius: 5%;
-    background-color: #37e037;
+    background-color:rgb(0, 255, 0);
 }
 
 #square3{
     border-bottom-left-radius: 5%;
-    background-color: #3737da;
+    background-color: rgb(0, 0, 255);
 }
 
 #square4{
     border-bottom-right-radius: 5%;
-    background-color: #000000;
+    background-color:rgb(0, 0, 0);
 }
 
 .disabled{

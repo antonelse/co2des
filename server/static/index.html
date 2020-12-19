@@ -23,8 +23,20 @@
       <div class="col col-4 mx-1 my-1 color-square" id="square4" onclick="selectColor('square4')"></div>
     </div>
 
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center">
+      <div class="col col-3 my-5">
+        <input type="range" id="value" name="value" min="0" max="1" step="0.001" value="0" onchange="setValue(this.value)">
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-3">
       <button type="button" class="btn btn-success col-5" id="submit-button" onclick="sendMessage()">Submit</button>
+    </div>
+
+    <div class="row justify-content-between mt-4 mx-4">
+      <button type="button" class="btn btn-warning col-5" id="getMessages-button" onclick="getMessages()">Get Messages</button>
+      <button type="button" class="btn btn-danger col-5" id="deleteMessages-button" onclick="deleteMessages()">Delete Messages</button>
+      
     </div>
     
   </div>

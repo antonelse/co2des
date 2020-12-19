@@ -1,4 +1,9 @@
 let selectedColor = null;
+let r = null;
+let g = null;
+let b = null;
+
+let sliderValue = 0;
 
 function sendMessage(){
     var name = document.getElementById("username").value;
@@ -15,9 +20,10 @@ function sendMessage(){
             text: "select a color",
         });
     } else {
-        message = username + ";" + selectedColor;
-        //window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
-        console.log("Username: " + name + ", color: " + selectedColor);
+        message = name + "-" + r + "-" + g + "-" + b + "-" + sliderValue;
+        window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
+        //console.log("Username: " + name + ", red: " + r + ", green: " + g + ", blue: " + b + ", slider value: " + sliderValue);
+        //console.log(message);
     }
     
 }
@@ -41,10 +47,19 @@ function selectColor(id){
         } else {
             colors[i].classList.remove("disabled");
             selectedColor = getComputedStyle(colors[i]).backgroundColor;
+            rgbToSingleValues(selectedColor);
         }
     }
 }
 
-function rgbToHex(rgbString){
+function rgbToSingleValues(rgbString){
+    var values = rgbString.substring(4, rgbString.length-1);
+    var valueArray = values.split(", ");
+    r = valueArray[0];
+    g = valueArray[1];
+    b = valueArray[2];
+}
 
+function setValue(value){
+    sliderValue = value;
 }

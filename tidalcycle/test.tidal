@@ -1,0 +1,80 @@
+-- *********************** useful command
+
+tidal_version
+
+:t --command for understand a function
+
+cmd + "dot" -- alternative way for hush
+
+hush
+
+setcps (160/60/4)
+
+
+-- *********************** comments section
+--see osc_test.scl for OSC server initialization
+
+
+-- *********************** OSC message examples
+/ctrl sf param 0.4
+/ctrl ss code msgn
+--the first value is a (s)tring and the second value is a(f)loat
+--cF is what you use for floating point controls. The second 0 or 1, for when tidal hasn't received that control yet.
+--cS for strings
+--cI for integers
+--cT for time values (for using e.g. as the first parameter of fast/slow)
+--cR for ratios
+
+-- *********************** audio/OSC test
+
+
+d1 $ every 2 (# djf (cF 1 "user1")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
+
+d2 $ slow (cT 0 "user2") $ loopAt (cT 0 "user4") $ striate 4 $ sound "break:8 break:9"
+
+d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+
+d4 $ s "808" # n (cF 1 "user4")
+
+d4 silence
+
+-- *********************** xfade function
+:t xfade
+xfadeIn 1 8
+d1 $ s "bd*8?"
+
+
+d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+
+xfadeIn 1 8 $ every 2 (hurry 4) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+
+xfadeIn 1 8 $ s "808" # n (cF 1 "user4")
+
+p 1 $ sound "bd sd bd cp"
+
+p 2 $ sound "bd*4"
+
+xfadeIn 2 5 $ sound "hc*4"
+
+xfadeIn "drums" 8 $ s "arpy*8" # n (run 8)
+
+
+-- *********************** haskell various tests
+
+addSix :: Num a => a -> a
+
+addSix x = x + 6
+
+addSix 3
+--returns 9
+
+
+-- *********************** AUDIO TEST
+
+xfadeIn 1 4 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+
+d1 $ chunk 4 (hurry 2) $
+  stack [(fast "1 2 3 4" $ sound "lt mt ht ~"),
+         (sound "clap:4(3,8)" # speed 2),
+         sound "[kick:5(5,8), snare:3(7,16,3)]"
+        ]

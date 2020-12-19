@@ -1,0 +1,924 @@
+---- TidalCycles QUICK REFERENCE ----
+----------------------------------------------------------------
+-- To use in your editor after or alongside your code for quick reference
+-- Work in progress, mostly to be used as basis for further documnentation work, sorry for the errors and omissions
+-- designed with atom - monokai one dark vivid as theme
+-- https://gist.github.com/mxactvtd/bf3fb357a419c7f063b98dfd9a66cf78 - check for update, I keep updating this quite often atm
+----------------------------------------------------------------
+-- Some sources of Documentation --
+-- https://tidalcycles.org/patterns.html
+-- https://tidalcycles.org/functions.html
+-- https://github.com/yaxu/tidal-workshop/blob/master/academy.tidal
+-- https://github.com/tidalcycles/Tidal/blob/1d05c6119aba8c7547bbf1512ce1f901e38e1d6c/doc/book/index.md
+-- https://github.com/tidalcycles/Tidal/blob/master/tutorial/tutorial.md
+-- https://www.youtube.com/watch?v=g8nJaoh7ZhY&list=PLKgxw7RG3hcRHyBFsPr5opr1iu8wbNIgP
+-- https://github.com/musikinformatik/SuperDirt
+-- https://github.com/tidalcycles/Tidal/
+-- https://github.com/tidalcycles/Tidal/tree/master/Sound/Tidal
+-- https://github.com/lvm/awesome-livecoding#libraries-and-tools
+-- https://toplap.org
+-- https://github.com/topics/tidalcycles
+-- https://talk.lurk.org/channel/tidal
+-- http://lib.tidalcycles.org/pattern/
+-- http://www.eulerroom.com
+-- https://github.com/musikinformatik/SuperDirt/blob/master/used-parameters.scd
+----------------------------------------------------------------
+-- Oficially Documented TidalCycles functions --
+palindrome degrade degradeBy fast fit iter jux juxBy linger rev scramble shuffle slow smash spread toScale trunc zoom loopAt gap chop striate striateL stut someCyclesBy foldEvery ifp mask every sometimesBy swingBy when whenmod within seqP cat fastcat interlace randcat append spin stack superimpose weave wedge anticipate clutch histpan jump jumpIn jumpIn' jumpMod mortal superwash wait wash xfade hcutoff bandf bandq begin coarse crush cut cutoff delay delayfeedback delaytime end gain accelerate hresonance legato loop nudge pan resonance room size shape sound speed sustain unit vowel choose irand pequal rand run scale up
+----------------------------------------------------------------
+-- Provide minimal one line explanations with argument ranges and or short example code, see if words can be removed or replaced by shorter synomnyms to make as concise a list as possible, useful for live-coding and tinkering
+----------------------------------------------------------------
+
+-- Pattern Transformers --
+fast -- alias: density - speed up a pattern n times - (density 2)
+fastGap -- alias: densityGap - a fast that maintains cyclic alignment - undcoumented
+slow -- slow down a pattern n times - (slow 4)
+hurry -- speed up also changes pitch
+rev -- reverse every cycle of a pattern
+palindrome -- reverse a pattern every other cycle
+zoom -- plays a portion of a pattern, specified by the beginning and end of a time span - zoom (0.25, 0.75)
+degrade -- alias: ? - randomly removes events from a pattern 50% of the time
+degradeBy -- allows you to control the percentage of events that are removed - range: 0-1
+spread -- spreads a function across several values - spread slow [2,4/3]) = slow "<2 4/3>" :obsolete
+fastspread -- squeezes all the variations into one cycle
+spread ($) -- spreads functions iteratively across cycles - spread ($) [fast 2, rev, slow 2]
+spreadr -- alias: spreadChoose - spreads functions randomly across cycles
+iter -- creates subdivisions, plays them in order, but increments the starting subdivision each cycle
+iter' -- decrements the starting subdivision - undcoumented
+jux  -- juxtapose a pattern with a functional transform only the right-hand channel
+jux' --
+jux4 --
+jux' --
+juxcut --
+juxcut' --
+juxBy -- has an additional parameter, which brings the channel closer to the centre
+fit -- takes a pattern of integer numbers, which are used to select values from the given list
+fit' -- using another integer pattern to slice up a given pattern - fit' 1 2 "0 1" "1 0" "bd sn"
+trunc -- range:0-1 - truncates, so that only a fraction of the pattern is played - trunc 0.75
+linger -- truncates a pattern, repeateating the last part - linger 0.25
+scramble -- n p divides the pattern p into n equal parts, randomly selecting from the parts
+shuffle -- n p divides the pattern p into n equal parts, selecting a random permutation of parts
+smash -- cuts the samples into bits, playing the loop at different speeds from a list - smash 3 [2,3,4]
+brak -- squashing the pattern to fit half a cycle, and offsetting it by a quarter of a cycle.
+toScale -- lets you turn a pattern of notes within a scale - toScale [0, 4, 7] "0 1 2 3")
+toScale' -- for more than one octave - toScale' 24 [0,4,7,10,14,17] (run 8)
+
+-- Sample Transformers --
+loopAt -- makes sample fit the given number of cycles - loopAt 4
+gap -- it granualizes every sample in place as it is played, but every other grain is silent - gap 8
+chop -- granualizes every sample in place as it is played - chop 32
+striate -- granulator, cutting samples into bits in a similar to (chop)[#chop] - striate 16
+striate' -- a variant of striate with an extra parameter, which specifies the length of each part
+striateL -- loops each sample chunk a number of times specified in the second argumen
+stut -- applies a type of delay to a pattern with depth, feedback and time - stut 4 0.5 0.2
+stut' -- allows to apply a function for each step and overlays the result delayed by the given time
+off -- like stut' 1
+
+-- Conditional Transformers --
+every -- transforms a pattern with a function every ‘n’th cycle - every 3 (fast 2)
+every' -- with an offset - see also whenmod and foldEvery
+sometimesBy -- range:0-1 - probability for applying a function - sometimesBy 0.25 (fast 2)
+-- litteral aliases: almostNever 0.1 - rarely 0.25 - sometimes 0.5 - often 0.75 - almostAlways 0.9
+someCyclesBy -- similar to sometimesBy, but for cycles
+foldEvery -- similar to chaining multiple every functions together
+ifp -- decide whether to apply one or another function depending on the result of a test function that is passed the current cycle as a number - ifp ((== 0).(flip mod 2))(fast 4)(# coarse "24 48")
+mask -- removes events from second pattern that don’t start during an event from first (mask ("1 1 1 ~ 1 1 ~ 1" :: Pattern Bool)
+swingBy -- alias: swing - slices and delays events in the second half of each slice by the amount x - swingBy (1/3) 4
+when -- only when the given test function returns true the given pattern transformation is applied. The test function will be called with the current cycle as a number. - when ((elem '4').show) (fast 4)
+whenmod -- applies the function to the pattern, when the remainder of the current loop number divided by the first parameter, is greater or equal than the second parameter.
+within -- apply a function to only a part of a pattern - within (0.75, 1)
+
+-- Compositions --
+seqP -- allows you to define when a sound within a list starts and ends - seqP[(0,12,s "bd"),(4,12,s "hh")]
+seqPLoop -- will keep looping the sequence when it gets to the end
+cat -- alias: slowcat -  concatenates a list of patterns into a new pattern - cat [s "bd", s "sn"]
+fastcat -- concatenates a list of patterns into a single cycle
+interlace -- shifts between the two given patterns - interlace (s "bd sn")(s "hh hh")
+randcat -- picks a random pattern from a list - randcat [s "bd", s "sn"]
+append -- appends patterns within a single cycle - append (s "bd") (s "sn")
+append' -- does the same as append, but over two cycles, so that the cycles alternate between the two patterns.
+spin --  will “spin” a layer up a pattern the given number of times, with each successive layer offset in time by an additional 1/n of a cycle, and panned by an additional 1/n - spin 4
+stack -- takes a list of patterns and combines them into a new pattern by playing all of the patterns in the list simultaneously - stack [s "bd", s "sn"]
+superimpose -- plays a modified version of a pattern at the same time as the original pattern, resulting in two patterns being played at the same time - superimpose (fast 2)
+weave -- applies one parameter pattern to an list of other parameter patterns
+weave' -- is similar in that it blends functions at the same time at different amounts over a pattern
+wedge -- squashing two patterns into a single pattern cycle with a ratio for the first pattern
+
+-- Transitions --
+anticipate -- build up some tension, culminating in a drop to the new pattern after 8 cycle
+anticipateIn -- allows you to specify the number of cycles until dropping to the new pattern
+clutch -- degrades the current pattern while undegrading the next
+clutchIn -- change the number of cycles the transition takes t1 (clutchIn 8) $ s "bd"
+histpan -- pans the last n versions of the pattern across the field
+jump -- jumps directly into the given pattern, this is essentially the no transition-transition
+jumpIn -- jump transition after the specified number of cycles
+jumpIn' -- jump but only transitions at a cycle boundary  (e.g. when the cycle count is an integer)
+jumpMod -- jump but next time the cycle count modulo the given integer is zero
+mortal -- degrade the new pattern over time until it ends in silence
+superwash -- washes away the current pattern after a certain delay by applying a function to it over time, then switching over to the next pattern to which another function is applied
+wait -- just stop for a bit before playing new pattern
+wash -- wash away the current pattern by applying a function to it over time, then switching over to the next
+xfade -- crossfade between old and new pattern over the next two cycles
+xfadeIn -- crossfades between old and new pattern over given number of cycles
+
+-- Synth / SuperDirt Parameters --
+sound "" -- alias: s "" -- a pattern of strings representing sound sample names (required)
+note -- alias: n - select sample number if SuperDirt or midi note from middle C if midi
+gain -- a pattern of numbers that specify volume
+pan -- range:0-1 - from left to right (assuming stereo)
+speed -- changes the speed of sample playback, "-1" is backwards, polyphony with "[,]"
+room and size -- amount of input into the reverb unit, and notional size of the room respectively
+delay -- range:0-1 - sets the level of the delay signal
+delayfeedback -- alias: delayt - range:0-1 - sets the amount of delay feedback
+delaytime -- alias: delayfb - range:0-1 - Sets the length of the delay
+cutoff -- alias: lpf - range:Hz - applies the cutoff frequency of the low-pass filter
+resonance -- range:0-1 - applies the resonance of the low-pass filter
+bandf -- alias: bpf - range:Hz - sets the center frequency of the band-pass filter
+bandq -- range:0-1 - Sets the q-factor of the band-pass filter
+hcutoff -- alias: hpf - range:Hz - applies the cutoff frequency of the high-pass filter
+hresonance -- range:0-1 - applies the resonance of the high-pass filter
+vowel -- formant filter  with - a e i o u ~ - (requires Vowel superCollider  Quark)
+coarse -- fake-resampling, lowering the sample rate, i.e. 1 for original 2 for half, 3 for a third and so on.
+crush -- bit crushing for drastic reduction in bit-depth to 16 for barely no reduction.
+cut -- provide cut groups to reduce overlap of sounds, "-1" to only affect same folder
+accelerate -- speed up (or slow down) samples while they play
+legato -- controls the length of the sound (called sustain) relative to its “space” in the patter
+loop -- loops the sample (from begin to end) the specified number of times
+nudge -- pushes things forward or backwards within built-in latency in time, allows for swing
+shape -- wave shaping distortion, a pattern of numbers from 0 for no distortion up to 1 for loads of distortion (watch your speakers!)
+sustain -- sets the duration of the sound in seconds. Primarily used in SuperDirt for softsynths, but can be used for samples as well
+unit -- controls how the speed parameter is interpreted, can either be 'rate (the default, percentage playback rate), 'cycle' (cycle/n), or 'secs' (n seconds), accepts values of “r” (default), “c”, or “s”
+begin -- range:0-1 - Skips the beginning of each sample, e.g. 0.25 to cut off the first quarter from each sample.
+end -- the same as begin, but cuts the end off samples, shortening them; e.g. 0.75 to cut off the last quarter of each sample.
+phaserdepth
+phaserrate
+attack
+hold
+release
+tremolodepth
+tremolorate
+buffer
+delta
+channel
+endSpeed
+lag
+latency
+offset
+synthGroup
+delayAmp
+leslie
+lrate
+lsize
+length
+amp
+lock
+dryBus
+effectBus
+numChannels
+server
+dirtOut
+i_out
+instrument
+unitDuration
+buffer
+fadeTime
+fadeInTime
+
+-- Utility --
+choose -- choose[1, 5, 7] randomly choose from a list
+wchoose -- choose with weights - needs to be added manually
+-- wchoose implementation
+  let wchoose pairs = choose $ concatMap (\x -> replicate (fst x) (snd x)) pairs
+  wchoose [(2,'a'),(1,'b')]
+
+cycleChoose -- is like `choose` but only picks a new item from the list once each cycle
+irand -- random integers - (irand 8)
+pequal -- test if the first and the second given pattern are the same in the given number of cycles
+rand -- random floats
+run -- count up like an arpeggiator or for loop
+scale -- (scale 0.1 0.5 rand) to scale the i.e. random function
+up -- changes the speed of playback, but conforming to a 12-tone scale
+orbit -- SuperDirt audio channel
+
+-- LFOS --
+sine
+tri
+saw
+square
+
+-- MIDI / OSC --
+note -- alias: n - +60 offsetted midi note number for 0 middle C
+midinote -- midi note number
+
+-- Combining Parameters --
+#, |=| -- They mean the same thing: they merge ParamPatterns together
+|+|, |*|, |-|, |/| -- Operate on ParamPatterns, and perform the arithmetic operation if the two parameters are the same (such as speed and speed), or simply merge the parameters just as # would if the parameters are different.
+###, ***, +++, /// -- These take a list of ParamPatterns as their second argument, and merge them all together with the relevant arithmetic operator.
+
+-- Operators --
+() -- haskell parentheses functional composition
+$ -- An alternative to parentheses, means “evaluate everything on the right first”
+. -- Function composition, needs functions with only a single argument unspecified
+[,] -- haskell list
+" " -- tidal pattern language
+"bd" -- alias: "bd:0" - SuperDirt, play the first sample from the folder named bd
+"~" -- rest
+"[ ]" -- alias: "." - rhytmic grouping
+"[,]" -- polyrhythm, polyphony
+"{,}" -- polymeter
+"{}%" -- polymeter with wrapping beat number
+"< >" -- iterated pattern choice, where only one step is played per cycle
+"<,>" --
+"bd(3,4,5)" -- alias: e - björklund euclidian rhythms with optional rotation
+":" -- select a specific sample number from folder - sound "bd:3"
+"*" -- fill, repeat + speedup sample or group by n times
+"/" -- play sample or group only every n cycles
+<~, ~> -- These time-shift the pattern on the RHS by the number of cycles on the LHS. (0.25 <~)
+<~> -- Pattern replacement: takes the elements of the second pattern and makes a new pattern using the structure of the first
+<<~, ~>> -- Pattern rotation, these move the elements of the pattern without changing the structure of the pattern
+!!! -- List indexing with built-in modulo so you can’t go past the end of the list
+<$> -- A synonym for fmap, useful for mapping numerical functions so they work on patterns.
+<*> -- A synonym for ap, useful for promoting functions to work with patterns.
+!! -- Haskell’s way of doing list indexing
+
+-- Channels / DAW --
+d1,d2,d3... -- channels for SuperDirt
+m1,m2,m3... -- convention for channel names for MIDI
+d1 silence -- silence a channel
+hush -- silence all sound
+solo $ d1 $ sound "bd:1 sn:6" -- solo a sound
+cps 1 -- cycles per second - cps (140/60/4)
+bps (133/120) -- BPM
+
+-- kindohm special functions
+-- https://www.youtube.com/watch?v=BWqh15urAPw
+let rip a b p = within (0.25 0.75) (slow 2 . rev . stut 8 a b) p
+let rip' a b c d e p = within (a b) (slow 2 . rev . stut c d e) p
+
+-- Libraries --
+-- SpectralTricks
+-- https://github.com/datamads/SpectralTricks
+freeze --Magnitude freeze - Accepts integers: 1 freezes the audio, 0 doesn't.
+smear -- Magnitude smearing- Accepts floats to determine the amount of smearing.
+comb -- A spectral comb filter - Number of teeth and width of the comb are all controlled using one floating point number
+scram -- Bin scrambling - Accepts floats to control the width and placement of the scrambling in the spectrum
+binshift -- Bin shifting - Both the stretching and shifting of bins are controlled by supplying this parameter with floats.
+hbrick -- Spectral high pass filter - Accepts floats in values ranging from 0.0 to 1.0
+lbrick -- Spectral low pass filter - Accepts floats in values ranging from 0.0 to 1.0
+
+-- https://github.com/fp4me/tidal-chord
+
+-- Custom Environments, server and livestreaming --
+-- Troop - https://github.com/Qirky/Troop
+-- Siren - https://github.com/cannc4/Siren
+  -- https://www.youtube.com/watch?time_continue=6&v=g2dINLvLr1g
+-- https://github.com/d0kt0r0/extramuros
+-- https://github.com/d0kt0r0/estuary/
+-- https://github.com/lvm/tida1vm
+-- https://github.com/DoubleDensity/tidebox
+-- https://github.com/efairbanks/supertidebox
+-- https://cockos.com/ninjam/
+-- https://www.artsmesh.com
+
+-- Interfaces to other systems
+-- Processing - https://github.com/yecto/s2hs2-TidalCycles-0.8-
+-- https://github.com/moxuse/tidal-unity
+-- https://github.com/lvm/Tidal-Unity
+
+-- Automatic Code Generation
+-- Tidal-Autocode https://atom.io/packages/tidal-autocode
+
+
+
+-- more https://github.com/lvm/awesome-livecoding#libraries-and-tools
+
+
+--That's not quite the same as a weighted randcat, but the cheesy version of that to just use replicate, I think this works:
+randcat $ ["bd sn"] ++ replicate 3 "~"
+
+-- Eric Fairbanks Heirarchical Variation --
+-- https://www.youtube.com/watch?v=zHyXtzpEEKc
+
+-- applies the modifier to the pattern serially and conditionally, multiple times, dependent on the supplied speeds and whenmod parameters
+whenmodr speeds numerators denominators modifier pattern
+    | done = modifiedpattern
+    | otherwise =  whenmodr rests restn restd modifier modifiedpattern
+    where modifiedpattern = inside speed (whenmod numerator denominator (modifier)) $ pattern
+          numerator = (head numerators)
+          denominator = (head denominators)
+          speed = (head speeds)
+          done = (null $ tail speeds) && (null $ tail numerators) && (null $ tail denominators)
+          restn = if null (tail numerators) then [numerator] else (tail numerators)
+          restd = if null (tail denominators) then [denominator] else (tail denominators)
+          rests = if null (tail speeds) then [speed] else (tail speeds)
+whenmods' speeds numerators denominators modifier pattern
+    | done = modifiedpattern
+    | otherwise =  whenmods' rests restn restd modifier modifiedpattern
+    where modifiedpattern = inside speed (whenmod numerator denominator ((slow speed).(modifier))) $ pattern
+          numerator = (head numerators)
+          denominator = (head denominators)
+          speed = (head speeds)
+          done = (null $ tail speeds) && (null $ tail numerators) && (null $ tail denominators)
+          restn = if null (tail numerators) then [numerator] else (tail numerators)
+          restd = if null (tail denominators) then [denominator] else (tail denominators)
+          rests = if null (tail speeds) then [speed] else (tail speeds)
+whenmods speeds numerators denominators newpattern pattern =
+    whenmods' speeds numerators denominators (const newpattern) pattern
+-- replaces the pattern conditionally, multiple times, dependent on the supplied speeds and whenmod parameters
+
+do
+    let fx = ((|*| gain 0.9).(superimpose (|*| speed 2) $).(fast 2).(|*| up 1).(|*| release 0.5))
+    d1 $ stack [
+        whenmods [1,2,4] [8] [7] (s "[bd bd sn:3]*8%3") $ s "[bd(2,2),sn:3(1,2,1),hh(2,4,1)]",
+        whenmodr [0.5,1,2,4] [8] [7] fx $ s "bass:3(1,1)"
+        ]
+
+---- More undocumented functions ----
+whenT
+playWhen
+playFor
+filterValues
+filterJust
+filterOnsets
+filterStartInRange
+filterOnsetsInRange
+seqToRelOnsetDeltas
+segment
+segment'
+points
+groupByTime
+timeToRand
+unDegradeBy
+splitQueries
+substruct
+stripe -- n p@: repeats pattern @p@, @n@ times per cycle. So
+-- similar to @fast@, but with random durations. The repetitions will
+-- be continguous (touching, but not overlapping) and the durations
+-- will add up to a single cycle. @n@ can be supplied as a pattern of
+-- integers.
+slowstripe -- n p@: The same as @stripe@, but the result is also
+-- @n@ times slower, so that the mean average duration of the stripes
+-- is exactly one cycle, and every @n@th stripe starts on a cycle
+-- boundary (in indian classical terms, the @sam@).
+parseLMRule -- Lindenmayer patterns, these go well with the step sequencer
+-- general rule parser (strings map to strings)
+parseLMRule' -- specific parser for step sequencer (chars map to string)
+-- ruleset in form "a:b,b:ab"
+unwrap'
+chunk -- n f p@ treats the given pattern @p@ as having @n@ chunks, and applies the function @f@ to one of those sections per cycle, running from left to right
+chunk' -- works much the same as `chunk`, but runs from right to left
+inside
+outside
+loopFirst
+timeLoop
+ur
+ur'
+inhabit
+repeatCycles
+spaceOut -- @spaceOut xs p@ repeats a pattern @p@ at different durations given by the list of time values in @xs@ there is a kindohm video about this and nudge about flex tempo
+flatpat
+layer
+breakUp -- | @breakUp@ finds events that share the same timespan, and spreads them out during that timespan, so for example @breakUp "[bd,sn]"@ gets turned into @"bd sn"@
+fill -- | @fill@ 'fills in' gaps in one pattern with events from another. For example @fill "bd" "cp ~ cp"@ would result in the equivalent of `"~ bd ~"`. This only finds gaps in a resulting pattern, in other words @"[bd ~, sn]"@ doesn't contain any gaps (because @sn@ covers it all), and @"bd ~ ~ sn"@ only contains a single gap that bridges two steps.
+stutter
+echo   = stutter 2
+triple = stutter 3
+quad   = stutter 4
+double = echo
+samples -- to use numbers for rhythm instead?
+-- samples "jvbass [~ latibro] [jvbass [latibro jvbass]]" ((1%2) `rotL` slow 6 "[1 6 8 7 3]")
+spreadf ts p = spread ($)
+scalex -- exponential scale
+_off
+offadd
+ghost
+ghost'
+ghost''
+slice
+randslice
+tabby
+striateO
+_striate'
+_striateO
+striateL
+striateL'
+_striateL
+durPattern
+durPattern'
+stutx
+soundToOrbit
+sieveToList
+sieveToString
+sieveToInts
+sieveToPat
+stepSieve
+slowstepSieve
+scaleSieve
+cyclePos
+sam
+nextSam
+enumerate
+mapFst
+mapFsts
+mapSnd
+mapSnds
+
+-- found in the documentation task management list --
+e' en compress unDegradeBy discretise enumerate envL envLR envEq envEqR fadeIn fadeIn' fadeOut fadeOut' ghost grp inside index jux4 jux' juxcut lindenmayer stutter echo double triple quad spreadf protate prr prrw prw prot preplace, prep preplaceWith off offadd slice randslice scan stretch striateO stackwith step steps permstep pick overlay samples samples' struct weave'  begin "-1" loop offset make merge mergelists metronome points segment sig split tom unwrap sinerat sawrat trirat spreadChoose
+
+-- Pattern --
+e'
+en
+compress
+unDegradeBy
+discretise
+enumerate
+envL -- envL is a pattern of continuous Double values, representing
+-- a linear interpolation between 0 and 1 during the first cycle, then
+-- staying constant at 1 for all following cycles. Possibly only
+-- useful if you're using something like the retrig function defined
+-- in tidal.el.
+envLR -- like envL but reversed.
+envEq -- 'Equal power' for gain-based transitions
+envEqR -- Equal power reversed
+fadeIn
+fadeIn' -- The 1 <~ is so fade ins and outs have different degredations
+fadeOut
+fadeOut'-- Alternate versions where you can provide the time from which the fade starts
+ghost
+grp
+inside
+index
+jux4
+jux'
+juxcut
+lindenmayer --l indenmayer 1 "a:b,b:ab" "ab" -> "bab"
+stutter
+echo/double
+triple
+quad
+spreadf
+protate
+prr
+prrw
+prw
+prot
+preplace, prep
+preplaceWith
+off
+offadd
+slice
+randslice
+scan
+stretch
+-- Sample --
+striateO
+-- Compositions --
+stackwith
+step
+steps
+permstep
+pick
+overlay -- combines two @Pattern@s into a new pattern, so that their events are combined over time. This is the same as the infix operator `<>`
+samples
+samples'
+struct
+weave'
+spreadChoose
+-- Synth Params --
+begin "-1"
+loop
+offset
+-- Utility --
+make
+merge
+mergelists
+metronome
+points
+segment
+sig
+split
+tom
+unwrap
+
+-- Continuous Patterns --
+sinerat
+sawrat
+trirat
+
+-- SuperDirt Samples whitout sample amount numbers as body and list text --
+"
+808 808bd 808cy 808hc 808ht 808lc 808lt 808mc 808mt 808oh 808sd ab ade ades2 ades3 ades4 alex alphabet amencutup armora arp arpy auto baa baa2 bass bass0 bass1 bass2 bass3 bassdm bassfoo battles bd bend bev bin birds3 bleep blip blue bottle breaks125 breaks152 breaks157 breaks165 breath bubble can casio cc chin chink circus clak click co cosmicg cp cr crow d db diphone diphone2 dist dork2 dorkbot dr dr2 dr55 dr_few drum drumtraks e east electro1 erk f feel feelfx fest fire flick foo future gab gabba gabbaloud gabbalouder glasstap glitch glitch2 gretsch h hand hardcore haw hc hh hh27 hit hmm ho house ht if ifdrums incoming industrial insect invaders jazz jungbass jungle jvbass koy kurt latibro led less lighter lt made made2 mash mash2 metal miniyeah moan monsterb moog mouth mp3 msg mt mute newnotes noise noise2 notes numbers oc odx off pad padlong pebbles perc peri pluck print proc procshort psr rave rave2 ravemono rm sax seawolf sequential sf sheffield short sid sine sitar sn space speech speechless speedupdown stab stomp subroc3d sugar sundance tabla tabla2 tablex tacscan tech techno tink tok toys trump ul ulgab uxay v voodoo wind wobble world xmas yeah
+
+808
+808bd
+808cy
+808hc
+808ht
+808lc
+808lt
+808mc
+808mt
+808oh
+808sd
+ab
+ade
+ades2
+ades3
+ades4
+alex
+alphabet
+amencutup
+armora
+arp
+arpy
+auto
+baa
+baa2
+bass
+bass0
+bass1
+bass2
+bass3
+bassdm
+bassfoo
+battles
+bd
+bend
+bev
+bin
+birds3
+bleep
+blip
+blue
+bottle
+breaks125
+breaks152
+breaks157
+breaks165
+breath
+bubble
+can
+casio
+cc
+chin
+chink
+circus
+clak
+click
+co
+cosmicg
+cp
+cr
+crow
+d
+db
+diphone
+diphone2
+dist
+dork2
+dorkbot
+dr
+dr2
+dr55
+dr_few
+drum
+drumtraks
+e
+east
+electro1
+erk
+f
+feel
+feelfx
+fest
+fire
+flick
+foo
+future
+gab
+gabba
+gabbaloud
+gabbalouder
+glasstap
+glitch
+glitch2
+gretsch
+h
+hand
+hardcore
+haw
+hc
+hh
+hh27
+hit
+hmm
+ho
+house
+ht
+if
+ifdrums
+incoming
+industrial
+insect
+invaders
+jazz
+jungbass
+jungle
+jvbass
+koy
+kurt
+latibro
+led
+less
+lighter
+lt
+made
+made2
+mash
+mash2
+metal
+miniyeah
+moan
+monsterb
+moog
+mouth
+mp3
+msg
+mt
+mute
+newnotes
+noise
+noise2
+notes
+numbers
+oc
+odx
+off
+pad
+padlong
+pebbles
+perc
+peri
+pluck
+print
+proc
+procshort
+psr
+rave
+rave2
+ravemono
+rm
+sax
+seawolf
+sequential
+sf
+sheffield
+short
+sid
+sine
+sitar
+sn
+space
+speech
+speechless
+speedupdown
+stab
+stomp
+subroc3d
+sugar
+sundance
+tabla
+tabla2
+tablex
+tacscan
+tech
+techno
+tink
+tok
+toys
+trump
+ul
+ulgab
+uxay
+v
+voodoo
+wind
+wobble
+world
+xmas
+yeah
+
+-- SuperDirt Samples whith sample amount numbers as body and list text
+
+808 (6) 808bd (25) 808cy (25) 808hc (5) 808ht (5) 808lc (5) 808lt (5) 808mc (5) 808mt (5) 808oh (5) 808sd (25) 909 (1) ab (12) ade (10) ades2 (9) ades3 (7) ades4 (6) alex (2) alphabet (26) amencutup (32) armora (7) arp (2) arpy (11) auto (11) baa (7) baa2 (7) bass (4) bass0 (3) bass1 (30) bass2 (5) bass3 (11) bassdm (24) bassfoo (3) battles (2) bd (24) bend (4) bev (2) bin (2) birds3 (19) bleep (13) blip (2) blue (2) bottle (13) breaks125 (2) breaks152 (1) breaks157 (1) breaks165 (1) breath (1) bubble (8) can (14) casio (3) cc (6) chin (4) chink (1) circus (3) clak (2) click (4) co (4) cosmicg (15) cp (2) cr (6) crow (4) d (4) db (13) diphone (38) diphone2 (12) dist (16) dork2 (4) dorkbot (2) dr (42) dr2 (6) dr55 (4) dr_few (8) drum (6) drumtraks (13) e (8) east (9) electro1 (13) erk (1) f (1) feel (7) feelfx (8) fest (1) fire (1) flick (17) foo (27) future (17) gab (10) gabba (4) gabbaloud (4) gabbalouder (4) glasstap (3) glitch (8) glitch2 (8) gretsch (24) h (7) hand (17) hardcore (12) haw (6) hc (6) hh (13) hh27 (13) hit (6) hmm (1) ho (6) house (8) ht (16) if (5) ifdrums (3) incoming (8) industrial (32) insect (3) invaders (18) jazz (8) jungbass (20) jungle (13) jvbass (13) koy (2) kurt (7) latibro (8) led (1) less (4) lighter (33) lt (16) made (7) made2 (1) mash (2) mash2 (4) metal (10) miniyeah (4) moan (1) monsterb (6) moog (7) mouth (15) mp3 (4) msg (9) mt (16) mute (28) newnotes (15) noise (1) noise2 (8) notes (15) numbers (9) oc (4) odx (15) off (1) pad (3) padlong (1) pebbles (1) perc (6) peri (15) pluck (17) print (11) proc (2) procshort (8) psr (30) rave (8) rave2 (4) ravemono (2) rm (2) sax (22) seawolf (3) sequential (8) sf (18) sheffield (1) short (5) sid (12) sine (6) sitar (8) sn (52) space (18) speech (7) speechless (10) speedupdown (9) stab (23) stomp (10) subroc3d (11) sugar (2) sundance (6) tabla (26) tabla2 (46) tablex (3) tacscan (22) tech (13) techno (7) tink (5) tok (4) toys (13) trump (11) ul (10) ulgab (5) uxay (3) v (6) voodoo (5) wind (10) wobble (1) world (3) xmas (1) yeah (31)
+
+808 (6)
+808bd (25)
+808cy (25)
+808hc (5)
+808ht (5)
+808lc (5)
+808lt (5)
+808mc (5)
+808mt (5)
+808oh (5)
+808sd (25)
+909 (1)
+ab (12)
+ade (10)
+ades2 (9)
+ades3 (7)
+ades4 (6)
+alex (2)
+alphabet (26)
+amencutup (32)
+armora (7)
+arp (2)
+arpy (11)
+auto (11)
+baa (7)
+baa2 (7)
+bass (4)
+bass0 (3)
+bass1 (30)
+bass2 (5)
+bass3 (11)
+bassdm (24)
+bassfoo (3)
+battles (2)
+bd (24)
+bend (4)
+bev (2)
+bin (2)
+birds3 (19)
+bleep (13)
+blip (2)
+blue (2)
+bottle (13)
+breaks125 (2)
+breaks152 (1)
+breaks157 (1)
+breaks165 (1)
+breath (1)
+bubble (8)
+can (14)
+casio (3)
+cc (6)
+chin (4)
+chink (1)
+circus (3)
+clak (2)
+click (4)
+co (4)
+cosmicg (15)
+cp (2)
+cr (6)
+crow (4)
+d (4)
+db (13)
+diphone (38)
+diphone2 (12)
+dist (16)
+dork2 (4)
+dorkbot (2)
+dr (42)
+dr2 (6)
+dr55 (4)
+dr_few (8)
+drum (6)
+drumtraks (13)
+e (8)
+east (9)
+electro1 (13)
+erk (1)
+f (1)
+feel (7)
+feelfx (8)
+fest (1)
+fire (1)
+flick (17)
+foo (27)
+future (17)
+gab (10)
+gabba (4)
+gabbaloud (4)
+gabbalouder (4)
+glasstap (3)
+glitch (8)
+glitch2 (8)
+gretsch (24)
+h (7)
+hand (17)
+hardcore (12)
+haw (6)
+hc (6)
+hh (13)
+hh27 (13)
+hit (6)
+hmm (1)
+ho (6)
+house (8)
+ht (16)
+if (5)
+ifdrums (3)
+incoming (8)
+industrial (32)
+insect (3)
+invaders (18)
+jazz (8)
+jungbass (20)
+jungle (13)
+jvbass (13)
+koy (2)
+kurt (7)
+latibro (8)
+led (1)
+less (4)
+lighter (33)
+lt (16)
+made (7)
+made2 (1)
+mash (2)
+mash2 (4)
+metal (10)
+miniyeah (4)
+moan (1)
+monsterb (6)
+moog (7)
+mouth (15)
+mp3 (4)
+msg (9)
+mt (16)
+mute (28)
+newnotes (15)
+noise (1)
+noise2 (8)
+notes (15)
+numbers (9)
+oc (4)
+odx (15)
+off (1)
+pad (3)
+padlong (1)
+pebbles (1)
+perc (6)
+peri (15)
+pluck (17)
+print (11)
+proc (2)
+procshort (8)
+psr (30)
+rave (8)
+rave2 (4)
+ravemono (2)
+rm (2)
+sax (22)
+seawolf (3)
+sequential (8)
+sf (18)
+sheffield (1)
+short (5)
+sid (12)
+sine (6)
+sitar (8)
+sn (52)
+space (18)
+speech (7)
+speechless (10)
+speedupdown (9)
+stab (23)
+stomp (10)
+subroc3d (11)
+sugar (2)
+sundance (6)
+tabla (26)
+tabla2 (46)
+tablex (3)
+tacscan (22)
+tech (13)
+techno (7)
+tink (5)
+tok (4)
+toys (13)
+trump (11)
+ul (10)
+ulgab (5)
+uxay (3)
+v (6)
+voodoo (5)
+wind (10)
+wobble (1)
+world (3)
+xmas (1)
+yeah (31)
+"
+
+-- bonus code to randombly hear all the SuperDirt Samples  --
+d1 $ density (irand 4) $ s (randcat ["808","808bd","808cy","808hc","808ht","808lc","808lt","808mc","808mt","808oh","808sd","ab","ade","ades2","ad","es3","ades4","alex","alphabet","amencutup","armora","arp","arpy","auto","baa","baa2","bass","bass0","bass1","bass2","bass3","bassdm","bassfoo","battles","bd","bend","bev","bin","birds3","bleep","blip","blue","bottle","breaks125","breaks152","breaks157","breaks165","breath","bubble","can","casio","cc","chin","chink","circus","clak","click","co","cosmicg","cp","cr","crow","d","db","diphone","diphone2","dist","dork2","dorkbot","dr","dr2","dr55","dr_few","drum","drumtraks","e","east","electro1","erk","f","feel","feelfx","fest","fire","flick","foo","future","gab","gabba","gabbaloud","gabbalouder","glasstap","glitch","glitch2","gretsch","h","hand","hardcore","haw","hc","hh","hh27","hit","hmm","ho","house","ht","if","ifdrums","incoming","industrial","insect","invaders","jazz","jungbass","jungle","jvbass","koy","kurt","latibro","led","less","lighter","lt","made","made2","mash","mash2","metal","miniyeah","moan","monsterb","moog","mouth","mp3","msg","mt","mute","newnotes","noise","noise2","notes","numbers","oc","odx","off","pad","padlong","pebbles","perc","peri","pluck","print","proc","procshort","psr","rave","rave2","ravemono","rm","sax","seawolf","sequential","sf","sheffield","short","sid","sine","sitar","sn","space","speech","speechless","speedupdown","stab","stomp","subroc3d","sugar","sundance","tabla","tabla2","tablex","tacscan","tech","techno","tink","tok","toys","trump","ul","ulgab","uxay","v","voodoo","wind","wobble","world","xmas","yeah"]) # n (irand 46)
+# delay (slow 8 $ scale 0.1 0.4 rand)
+# delaytime (slow 6 $ scale 0.001 0.2 rand)
+# delayfeedback (slow 4 $ scale 0.1 0.8 rand)
+# room 0.7
+# size 0.4
+# gain 1.8

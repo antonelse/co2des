@@ -1,7 +1,6 @@
 import oscP5.*;
 import netP5.*; 
 
-
 /* PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
 float TIME_RELOAD=3;
@@ -26,7 +25,7 @@ ArrayList <Interaction> interaction=new ArrayList<Interaction>();
 
 
 void setup(){
-  size(640, 480);
+  size(100, 100);
   background(200);
   noStroke();
   println(frameRate);
@@ -47,9 +46,7 @@ void setup(){
   if(msgN==0){reload_eta=TIME_RELOAD;}
   else{reload_eta=0;}
   colorMode(HSB);
-
 }
-
 
 void draw(){
   msgs=client.get_msgs();

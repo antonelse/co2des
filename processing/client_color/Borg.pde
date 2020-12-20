@@ -23,7 +23,7 @@ class Borg {
     if(this.x<0 || this.x>width){
       this.vx = -this.vx;
     }
-    if(this.y<0 || this.y>height){
+    if(this.y<0 || this.y>height-codeScreenHeight){
       this.vy = -this.vy;
     }
   }

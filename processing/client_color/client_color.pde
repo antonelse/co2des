@@ -25,14 +25,17 @@ ArrayList <Borg> borgs;
 int newBorgQuantity = 10;
 int borgsDistance;
 
+int codeScreenHeight = 300;
+String codeBlock;
+
 
 void setup(){
-  size(600, 600);
+  size(600, 900);
   //background(200);
   //noStroke();
  
   
-  oscP5 = new OscP5(this,12000);
+  oscP5 = new OscP5(this,9000);
   remote = new NetAddress("127.0.0.1",6010);
   
   
@@ -51,6 +54,9 @@ void setup(){
 
   //VISUAL
   borgs = new ArrayList();
+  
+  fill(0);
+  rect(0, height-codeScreenHeight, width, height);
 }
 
 void draw(){
@@ -61,7 +67,7 @@ void draw(){
 
   //VISUAL
   fill(25, 14, 51, 10);
-  rect(0, 0, width, height);
+  rect(0, 0, width, height - codeScreenHeight);
 
   for (Borg b : borgs) {
     b.update();
@@ -160,7 +166,7 @@ void checkCollisions() {
 
 void createBorgs(Interaction inter){
   float center_x = random(width);
-  float center_y = random(height);
+  float center_y = random(height - codeScreenHeight);
   float r = map(inter.value, 0, 1, 1, 50);
   
   color c = color(inter.r, inter.g, inter.b);
@@ -171,7 +177,24 @@ void createBorgs(Interaction inter){
     
     borgs.add(new Borg(x, y, c));
   }
-  
-  
-  
+}
+
+void oscEvent(OscMessage theOscMessage) {
+  //println("message arrived");
+  if (theOscMessage.checkAddrPattern("/tidalcode")) {
+    println(theOscMessage.get(0));
+    String incomingLine = theOscMessage.get(0).toString();
+    if (incomingLine != ":{" && incomingLine != ":}"){
+      codeBlock.concat("\n" + incomingLine);
+    }
+    
+    if(incomingLine == ":}"){
+        fill(0);
+        rect(0, height-codeScreenHeight, width, height);
+        fill(255);
+        textSize(20);
+        text(codeBlock, 10, 10+codeScreenHeight, width, height);
+        codeBlock = "";
+    }
+  }
 }

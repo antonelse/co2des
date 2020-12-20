@@ -3,7 +3,21 @@ let r = null;
 let g = null;
 let b = null;
 
+let username;
+
 let sliderValue = 0;
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+function setUsername(){
+    username = urlParams.get("username");
+    if(username != null){
+        document.querySelector("#username").value = username;
+    }
+}
+
+window.onload = setUsername;
 
 function sendMessage(){
     var name = document.getElementById("username").value;
@@ -20,6 +34,7 @@ function sendMessage(){
             text: "select a color",
         });
     } else {
+        username = name;
         message = name + "-" + r + "-" + g + "-" + b + "-" + sliderValue;
         window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
         //console.log("Username: " + name + ", red: " + r + ", green: " + g + ", blue: " + b + ", slider value: " + sliderValue);

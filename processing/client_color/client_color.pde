@@ -180,21 +180,27 @@ void createBorgs(Interaction inter){
 }
 
 void oscEvent(OscMessage theOscMessage) {
-  //println("message arrived");
+  println("message arrived");
   if (theOscMessage.checkAddrPattern("/tidalcode")) {
     println(theOscMessage.get(0));
-    String incomingLine = theOscMessage.get(0).toString();
+    incomingLine = (String)theOscMessage.get(0).stringValue();
+    println(incomingLine);
     if (incomingLine != ":{" && incomingLine != ":}"){
-      codeBlock.concat("\n" + incomingLine);
+      println("prima");
+      codeBlock = codeBlock + "\n" + incomingLine;
+      //codeBlock.concat("\n" + incomingLine);
+      println("dopo");
     }
+
+    
     
     if(incomingLine == ":}"){
         fill(0);
         rect(0, height-codeScreenHeight, width, height);
         fill(255);
         textSize(20);
-        text(codeBlock, 10, 10+codeScreenHeight, width, height);
+        text(codeBlock, 10, height-codeScreenHeight, width, height);
         codeBlock = "";
     }
-  }
+   }
 }

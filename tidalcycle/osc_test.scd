@@ -10,7 +10,7 @@ OSCFunc.trace(false)
 //useful, debug purpose
 o.sendMsg("/ctrl", "slow",2); // from 2 to 6
 
-o.sendMsg("/ctrl", "crusher", 3); // from 1 to 15
+o.sendMsg("/ctrl", "crusher", 14); // from 1 to 15
 
 o.sendMsg("/ctrl", "cutoff", 15000); // from 400 to 15000
 

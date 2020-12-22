@@ -2,15 +2,25 @@
 
 
 -- FADE OUT *****
+
 byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
 
---simple usage:
---byeByeWithGas 4
+byeByeWithGas 4
 
 --The mapM_ function takes each number in the list [1 .. 16] and gives it to (\i -> xfadeIn i t silence). The \ is called 'lambda' and puts the number in the i variable. Then that gets used in the xfadeIn.
 
+
 -- FADE IN *****
 -- welcomeWithGas t = mapM_ (\i -> fadeOutFrom i t silence) [1 .. 16]
+
+--FLOOD TEXT
+
+newtype Text = Text String
+instance Show Text where show (Text str) = str
+prettyPut s = putStr . show $ Text s
+mae_love_u s = mapM_  prettyPut $ replicate 150 s
+
+mae_love_u "See u soon, in person "
 
 -- *********************** various Haskell tips ***********************
 
@@ -21,12 +31,20 @@ addSix x = x + 6
 addSix 3
 --returns 9
 
-------------
+----------
 
 let
   a = 1.5
   b = floor a
   c = fromIntegral b
+
+-- *********************** comment ***********************
+
+--create an array for a specific user (e.g. _USER1) and map the respective param (e.g slow == _USER1[0], chrusher == _USER1[1] etc) in the tidal code
+--in the tidal code i ONLY have to put the _USER number, so it foods the entire pre constructed pattern  show -an alternative could be the one that pre-select a range in the array for the specific param, and then call it in the functions
+
+--let _USER1 = (cT 2 "slow")
+--let _pattern_1 =
 
 -- *********************** useful command ***********************
 
@@ -45,9 +63,6 @@ setcps (160/60/4)
 d1 $ n "2 1 1 1" # s "hi" #gain 0.85
 
 
---see osc_test.scl for OSC server initialization and test
-
-
 -- *********************** OSC message examples ***********************
 /ctrl sf param 0.4
 /ctrl ss code msgn
@@ -60,6 +75,7 @@ d1 $ n "2 1 1 1" # s "hi" #gain 0.85
 
 (cF 0.7 "filter")
 --The first parameter (0.7) is the default value, for when tidal hasn't received that control.
+
 
 
 --OSC for evaluating Atom cells
@@ -75,107 +91,54 @@ d1 $ n "2 1 1 1" # s "hi" #gain 0.85
 --column
 
 
--- *********************** audio/OSC test ***********************
+-- *********************** LIVE TEST ***********************
 
-
-d1 $ every 2 (# djf (cF 1 "filter")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
-
-d2 $ slow (cT 0 "every") $ loopAt (cT 0 "pan") $ striate 4 $ sound "break:8 break:9"
-
-d3 $ every 2 (hurry (cT 0 "pan")) $ loopAt (cT 0 "delay") $ chop 8 $ n "3 4" # sound "theme:10"
-
-d4 $ s "808" # n (cF 1 "filter")
-
-d4 silence
-
--- *********************** xfade function ***********************
-:t xfade
-xfadeIn 1 8
-
-xfadeIn 1 8 $ s "hi*8?" #gain 1.3
-
--- *********************** PATTERN CHOICE TEST ***********************
-
-
--- AUDIO TEST 1
-
-setcps (160/60/4)
-
-
---create an array for a specific user (e.g. _USER1) and map the respective param (e.g slow == _USER1[0], chrusher == _USER1[1] etc) in the tidal code
---in the tidal code i ONLY have to put the _USER number, so it foods the entire pre constructed pattern  show -an alternative could be the one that pre-select a range in the array for the specific param, and then call it in the functions
-
---let _USER1 = (cT 2 "slow")
+--user param control
 
 let _slow = (cT 2 "slow")
     _crusher = (cF 1 "crusher")
     _cutoff = (cF 400 "cutoff")
     _offset = (cT 0 "offset")
 
---HARD RESET Param
+--param control hard reset
+
 let _slow = 2
     _crusher = 1
     _cutoff = 400
     _offset = 0
 
 
-let _pattern_1 =
+-- AUDIO TEST 1
 
+setcps (160/60/4)
 
-d2 $ stack [slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 1.3
-            --sound "clubkick:4(5,8)" #gain 1.3 #room 0.1
-          ]
-
+d2 $ stack [slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 0.95, sound "clubkick:4(5,8)" #gain 1.3 #room 0.1]
 
 d3 $ speed "1*2 2 2 4*3" # s "jungbass:6" #gain 0.9 # squiz _crusher
 
-
 d4 $ off 0.125 (# crush 3) $ n "0 1 2 3" # sound "bass" |+ n "2 5 6" #cutoff (range 0 _cutoff sine)
-
 
 d4 $ off _offset (# crush 3) $ sound "rave:3(5,8)" #gain 0.88
 
-d3 silence
+d4 silence
 
+byeByeWithGas 4
 
 -- AUDIO TEST 2
 
-setcps (100/60/4)
-
---off // from 0 to 1
-d1 $ stack[loopAt 4 $ sound "theme:15",
-          off 0.5 (# distort 2) $ loopAt 4 $ sound "theme:15" #gain 0.7
-          ]
-
---squiz // from 1 to 15
-d2 $ n "1 ~ ~ 1 ~ 1 ~ ~" # s "jungbass:2" #squiz 15
-
-d3 $ stack[n "[1*2](5,8)" # s "808oh:5",
-          n "1 ~ ~ 1 ~ 1 ~ ~" # s "808bd:1" #gain 1.5,
-          every 2 (sometimes (#speed 0.5)) $ n "5(10,16)" # s "cpu"
-        ]
-
-
-
-
-
--- DA FINIREEEEEEEEEEEEE
-
--- AUDIO TEST 3
-
 setcps(170/60/4)
 
-d1 $ sometimes (#crush _xaria_crusher)
-  -- $ n "3 3 [4 3?] 5?0.4"
+d2 $ sometimes (#crush _crusher)
+  $ n "3 3 [4 3?] 5?0.1"
   -- $ n "6 6?*6"
-  $ n "6*4"
+  -- $ n "6*4"
   # s "gab"
   #delay 0.3 #delayt 0.33 #delayfb 0.4
   #cutoff (range 400 15000 saw)
   #gain 1.3
 
 
-d2 $ sometimes (hurry _xaria_slow)
+d3 $ sometimes (hurry _slow)
   $ jux rev
   $ n "2 2 6 7"
   |<| " [0 0 0] . 4 5"
@@ -183,16 +146,35 @@ d2 $ sometimes (hurry _xaria_slow)
   #room 0.2 #sz 0.6
   #gain 0.70
 
-d3 $ loopAt 4 $ splice 16 "0 2 6 9 12 7 14 2?" $ sound "sr:2" #cutoff _xaria_cutoff #gain 1
+d4 $ loopAt 4 $ splice 16 "0 2 6 9 12 7 14 2?" $ sound "sr:2" #cutoff _cutoff #gain 1
 
-d4 $ off 0.0 (#pan (range 0 1 sine - 1)) $ loopAt 16 $ splice 16 "0..15" $ sound "theme:4"
+d5 $ off _offset (#pan (range 0 1 sine - 1)) $ loopAt 16 $ splice 16 "0..15" $ sound "theme:4"
 
--- number0:lenght16 // 1:4 // 3:8 // 4:16 // 5:4 // 6:16 // 7:8 // 8:16 // 9:4 // 10:4
--- // 11:8 // 12:4 // 13:8 // 14:8 // 15:4 // 16:4 // 17:4 // 18:4 // 19:16
+d4 silence
 
-once $ s "theme:2"
 
-byeByeWithGas 4
+
+once $ s "cazzate:3" -- la scoteca
+
+once $ s "cazzate:6" -- horn
+
+byeByeWithGas 8
+
+
+-- AUDIO TEST 3
+
+setcps (100/60/4)
+
+d2 $ stack[loopAt 4 $ sound "theme:15", off _offset (# distort 2) $ loopAt 4 $ sound "theme:15" #gain 0.7]
+
+d3 $ n "1 ~ ~ 1 ~ 1 ~ ~" # s "jungbass:2" #squiz _crusher
+
+d4 $ stack[n "[1*2](5,8)" # s "808oh:5", n "1 ~ ~ 1 ~ 1 ~ ~" # s "808bd:1" #gain 1.5, every 2 (sometimes (#speed _crusher)) $ n "16(10,16)" # s "cpu"]
+
+d5 $ off _offset (#pan (range 0 1 sine - 1)) $ loopAt 3 $ splice 16 "4 6 ~ ~ 1 15 14 3 4 2! ~" $ sound "sr:4"
+
+
+byeByeWithGas 8
 
 
 

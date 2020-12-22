@@ -20,6 +20,7 @@ function setUsername(){
 window.onload = setUsername;
 
 function sendMessage(){
+    scaling=1;
     var name = document.getElementById("username").value;
     if(name.length < 1 ){
         swal({
@@ -27,13 +28,13 @@ function sendMessage(){
             icon: "warning",
             text: "Insert a username",
         });
-    } else if (selectedColor == null) {
+    } /*else if (selectedColor == null) {
         swal({
             title: "Warning!",
             icon: "warning",
             text: "select a color",
         });
-    } else {
+    }*/ else {
         username = name;
         message = name + "-" + r + "-" + g + "-" + b + "-" + sliderValue;
         window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
@@ -78,3 +79,119 @@ function rgbToSingleValues(rgbString){
 function setValue(value){
     sliderValue = value;
 }
+
+function normalize(val, max, min) {
+    let value=(val - min) / (max - min);
+    value.toFixed(2);
+    if(value>1) value=1;
+    else if(value<0) value=0;
+    return value; 
+}
+
+
+
+
+//disco
+
+var isDown=false;
+var isUp=true;
+var buttonPressed;
+var dimensions;
+var traslations;
+var rotation1;
+var rotation2;
+var scaling=1;
+
+function toggleValueSlider(button){
+    if(isDown){
+        isDown=false;
+        document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
+        document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
+        document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
+        document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
+
+        console.log(normalize(scaling,1.5,1))
+        setValue(normalize(scaling,1.5,1));
+        sendMessage();
+    } 
+    else{
+        isDown=true;
+        buttonPressed=button.path[0].classList[0];
+        if(buttonPressed=="button-transparent1"){
+            dimensions=int(getComputedStyle(document.querySelector(".squarecircle1")).borderRightWidth);
+            traslations=80;
+            rotation1=50;
+            rotation2=30;
+            r=245;
+            g=203;
+            b=54;
+            document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
+            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="slow";
+            document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
+        }
+        else if(buttonPressed=="button-transparent2") {
+            dimensions=int(getComputedStyle(document.querySelector(".squarecircle4")).borderRightWidth);
+            traslations=82;
+            rotation1=300;
+            rotation2=301.5;
+            r=190;
+            g=9;
+            b=206;
+            document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
+            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
+            document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
+        }
+        else if(buttonPressed=="button-transparent3"){
+            dimensions=int(getComputedStyle(document.querySelector(".squarecircle2")).borderRightWidth);
+            traslations=82;
+            rotation1=140;
+            rotation2=140;
+            r=6;
+            g=48;
+            b=189;
+            document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
+            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
+            document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
+        } 
+        else if(buttonPressed=="button-transparent4"){
+            dimensions=int(getComputedStyle(document.querySelector(".squarecircle3")).borderRightWidth);
+            traslations=85;
+            rotation1=220;
+            rotation2=220;
+            r=10;
+            g=209;
+            b=183;
+            document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
+            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
+            document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
+        } 
+
+        console.log(buttonPressed);
+        loop();
+    }
+}
+
+document.querySelector(".button-transparent1").onmousedown=toggleValueSlider;
+document.querySelector(".button-transparent1").onmouseup=toggleValueSlider;
+document.querySelector(".button-transparent2").onmousedown=toggleValueSlider;
+document.querySelector(".button-transparent2").onmouseup=toggleValueSlider;
+document.querySelector(".button-transparent3").onmousedown=toggleValueSlider;
+document.querySelector(".button-transparent3").onmouseup=toggleValueSlider;
+document.querySelector(".button-transparent4").onmousedown=toggleValueSlider;
+document.querySelector(".button-transparent4").onmouseup=toggleValueSlider;
+
+document.querySelector(".button-transparent1").ontouchstart=toggleValueSlider;
+document.querySelector(".button-transparent1").ontouchend=toggleValueSlider;
+document.querySelector(".button-transparent2").ontouchstart=toggleValueSlider;
+document.querySelector(".button-transparent2").ontouchend=toggleValueSlider;
+document.querySelector(".button-transparent3").ontouchstart=toggleValueSlider;
+document.querySelector(".button-transparent3").ontouchend=toggleValueSlider;
+document.querySelector(".button-transparent4").ontouchstart=toggleValueSlider;
+document.querySelector(".button-transparent4").ontouchend=toggleValueSlider;
+
+
+

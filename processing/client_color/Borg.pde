@@ -31,7 +31,7 @@ class Borg {
     this.lifetime -= 0.01;
   }
   void draw() {
-    fill(255);
-    ellipse(x, y, 10, 10);
+    //fill(255);
+    //ellipse(x, y, 10, 10);
   }
 }

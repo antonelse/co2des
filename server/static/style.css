@@ -1,5 +1,5 @@
 body{
-    background-color: #444444; 
+    background-color: #222222; 
 }
 
 .color-square{
@@ -9,24 +9,266 @@ body{
 
 #square1{
     border-top-left-radius: 5%;
-    background-color: rgb(255, 0, 0); 
+    background-color: rgb(245, 203, 54); 
 }
 
 #square2{
     border-top-right-radius: 5%;
-    background-color:rgb(0, 255, 0);
+    background-color:rgb(10, 209, 183);
 }
 
 #square3{
     border-bottom-left-radius: 5%;
-    background-color: rgb(0, 0, 255);
+    background-color: rgb(190, 9, 206);
 }
 
 #square4{
     border-bottom-right-radius: 5%;
-    background-color:rgb(0, 0, 0);
+    background-color:rgb(6, 48, 189);
 }
 
 .disabled{
     opacity: 0.3;
 }
+
+
+
+
+/*new stuff*/
+
+.squarecircle{
+    width:0px;
+    height:0px;
+    position:absolute;
+    display:block;
+    top:100%;
+    left:100%;
+}
+
+.circle{
+    top:50%;
+    right:50%;
+    position:absolute;
+    display:inline-block;
+    margin:0 auto;
+    transform: translate(50%,-50%);
+    background-color: black;
+    height:100px;
+    width:100px;
+    border:8px solid rgb(56, 56, 56);
+    border-radius: 50%;
+    z-index:6;
+
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+
+.parameter-changing{
+    position:relative;
+    display:inline-block;
+    margin:0 auto;
+    width:90%;
+    height:10%;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    transform: translateY(300%);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 17px;
+    color:#000000;
+}
+
+.squarecircle1{
+    border-right-width: 120px;
+    border-right-style:solid;
+    border-right-color:transparent;
+    border-top-width: 120px;
+    border-top-style: solid;
+    border-top-color:transparent;
+
+    border-left-width: 120px;
+    border-left-style:solid;
+    border-left-color: rgb(245, 203, 54);
+
+    border-bottom-width: 120px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+
+    border-radius: 120px;
+    transform: translate(-80%,-80%) rotate(50deg);
+    z-index:6;
+    box-sizing: border-box;
+}
+.squarecircle12{
+    transform: translate(-80%,-80%) rotate(30deg);
+}
+
+.squarecircle2{
+    border-right: 110px solid transparent;
+    border-top: 110px solid transparent;
+    border-left: 110px solid rgb(6, 48, 189);
+    border-bottom: 110px solid transparent;
+    border-top-left-radius: 110px;
+    border-top-right-radius: 110px;
+    border-bottom-left-radius: 110px;
+    border-bottom-right-radius: 110px;
+    transform: translate(-82%,-82%) rotate(140deg);
+    z-index:5;
+}
+.squarecircle22{
+    transform: translate(-82%,-82%) rotate(140deg);
+}
+
+.squarecircle3{
+    border-right: 100px solid transparent;
+    border-top: 100px solid transparent;
+    border-left: 100px solid rgb(10, 209, 180);
+    border-bottom: 100px solid transparent;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    transform: translate(-85%,-85%) rotate(210deg);
+    z-index:4;
+}
+.squarecircle32{
+    transform: translate(-85%,-85%) rotate(210deg);
+}
+
+.squarecircle4{
+    border-right: 110px solid transparent;
+    border-top: 110px solid transparent;
+    border-left: 110px solid rgb(190, 9, 206);
+    border-bottom: 110px solid transparent;
+    border-top-left-radius: 110px;
+    border-top-right-radius: 110px;
+    border-bottom-left-radius: 110px;
+    border-bottom-right-radius: 110px;
+    transform: translate(-82%,-82%) rotate(300deg);
+    z-index:4;
+}
+.squarecircle42{
+    transform: translate(-82%,-82%) rotate(302deg);
+}
+
+.greyslice{
+    width:0px;
+    height:0px;
+    position:absolute;
+    display:block;
+    top:100%;
+    left:100%;
+}
+
+.greyslice1{
+    border-right: 140px solid transparent;
+    border-top: 140px solid transparent;
+    border-left: 140px solid rgb(58,58,58);
+    border-bottom: 140px solid transparent;
+    border-top-left-radius: 140px;
+    border-top-right-radius: 140px;
+    border-bottom-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    transform: translate(-75%,-75%) rotate(50deg);
+}
+.greyslice12{
+    transform: translate(-75%,-75%) rotate(50deg);
+}
+
+.greyslice2{
+    border-right: 140px solid transparent;
+    border-top: 140px solid transparent;
+    border-left: 140px solid rgb(79,79,79);
+    border-bottom: 140px solid transparent;
+    border-top-left-radius: 140px;
+    border-top-right-radius: 140px;
+    border-bottom-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    transform: translate(-75%,-75%) rotate(140deg);
+}
+.greyslice22{
+    transform: translate(-75%,-75%) rotate(200deg);
+}
+
+.greyslice3{
+    border-right: 140px solid transparent;
+    border-top: 140px solid transparent;
+    border-left: 140px solid rgb(41,41,41);
+    border-bottom: 140px solid transparent;
+    border-top-left-radius: 140px;
+    border-top-right-radius: 140px;
+    border-bottom-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    transform: translate(-75%,-75%) rotate(250deg);
+}
+
+.greyslice4{
+    border-right: 140px solid transparent;
+    border-top: 140px solid transparent;
+    border-left: 140px solid rgb(28,28,28);
+    border-bottom: 140px solid transparent;
+    border-top-left-radius: 140px;
+    border-top-right-radius: 140px;
+    border-bottom-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    transform: translate(-75%,-75%) rotate(320deg);
+}
+
+.container-disco{
+    position:absolute;
+    width:140px;
+    height:140px;
+    display:block;
+    top:40%;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.container-disco-transparent{
+    position:absolute;
+    display:inline-flex;
+    top:30%;
+    right:50%;
+    width:280px;
+    height:280px;
+    transform: translateX(50%);
+    z-index:10;
+}
+
+.container-buttons{
+    position:relative;
+    width:50%;
+    height:100%;
+    display:inline-block;
+}
+
+
+
+.button-transparent1{
+    position:relative;
+    width:105%;
+    height:57%;
+    box-sizing: border-box;
+}
+.button-transparent2{
+    position:relative;
+    width:115%;
+    height:43%;
+    box-sizing: border-box;
+}
+.button-transparent3{
+    position:relative;
+    width:100%;
+    height:48%;
+    box-sizing: border-box;
+}
+.button-transparent4{
+    position:relative;
+    width:100%;
+    height:50%;
+    box-sizing: border-box;
+}
+

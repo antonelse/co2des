@@ -1,4 +1,58 @@
--- *********************** useful command
+-- *********************** user defined functions ***********************
+
+
+-- FADE OUT *****
+
+byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
+
+byeByeWithGas 4
+
+--The mapM_ function takes each number in the list [1 .. 16] and gives it to (\i -> xfadeIn i t silence). The \ is called 'lambda' and puts the number in the i variable. Then that gets used in the xfadeIn.
+
+
+-- FADE IN *****
+-- welcomeWithGas t = mapM_ (\i -> fadeOutFrom i t silence) [1 .. 16]
+
+--FLOOD TEXT
+
+newtype Text = Text String
+instance Show Text where show (Text str) = str
+prettyPut s = putStr . show $ Text s
+mae_love_u s = mapM_  prettyPut $ replicate 150 s
+
+mae_loves_u "See u soon, in person "
+
+-- *********************** various Haskell tips ***********************
+
+addSix :: Num a => a -> a
+
+addSix x = x + 6
+
+addSix 3
+--returns 9
+
+----------
+
+let
+  a = 1.5
+  b = floor a
+  c = fromIntegral b
+
+-- *********************** comment ***********************
+
+--create an array for a specific user (e.g. _USER1) and map the respective param (e.g slow == _USER1[0], chrusher == _USER1[1] etc) in the tidal code
+--in the tidal code i ONLY have to put the _USER number, so it foods the entire pre constructed pattern  show -an alternative could be the one that pre-select a range in the array for the specific param, and then call it in the functions
+
+--let _USER1 = (cT 2 "slow")
+--let _pattern_1 =
+
+--VARIABLE VALUE RANGE TEST !!!!!!
+
+(range (-2) 2 $ cF 1 "_cutoff")
+
+d1 $ sound "bd" # speed (range (-2) 2 $ cF 1 "_cutoff")
+
+-- *********************** useful command ***********************
 
 tidal_version
 
@@ -10,12 +64,12 @@ hush
 
 setcps (160/60/4)
 
+--metronome
 
--- *********************** comments section
---see osc_test.scl for OSC server initialization
+d1 $ n "2 1 1 1" # s "hi" #gain 0.85
 
 
--- *********************** OSC message examples
+-- *********************** OSC message examples ***********************
 /ctrl sf param 0.4
 /ctrl ss code msgn
 --the first value is a (s)tring and the second value is a(f)loat
@@ -25,56 +79,133 @@ setcps (160/60/4)
 --cT for time values (for using e.g. as the first parameter of fast/slow)
 --cR for ratios
 
--- *********************** audio/OSC test
+(cF 0.7 "filter")
+--The first parameter (0.7) is the default value, for when tidal hasn't received that control.
 
 
-d1 $ every 2 (# djf (cF 1 "user1")) $ sound "bd sd [~ bd] [cp bd*2]" #gain 0.9
 
-d2 $ slow (cT 0 "user2") $ loopAt (cT 0 "user4") $ striate 4 $ sound "break:8 break:9"
+--OSC for evaluating Atom cells
+--Ip: 127.0.0.1 / Port: 3333
+-- /atom/eval/type
 
-d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+--arguments
+--line (evaluate single line)
+--multi_line (evaluate code block)
+--whole_editor (evaluate all the editor)
 
-d4 $ s "808" # n (cF 1 "user4")
+--row
+--column
+
+
+
+
+-- **************************************************************************************
+
+-- *********************** PRE SETTINGS ***********************
+
+--UPDATE the repl.js ATOM file with the Processing IP address
+--OPEN loopback app, join SuperCollider to SoundFlower
+--DELETE the queue at https://wemakethings.pythonanywhere.com/delete_all
+--GO TO https://wemakethings.pythonanywhere.com/static/index.html fot the web append
+
+--EXECUTE these lines before a live coding set
+
+--custom function
+--FADE OUT functions
+
+byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
+
+byeByeWithGas 4
+
+--FLOOF TEXT functions
+
+newtype Text = Text String
+instance Show Text where show (Text str) = str
+prettyPut s = putStr . show $ Text s
+mae_love_u s = mapM_  prettyPut $ replicate 150 s
+
+--user param control
+
+let _slow = (cT 2 "slow")
+    _crusher = (cF 1 "crusher")
+    _cutoff = (cF 400 "cutoff")
+    _offset = (cT 0 "offset")
+
+--PANIC ONLY param control hard reset
+
+let _slow = 2
+    _crusher = 1
+    _cutoff = 400
+    _offset = 0
+
+--background noise
+
+d1 $ loopAt 4 $ s "crackle:3" #gain 0.85
+
+once $ s "crackle:3"
+
+-- *********************** LIVE TEST ***********************
+
+-- AUDIO TEST 1
+
+setcps (130/60/4)
+
+d2 $ stack [slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 0.95, sound "clubkick:4(5,8)" #gain 0.98 #room 0.1]
+
+d3 $ speed "1*2 2 2 4*3" # s "jungbass:6" #gain 0.9 # squiz _crusher
+
+d4 $ off 0.125 (# crush 3) $ n "0 1 2 3" # sound "bass" |+ n "2 5 6" #cutoff (range 0 _cutoff sine)
+
+d5 $ off _offset (# crush 3) $ sound "rave:3(5,8)" #gain 0.70
 
 d4 silence
 
--- *********************** xfade function
-:t xfade
-xfadeIn 1 8
-d1 $ s "bd*8?"
+byeByeWithGas 4
 
 
-d3 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+-- AUDIO TEST 2
 
-xfadeIn 1 8 $ every 2 (hurry 4) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+setcps (150/60/4)
 
-xfadeIn 1 8 $ s "808" # n (cF 1 "user4")
+d2 $ off _offset (#gain 0.8) $ loopAt 4 $ sound "theme:15" #gain 1
 
-p 1 $ sound "bd sd bd cp"
+d3 $ n "1 ~ ~ 1 ~ 1 ~ ~" # s "jungbass:2" #squiz _crusher
 
-p 2 $ sound "bd*4"
+d4 $ stack[n "[1*2](5,8)" # s "808oh:5", n "1 ~ ~ 1 ~ 1 ~ ~" # s "808bd:1" #gain 1.5, every 2 (sometimes (#speed _crusher)) $ n "16(10,16)" # s "cpu"]
 
-xfadeIn 2 5 $ sound "hc*4"
+d5 $ jux rev $ loopAt 3 $ splice 16 "4 6 ~ ~ 1 15 14 3 4 2! ~" $ sound "sr:4" #gain 0.95 #cutoff _cutoff
 
-xfadeIn "drums" 8 $ s "arpy*8" # n (run 8)
+byeByeWithGas 8
 
+d5 silence
 
--- *********************** haskell various tests
+-- AUDIO TEST 3
 
-addSix :: Num a => a -> a
+setcps(170/60/4)
 
-addSix x = x + 6
+d2 $ off _offset (#gain (range 0.7 1 sine)) $ loopAt 16 $ splice 16 "0..15" $ sound "theme:4"
 
-addSix 3
---returns 9
+d3 $ sometimes (hurry _slow) $ jux rev $ n "2 2 6 7" |<| " [0 0 0] . 4 5" # s "rave2" #room 0.2 #sz 0.6 #gain 0.60
 
+d4 $ sometimes (#crush _crusher) $ n "3 3 [4 3?] 5?0.1" # s "gab" #delay 0.3 #delayt 0.33 #delayfb 0.4 #cutoff (range 400 15000 saw) #gain 0.92
 
--- *********************** AUDIO TEST
+  -- $ n "6 6?*6"
+  -- $ n "6*4"
 
-xfadeIn 1 4 $ every 2 (hurry (cT 0 "user3")) $ loopAt (cT 0 "user4") $ chop 8 $ n "3 4" # sound "theme:15"
+d5 $ loopAt 4 $ splice 16 "0 2 6 9 12 7 14 2?" $ sound "sr:2" #cutoff _cutoff #gain 1
 
-d1 $ chunk 4 (hurry 2) $
-  stack [(fast "1 2 3 4" $ sound "lt mt ht ~"),
-         (sound "clap:4(3,8)" # speed 2),
-         sound "[kick:5(5,8), snare:3(7,16,3)]"
-        ]
+d3 silence
+
+d4 silence
+
+d5 silence
+
+once $ s "cazzate:3" -- la scoteca
+
+once $ s "cazzate:6" -- horn
+
+byeByeWithGas 8
+
+--mae_loves_u "See u soon, in person "
+
+-- **************************************************************************************

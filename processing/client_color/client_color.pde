@@ -54,7 +54,7 @@ void setup(){
   //background(200);
   //noStroke();
   
-  frameRate(25);
+  frameRate(15);
  
   
   oscP5 = new OscP5(this,9000);
@@ -189,10 +189,10 @@ void requestData(){
   msgs=client.get_msgs();
   if(msgs.length>cont){
     for(int i=cont;i<msgs.length;i++){
-      println(msgs[i]);
-      println(interaction.get(i).r);
-      println(interaction.get(i).g);
-      println(interaction.get(i).b);
+      //println(msgs[i]);
+      //println(interaction.get(i).r);
+      //println(interaction.get(i).g);
+      //println(interaction.get(i).b);
      
       //TEST BORG
       //currentInteraction=interaction.get(i);
@@ -202,7 +202,7 @@ void requestData(){
       TidalParameter map=mapMessage(currentInteraction);
       sendosc(map.param,map.value);
       println(map.param);
-      println(map.value);
+      //println(map.value);
       
       //TEST BORG
       createBorgs(currentInteraction);
@@ -296,7 +296,7 @@ void oscEvent(OscMessage theOscMessage) {
     println(theOscMessage.get(0));
     //incomingLine = (String)theOscMessage.get(0).stringValue();
     
-    println(incomingLine);
+    //println(incomingLine);
     if (!theOscMessage.get(0).stringValue().equals(":{") && !theOscMessage.get(0).stringValue().equals(":}") && !theOscMessage.get(0).stringValue().equals("")){
       //println("prima");
       codeBlock = codeBlock + "\n" + incomingLine;

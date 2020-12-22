@@ -18,12 +18,11 @@ o.sendMsg("/ctrl", "offset", 0.5); // from 0 to 1
 
 
 
-
 //for send OSC TO PYTHON SERVER
 p = NetAddr.new("192.168.1.67", 9000);
 
 
-// send cps (BPM) info to Processing
+// send cps (BPM) info to Processing [WIP]
 x = OSCFunc({ arg msg, time, addr, recvPort; p.sendMsg("/tidalcode", msg[2]); }, '/play2');
 // get the cps and sent it  to Processing
 

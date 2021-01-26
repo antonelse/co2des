@@ -116,7 +116,9 @@ function toggleValueSlider(button){
     } 
     else{
         isDown=true;
-        buttonPressed=button.path[0].classList[0];
+        //buttonPressed=button.path[0].classList[0];
+        buttonPressed=button;
+        console.log("buttonPressed");
         if(buttonPressed=="button-transparent1"){
             dimensions=int(getComputedStyle(document.querySelector(".squarecircle1")).borderRightWidth);
             traslations=80;
@@ -175,23 +177,35 @@ function toggleValueSlider(button){
     }
 }
 
-document.querySelector(".button-transparent1").onmousedown=toggleValueSlider;
-document.querySelector(".button-transparent1").onmouseup=toggleValueSlider;
-document.querySelector(".button-transparent2").onmousedown=toggleValueSlider;
-document.querySelector(".button-transparent2").onmouseup=toggleValueSlider;
-document.querySelector(".button-transparent3").onmousedown=toggleValueSlider;
-document.querySelector(".button-transparent3").onmouseup=toggleValueSlider;
-document.querySelector(".button-transparent4").onmousedown=toggleValueSlider;
-document.querySelector(".button-transparent4").onmouseup=toggleValueSlider;
+function toggle1(){
+    toggleValueSlider("button-transparent1");
+}
+function toggle2(){
+    toggleValueSlider("button-transparent2");
+}
+function toggle3(){
+    toggleValueSlider("button-transparent3");
+}
+function toggle4(){
+    toggleValueSlider("button-transparent4");
+}
 
-document.querySelector(".button-transparent1").ontouchstart=toggleValueSlider;
-document.querySelector(".button-transparent1").ontouchend=toggleValueSlider;
-document.querySelector(".button-transparent2").ontouchstart=toggleValueSlider;
-document.querySelector(".button-transparent2").ontouchend=toggleValueSlider;
-document.querySelector(".button-transparent3").ontouchstart=toggleValueSlider;
-document.querySelector(".button-transparent3").ontouchend=toggleValueSlider;
-document.querySelector(".button-transparent4").ontouchstart=toggleValueSlider;
-document.querySelector(".button-transparent4").ontouchend=toggleValueSlider;
+document.querySelector(".button-transparent1").onmousedown=toggle1;
+document.querySelector(".button-transparent1").onmouseup=toggle1;
+document.querySelector(".button-transparent2").onmousedown=toggle2;
+document.querySelector(".button-transparent2").onmouseup=toggle2;
+document.querySelector(".button-transparent3").onmousedown=toggle3;
+document.querySelector(".button-transparent3").onmouseup=toggle3;
+document.querySelector(".button-transparent4").onmousedown=toggle4;
+document.querySelector(".button-transparent4").onmouseup=toggle4;
 
+document.querySelector(".button-transparent1").ontouchstart=toggle1;
+document.querySelector(".button-transparent1").ontouchend=toggle1;
+document.querySelector(".button-transparent2").ontouchstart=toggle2;
+document.querySelector(".button-transparent2").ontouchend=toggle2;
+document.querySelector(".button-transparent3").ontouchstart=toggle3;
+document.querySelector(".button-transparent3").ontouchend=toggle3;
+document.querySelector(".button-transparent4").ontouchstart=toggle4;
+document.querySelector(".button-transparent4").ontouchend=toggle4;
 
 

@@ -3,7 +3,7 @@ function setup(){
     frameRate(20);
 }
 function draw(){
-    if(isDawn){
+    if(isDown){
         if(buttonPressed=="button-transparent1"){
             buttons=document.querySelectorAll(".squarecircle1");
 

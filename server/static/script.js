@@ -4,6 +4,7 @@ let g = null;
 let b = null;
 
 let username;
+let timerValue;
 
 let sliderValue = 0;
 
@@ -17,7 +18,35 @@ function setUsername(){
     }
 }
 
-window.onload = setUsername;
+window.onload = function(){
+    setUsername();
+    showTimer();
+}
+
+function showTimer(){
+    timerValue=parseInt(document.querySelector(".timer-container").innerHTML);
+    console.log("initial timerValue: "+timerValue);
+    if(username!=null){
+        document.querySelector(".timer-container").style.setProperty("display","flex");
+        setInterval(countdown,1000);
+        console.log("timerValue: "+timerValue);
+        console.log("i: "+i);
+    }
+}
+
+function countdown(){
+    timerValue--;
+    if(timerValue==0){
+        clearInterval();
+        hideTimer();
+        return;
+    }
+    document.querySelector(".timer-container").innerHTML=timerValue;
+}
+
+function hideTimer(){
+    document.querySelector(".timer-container").style.setProperty("display","none");
+}
 
 function sendMessage(){
     scaling=1;

@@ -66,7 +66,7 @@ void setup(){
   msgN= msgs.length;
   msgI=msgN-1;  
   println("Found ", msgN, "new messages");
-
+  client.delete_all();
   
   reload_eta = TIME_RELOAD*frameRate;
   /*TIME_RELOAD*=frameRate; // period to try to reaload
@@ -187,7 +187,8 @@ TidalParameter mapMessage(Interaction inter){
 void requestData(){
   counter=0;
   msgs=client.get_msgs();
-  if(msgs.length>cont){
+  client.delete_all();
+  if(msgs.length>0){
     for(int i=cont;i<msgs.length;i++){
       //println(msgs[i]);
       //println(interaction.get(i).r);

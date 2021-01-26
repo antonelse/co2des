@@ -25,8 +25,8 @@ def send_msg(request):
 
 def delete_all(request):
     texts=Text.objects.all()
-    response = redirect("http://wemakethings.pythonanywhere.com/static/index.html")
-    response.mimetype = 'application/json'
     for text in texts:
         text.delete()
-    return redirect("http://wemakethings.pythonanywhere.com/static/index.html")
+    #response = redirect("http://wemakethings.pythonanywhere.com/static/index.html")
+    #response.mimetype = 'application/json'
+    #return redirect("http://wemakethings.pythonanywhere.com/static/index.html")

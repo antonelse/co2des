@@ -3,13 +3,18 @@ import http.requests.*;
 class API_Client{
   
   GetRequest req;
+  GetRequest del;
+
   
   //PostRequest post;
   String get_msg_api="";
+  String delete_msg_api="";
   // ---- CONSTRUCTOR ----
   API_Client(String mainUrl){
     this.get_msg_api=mainUrl+"/get_msgs";
-    this.req = new GetRequest(this.get_msg_api);    
+    this.delete_msg_api=mainUrl+"/delete_all";
+    this.req = new GetRequest(this.get_msg_api); 
+    this.del = new GetRequest(this.delete_msg_api);   
   }
   
   // ---- METHODS ----
@@ -24,6 +29,10 @@ class API_Client{
       interaction.add(extractData(msgs[t]));
     } 
     return msgs;
+  }
+
+  void delete_all(){
+    this.del.send();
   }
   
   Interaction extractData(String msg){

@@ -35,14 +35,14 @@ function sendMessage(){
             text: "select a color",
         });
     }*/ else {
-        username = name;
-        message = name + "-" + r + "-" + g + "-" + b + "-" + sliderValue;
-        window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
-        //console.log("Username: " + name + ", red: " + r + ", green: " + g + ", blue: " + b + ", slider value: " + sliderValue);
-        //console.log(message);
+        //blnm
+            if(r!=null||g!=null||b!=null){
+                username = name;
+                message = name + "-" + r + "-" + g + "-" + b + "-" + sliderValue;
+                window.location.href = "http://wemakethings.pythonanywhere.com/send_msg?text="+message;
+            }
+        }
     }
-    
-}
 
 function getMessages(){
     window.location.href = "http://wemakethings.pythonanywhere.com/get_msgs";

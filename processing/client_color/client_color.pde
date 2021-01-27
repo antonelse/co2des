@@ -239,6 +239,32 @@ void setDefaultState(){
   defaultParamSent = true;
 }
 
+boolean canBeParent(Borg parent1, Borg parent2){
+  if (parent1.username != parent2.username){
+  float diff = abs(parent1.value - parent2.value);
+  float prob = map(diff, 0, 1, 0.9, 0);
+    if (random(1)<prob) return true;
+  }
+  return false;
+}
+
+void generateChild(Borg parent1, Borg parent2){
+  float x_child = (parent1.x + parent2.x)/2;
+  float y_child = (parent1.y + parent2.y)/2;
+  color color_child = parent1.c;
+  String username_child = parent1.username + " ~ " + parent2.username;
+  float value_child = (parent1.value + parent2.value)/2;
+  
+  Borg child = new Borg(x_child, y_child, color_child, username_child, value_child);
+  
+  //AGGIUNGERE MUTAZIONE (per generazione value e username diversi)
+  //aspetto diverso
+  //messaggio OSC (only figlio)
+  
+  borgs.add(child);
+}
+
+
 void checkCollisions() {
   //ArrayList <Borg> toDie = new ArrayList();
   //ArrayList <Borg> toCreate = new ArrayList();
@@ -259,6 +285,8 @@ void checkCollisions() {
         //println("Line color: " + c);
         line(p.x, p.y, q.x, q.y);
 
+        if(canBeParent(p,q)) generateChild(p,q);
+        
         /*float sim = p.vx * q.vx + p.vy * q.vy;
 
         if (sim>1) {
@@ -286,7 +314,7 @@ void createBorgs(Interaction inter){
     float x = random(-1, 1)*random(10, r) + center_x;
     float y = random(-1, 1)*random(10, r) + center_y;
     
-    borgs.add(new Borg(x, y, c));
+    borgs.add(new Borg(x, y, c, inter.username, inter.value));
     defaultParamSent = false;
   }
 }

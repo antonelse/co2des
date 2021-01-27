@@ -2,16 +2,20 @@ class Borg {
   float x, y, vx, vy;
   color c;
   float lifetime;
+  String username;
+  float value;
 
   public Borg() {
   }
-  public Borg(float x, float y, color c) {
+  public Borg(float x, float y, color c, String username, float value) {
     this.x = x;
     this.y = y;
     this.vx = random(-1, 1);
     this.vy = random(-1, 1);
     this.c = c;
     this.lifetime = random(5, 10);
+    this.username = username;
+    this.value = value;
   }
   void update() {
     this.vx += random(-0.01, 0.01);

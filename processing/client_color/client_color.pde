@@ -17,20 +17,23 @@ int counter=0;
 int msgN=0;
 int msgI=0;
 
-int cont=0;
+float mutationProbability = 0.1;
+
+//int cont=0;
 ArrayList <Interaction> interaction=new ArrayList<Interaction>();
 
 /*VISUAL VARIABLES*/
 ArrayList <Borg> borgs;
-int newBorgQuantity = 10;
+int newBorgQuantity = 3;
 int borgsDistance;
 
 int codeScreenHeight = 300;
 
-/*TEXT VARIABLES*/ //NOT WORKING
+/*TEXT VARIABLES*/ 
 String codeBlock;
 String incomingLine;
 String codeToShow; 
+color newChildColor;
 
 Interaction globalCurrentInteraction;
 
@@ -135,7 +138,8 @@ void draw(){
     oldTestoInDraw = testoInDraw;
   }
    
-  fill(255);
+  
+  fill(newChildColor);
   PFont myFont = createFont("CourierNewPSMT", 25);
   textFont(myFont);
   text(testoInDraw, 10, height-codeScreenHeight + 30, width-10, codeScreenHeight/2);
@@ -153,8 +157,6 @@ void draw(){
   text(codeInDraw, 10, height-codeScreenHeight/2 - 30, width-10, codeScreenHeight/2);
   
 }
-
-
 
 
 void sendosc(String param, float value){
@@ -189,7 +191,7 @@ void requestData(){
   msgs=client.get_msgs();
   client.delete_all();
   if(msgs.length>0){
-    for(int i=cont;i<msgs.length;i++){
+    for(int i=0;i<msgs.length;i++){
       //println(msgs[i]);
       //println(interaction.get(i).r);
       //println(interaction.get(i).g);
@@ -200,19 +202,19 @@ void requestData(){
       Interaction currentInteraction=interaction.get(i);
       globalCurrentInteraction=interaction.get(i);
       
-      TidalParameter map=mapMessage(currentInteraction);
-      sendosc(map.param,map.value);
-      println(map.param);
+      //TidalParameter map=mapMessage(currentInteraction);
+      //sendosc(map.param,map.value);
+      //println(map.param);
       //println(map.value);
       
       //TEST BORG
       createBorgs(currentInteraction);
       //creation = true;
       //showText(currentInteraction.username);
-      testoInDraw = currentInteraction.username + " ::  _" + map.param + " " + map.value;
+      //testoInDraw = currentInteraction.username + " ::  _" + map.param + " " + map.value;
     
     }
-    cont=msgs.length;
+    //cont=msgs.length;
   }
   //println(globalCurrentInteraction.username);
   //println(globalCurrentInteraction.username instanceof String);
@@ -240,9 +242,9 @@ void setDefaultState(){
 }
 
 boolean canBeParent(Borg parent1, Borg parent2){
-  if (parent1.username != parent2.username){
-  float diff = abs(parent1.value - parent2.value);
-  float prob = map(diff, 0, 1, 0.9, 0);
+  if (!parent1.username.equals(parent2.username) && !parent1.username.contains(parent2.username) && !parent2.username.contains(parent1.username)){
+  float diff = - abs(parent1.value - parent2.value);
+  float prob = map(diff, -1, 0, 0, 0.01);
     if (random(1)<prob) return true;
   }
   return false;
@@ -255,13 +257,33 @@ void generateChild(Borg parent1, Borg parent2){
   String username_child = parent1.username + " ~ " + parent2.username;
   float value_child = (parent1.value + parent2.value)/2;
   
+  newChildColor = color_child; //set the text color
+  
+  //Mutation Process
+  if(random(1)<mutationProbability){
+    value_child = random(1);
+    println("MutazioneGENETICA");
+  }
+  
   Borg child = new Borg(x_child, y_child, color_child, username_child, value_child);
   
-  //AGGIUNGERE MUTAZIONE (per generazione value e username diversi)
-  //aspetto diverso
-  //messaggio OSC (only figlio)
+  println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
+  stroke(color_child);
+  circle(x_child, y_child, 25);
   
   borgs.add(child);
+  
+  //color getter, right shift & bit mask
+  int child_red = color_child >> 16 & 0xFF;
+  int child_green = color_child >> 8 & 0xFF;
+  int child_blue = color_child & 0xFF; // same as >> 0
+  
+  Interaction currentInteraction = new Interaction(username_child, child_red, child_green, child_blue, value_child);
+  
+  TidalParameter map=mapMessage(currentInteraction);
+  sendosc(map.param,map.value);
+  println("messaggio OSC inviato" + map.value);
+  testoInDraw = currentInteraction.username + " ::  _" + map.param + " " + map.value;
 }
 
 
@@ -279,13 +301,13 @@ void checkCollisions() {
       else if(size<=300) borgsDistance = 100;
       else borgsDistance = 75;
       
-      if (pq.mag()<borgsDistance && p.c == q.c) {
+      if (pq.mag()<=borgsDistance && p.c == q.c) {
         
         stroke(p.c);
         //println("Line color: " + c);
         line(p.x, p.y, q.x, q.y);
-
-        if(canBeParent(p,q)) generateChild(p,q);
+        
+        if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2) generateChild(p,q);
         
         /*float sim = p.vx * q.vx + p.vy * q.vy;
 

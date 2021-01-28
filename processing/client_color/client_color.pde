@@ -51,7 +51,7 @@ String oldCodeInDraw = "";
 
 
 void setup(){
-  size(1200, 1080);
+  size(1200, 1000);
   //for fullscreen
   //fullScreen();
   //background(200);
@@ -142,19 +142,19 @@ void draw(){
   fill(newChildColor);
   PFont myFont = createFont("CourierNewPSMT", 25);
   textFont(myFont);
-  text(testoInDraw, 10, height-codeScreenHeight + 30, width-10, codeScreenHeight/2);
+  text(testoInDraw, 10, height-codeScreenHeight + 20, width - 350, codeScreenHeight/2 - 50);
   
   
   //PROVA CODE IN DRAW
   if (oldCodeInDraw != codeInDraw){
     fill(0);
     noStroke();
-    rect(0, height-codeScreenHeight/2 - 30, width, codeScreenHeight/2);
+    rect(0, height-codeScreenHeight/2 - 50, width, codeScreenHeight/2 + 50);
     oldCodeInDraw = codeInDraw;
   }
   //AFXylem 
   fill(255);
-  text(codeInDraw, 10, height-codeScreenHeight/2 - 30, width-10, codeScreenHeight/2);
+  text(codeInDraw, 10, height-codeScreenHeight/2 - 50, width - 350, codeScreenHeight/2 + 50);
   
 }
 
@@ -345,14 +345,14 @@ void oscEvent(OscMessage theOscMessage) {
   println("message arrived");
   if (theOscMessage.checkAddrPattern("/tidalcode")) {
     println(theOscMessage.get(0));
-    //incomingLine = (String)theOscMessage.get(0).stringValue();
+    incomingLine = (String)theOscMessage.get(0).stringValue();
     
     //println(incomingLine);
     if (!theOscMessage.get(0).stringValue().equals(":{") && !theOscMessage.get(0).stringValue().equals(":}") && !theOscMessage.get(0).stringValue().equals("")){
       //println("prima");
-      codeBlock = codeBlock + "\n" + incomingLine;
-      //codeBlock.concat("\n" + incomingLine);
-      //println("dopo");
+      codeBlock = codeBlock + " " + incomingLine;
+      //codeBlock.concat("\n" + incomingLine); //not working
+      println(codeBlock);
       
       //fill(0);
       //rect(0, height-codeScreenHeight, width, codeScreenHeight);
@@ -360,9 +360,15 @@ void oscEvent(OscMessage theOscMessage) {
       //textSize(20);
       //text(theOscMessage.get(0).stringValue(), 10, height-codeScreenHeight, width-10, codeScreenHeight);
       
-      
-      codeInDraw = theOscMessage.get(0).stringValue();
+      //codeInDraw = theOscMessage.get(0).stringValue(); //"works"
+        
     }
+    
+     if(theOscMessage.get(0).stringValue().equals(":}")){
+       codeInDraw = codeBlock.replaceAll("\t", " ");
+       codeBlock = "";
+     
+     }
     
    
 

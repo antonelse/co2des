@@ -232,7 +232,7 @@ body{
 }
 
 .container-disco{
-    position:absolute;
+    position:relative;
     width:140px;
     height:140px;
     display:block;
@@ -242,10 +242,10 @@ body{
 }
 
 .container-disco-transparent{
-    position:absolute;
+    position:relative;
     display:inline-flex;
     top:30%;
-    right:50%;
+    /*right:50%;*/
     width:280px;
     height:280px;
     transform: translateX(50%);

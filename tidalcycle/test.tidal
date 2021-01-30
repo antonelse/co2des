@@ -1,15 +1,16 @@
--- *********************** user defined functions ***********************
+-- *********************** user defined functions ***********************************
 
 -- FADE OUT *****
+-- The mapM_ function takes each number in the list [1 .. 16] and gives it to (\i -> xfadeIn i t silence). The \ is called 'lambda' and puts the number in the i variable. Then that gets used in the xfadeIn.
 byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
 byeByeWithGas 4
---The mapM_ function takes each number in the list [1 .. 16] and gives it to (\i -> xfadeIn i t silence). The \ is called 'lambda' and puts the number in the i variable. Then that gets used in the xfadeIn.
+
 
 -- FADE IN *****
 -- welcomeWithGas t = mapM_ (\i -> fadeOutFrom i t silence) [1 .. 16]
 
--- FLOOD TEXT *****
 
+-- FLOOD TEXT *****
 newtype Text = Text String
 instance Show Text where show (Text str) = str
 prettyPut s = putStr . show $ Text s
@@ -17,64 +18,57 @@ cassa s = mapM_  prettyPut $ replicate 150 s
 
 cassa "DJ ONEIR"
 
--- *********************** various Haskell tips ***********************
 
-addSix :: Num a => a -> a
+-- RANGE VALUE MAPPING *****
+-- starting point: (range (-2) 2 $ cF 1 "_cutoff")
+rangeMapClip x = min x $ max (-x) $ range (-x) x $ cF 1 "cutoff" --ranging clipping
+rangeMap x y = range (-x) y $ cF 1 "cutoff" --ranging min max
 
+d1 $ sound "bd" # speed (rangeMap (-2) 3)
+
+
+-- *********************** various Haskell tips ***********************************
+
+-- addSix :: Num a => a -> a ,tipologia input output
 addSix x = x + 6
-
 addSix 3
 --returns 9
 
 ----------
 
+-- execute multiple statements
 let
   a = 1.5
   b = floor a
   c = fromIntegral b
 
--- *********************** comment ***********************
 
---let _USER1 = (cT 2 "slow")
---let _pattern_1 =
-
---VARIABLE VALUE RANGE TEST !!!!!!
-
-(range (-2) 2 $ cF 1 "_cutoff")
-
-d1 $ sound "bd" # speed (range (-2) 2 $ cF 1 "_cutoff")
-
--- *********************** useful command ***********************
+-- *********************** useful command ***********************************
 
 tidal_version
 
-:t --command for understand a function
+:t -- command for understand I/O of a function
 
 cmd + "dot" -- alternative way for hush
 
-hush
+hush -- stop all
 
--- xxx bpm, with 4 beats per cycle
-setcps (160/60/4)
+setcps (160/60/4) -- xxx bpm, with 4 beats per cycle
 
---metronome
-d1 $ n "2 1 1 1" # s "hi" #gain 0.85
+d1 $ n "2 1 1 1" # s "hi" #gain 0.85 -- metronome
 
 
--- *********************** OSC message examples ***********************
+-- *********************** OSC message examples ***********************************
 /ctrl sf param 0.4
 /ctrl ss code msgn
 --the first value is a (s)tring and the second value is a(f)loat
+
+(cF 0.7 "filter") --The first parameter (0.7) is the default value, for when tidal hasn't received that control.
 --cF is what you use for floating point controls. The second 0 or 1, for when tidal hasn't received that control yet.
 --cS for strings
 --cI for integers
 --cT for time values (for using e.g. as the first parameter of fast/slow)
 --cR for ratios
-
-(cF 0.7 "filter")
---The first parameter (0.7) is the default value, for when tidal hasn't received that control.
-
-
 
 --OSC for evaluating Atom cells
 --Ip: 127.0.0.1 / Port: 3333
@@ -88,35 +82,28 @@ d1 $ n "2 1 1 1" # s "hi" #gain 0.85
 --row
 --column
 
-
-
 -- **************************************************************************************
 
 -- *********************** PRE SETTINGS ***********************
 
 --UPDATE the repl.js ATOM file with the Processing IP address
 --OPEN loopback app, join SuperCollider to SoundFlower
---DELETE the queue at https://wemakethings.pythonanywhere.com/delete_all
---GO TO https://wemakethings.pythonanywhere.com/static/index.html fot the web append
-
---EXECUTE these lines before a live coding set, from [3] to [17]
+--GO TO https://wemakethings.pythonanywhere.com/static/index.html fot the web app
+--EXECUTE some lines (above)
 
 --user param control
-
 let _slow = (cT 2 "slow")
     _crusher = (cF 1 "crusher")
     _cutoff = (cF 400 "cutoff")
     _offset = (cT 0 "offset")
 
 --PANIC ONLY param control hard reset
-
 let _slow = 2
     _crusher = 1
     _cutoff = 400
     _offset = 0
 
 --background noise
-
 d1 $ loopAt 4 $ s "crackle:3" #gain 0.85
 
 once $ s "crackle:3"
@@ -127,13 +114,20 @@ once $ s "crackle:3"
 
 setcps (130/60/4)
 
-d2 $ stack [slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 0.95, sound "clubkick:4(5,8)" #gain 0.98 #room 0.1]
+d2 $ stack [
+    slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 0.95,
+    sound "clubkick:4(5,8)" #gain 0.98 #room 0.1
+    ]
 
-d3 $ speed "1*2 2 2 4*3" # s "jungbass:6" #gain 0.9 # squiz _crusher
+d3 $ speed "1*2 2 2 4*3" # s "jungbass:6"
+                        #gain 0.9
+                        # squiz _crusher
 
-d4 $ off 0.125 (# crush 3) $ n "0 1 2 3" # sound "bass" |+ n "2 5 6" #cutoff (range 0 _cutoff sine)
+d4 $ off 0.125 (# crush 3)
+    $ n "0 1 2 3" # sound "bass" |+ n "2 5 6" #cutoff (range 0 _cutoff sine)
 
-d5 $ off _offset (# crush 3) $ sound "rave:3(5,8)" #gain 0.70
+d5 $ off _offset (# crush 3)
+    $ sound "rave:3(5,8)" #gain 0.70
 
 d4 silence
 
@@ -162,7 +156,7 @@ setcps(170/60/4)
 
 d2 $ off _offset (#gain (range 0.7 1 sine)) $ loopAt 16 $ splice 16 "0..15" $ sound "theme:4"
 
-d3 $ sometimes (hurry _slow) $ jux rev $ n "2 2 6 7" |<| " [0 0 0] . 4 5" # s "rave2" #room 0.2 #sz 0.6 #gain 0.60
+d3 $ sometimes (hurry _slow . (#squiz 4)) $ jux rev $ n "2 2 6 7" |<| " [0 0 0] . 4 5" # s "rave2" #room 0.2 #sz 0.6 #gain 0.60
 
 d4 $ sometimes (#crush _crusher) $ n "3 3 [4 3?] 5?0.1" # s "gab" #delay 0.3 #delayt 0.33 #delayfb 0.4 #cutoff (range 400 15000 saw) #gain 0.92
 
@@ -182,10 +176,6 @@ once $ s "cazzate:3" -- la scoteca
 once $ s "cazzate:6" -- horn
 
 byeByeWithGas 8
-
---mae_loves_u "See u soon, in person "
-
--- **************************************************************************************
 
 -- *********************** Additional Pattern ***********************
 
@@ -210,3 +200,37 @@ d1 $ n "[c2 e3 g4 c5 c4 c3]*4/3" # s "superchip" # sustain "0.1" # pitch2 "[1.2 
 d2 $ every 4 (echo (negate 3/32)) $ n "c5*4" # s "supernoise" # accelerate "-2" # speed "1" # sustain "0.1 ! ! 1" # voice "0.0"
 
 d1 $ s "supernoise/8" # midinote ((irand 10) + 30) # sustain "8" # accelerate "0.5" # voice "0.5" # pitch1 "0.15" # slide "-0.5" # resonance "0.7" # attack "1" # release "20" # room "0.9" # size "0.9" # orbit "1"
+
+
+-- **************************************************************************************
+-- **************************************************************************************
+-- **************************************************************************************
+
+
+-- *********************** function test ***********************
+
+-- shift ~>
+
+
+
+
+-- iter
+
+
+
+
+-- step
+
+
+
+-- stutter
+
+d1 $ stutter 4 (1/16) $ s "bd cp"
+
+
+
+-- ply
+
+
+
+--stut

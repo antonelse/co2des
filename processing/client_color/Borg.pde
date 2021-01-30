@@ -26,7 +26,7 @@ class Borg {
     //this.x = (this.x + width ) % width;
     //this.y = (this.y + height) % height;
 
-    if(this.x<0 || this.x>width){
+    if(this.x<0 || this.x>width-chatWidth){
       this.vx = -this.vx;
     }
     if(this.y<0 || this.y>height-codeScreenHeight - 1){

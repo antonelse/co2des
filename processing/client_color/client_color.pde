@@ -35,6 +35,16 @@ String incomingLine;
 String codeToShow; 
 color newChildColor;
 
+/*CHAT VARIABLES*/
+int chatWidth = 350;
+ArrayList <String> userMessages;
+boolean newMessageArrived = false;
+String chat = "";
+int chatLength = 0;
+int chatLimit = 7;
+float chatYposition = 995;
+float chatUpShift = 48.45;
+
 Interaction globalCurrentInteraction;
 
 boolean firstBorgRemoved = false;
@@ -51,7 +61,7 @@ String oldCodeInDraw = "";
 
 
 void setup(){
-  size(1200, 1000);
+  size(1550, 1000);
   //for fullscreen
   //fullScreen();
   //background(200);
@@ -80,13 +90,21 @@ void setup(){
   //VISUAL
   borgs = new ArrayList();
   
+  //CodeScreen
   fill(0);
-  rect(0, height-codeScreenHeight, width, codeScreenHeight);
+  rect(0, height-codeScreenHeight, width - chatWidth, codeScreenHeight);
+  
+  //ChatScreen
+  rect(width-chatWidth, 0, chatWidth, height);
+  
   
   //initialize text variables
   codeBlock = "";
   incomingLine = "";
   codeToShow = "";
+  
+  //String[] fontList = PFont.list();
+  //printArray(fontList);
 }
 
 void draw(){
@@ -100,7 +118,7 @@ void draw(){
 
   //VISUAL
   fill(25, 14, 51, 10);
-  rect(0, 0, width, height - codeScreenHeight);
+  rect(0, 0, width-chatWidth, height - codeScreenHeight);
 
   int borgLength = borgs.size();
 
@@ -134,27 +152,46 @@ void draw(){
   if (oldTestoInDraw != testoInDraw){
     fill(0);
     noStroke();
-    rect(0, height-codeScreenHeight, width, codeScreenHeight/2);
+    rect(0, height-codeScreenHeight, width - chatWidth, codeScreenHeight/2);
     oldTestoInDraw = testoInDraw;
   }
    
   
+  
+  
   fill(newChildColor);
-  PFont myFont = createFont("CourierNewPSMT", 25);
+  PFont myFont = createFont("Courier New", 25);
   textFont(myFont);
-  text(testoInDraw, 10, height-codeScreenHeight + 20, width - 350, codeScreenHeight/2 - 50);
+  text(testoInDraw, 10, height-codeScreenHeight + 20, width - chatWidth, codeScreenHeight/2 - 50);
   
   
-  //PROVA CODE IN DRAW
   if (oldCodeInDraw != codeInDraw){
     fill(0);
     noStroke();
-    rect(0, height-codeScreenHeight/2 - 50, width, codeScreenHeight/2 + 50);
+    rect(0, height-codeScreenHeight/2 - 50, width - chatWidth, codeScreenHeight/2 + 50);
     oldCodeInDraw = codeInDraw;
   }
   //AFXylem 
   fill(255);
-  text(codeInDraw, 10, height-codeScreenHeight/2 - 50, width - 350, codeScreenHeight/2 + 50);
+  text(codeInDraw, 10, height-codeScreenHeight/2 - 50, width - chatWidth, codeScreenHeight/2 + 50);
+
+  PFont myFontChat = createFont("Courier New", 16);
+  textFont(myFontChat);
+
+  if(newMessageArrived){
+    fill(0);
+    noStroke();
+    rect(width-chatWidth, 0, chatWidth, height);
+    
+    fill(250);
+    text(chat, width - chatWidth + 10, chatYposition, 330, chatLength);
+    newMessageArrived = false;
+    //chat = "";
+  }
+  
+  stroke(80);
+  strokeWeight(2);
+  line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   
 }
 
@@ -191,7 +228,9 @@ void requestData(){
   msgs=client.get_msgs();
   client.delete_all();
   if(msgs.length>0){
+    newMessageArrived = true;
     for(int i=0;i<msgs.length;i++){
+      
       //println(msgs[i]);
       //println(interaction.get(i).r);
       //println(interaction.get(i).g);
@@ -202,7 +241,7 @@ void requestData(){
       Interaction currentInteraction=interaction.get(i);
       globalCurrentInteraction=interaction.get(i);
       
-      //TidalParameter map=mapMessage(currentInteraction);
+      TidalParameter map=mapMessage(currentInteraction);
       //sendosc(map.param,map.value);
       //println(map.param);
       //println(map.value);
@@ -211,10 +250,39 @@ void requestData(){
       createBorgs(currentInteraction);
       //creation = true;
       //showText(currentInteraction.username);
-      //testoInDraw = currentInteraction.username + " ::  _" + map.param + " " + map.value;
-    
+      
+      chat = chat + " --> " + currentInteraction.username + "\n    :: _" + map.param + " " + map.value + "\n";
+
+      
+      //userMessages.add(" --> " + currentInteraction.username + "\n    :: _" + map.param + " " + map.value + "\n");
+      //println("Nuovo messaggio aggiunto! Dimensione: " + userMessages.size()); 
+      
     }
     //cont=msgs.length;
+    chatYposition = chatYposition - (chatUpShift * msgs.length);
+    chatLength += chatUpShift * msgs.length + 20;
+    println(msgs.length + " nuovi messaggi");
+    println("Posizione y chat: " + chatYposition);
+    //println ("Current chat: " + chat);
+    
+    
+    /*
+    if(userMessages.size() < chatLimit){
+      chatYposition = chatYposition - (chatUpShift * msgs.length);
+        for(int i=0; i<userMessages.size(); i++){
+          chat += userMessages.get(i); 
+          println("dentro l'if");
+          println ("Current chat: " + chat);
+        } 
+    } else {
+      chatYposition = height - codeScreenHeight + 20;
+        for(int j = userMessages.size() - chatLimit; j<userMessages.size(); j++){
+          chat += userMessages.get(j);
+          println("dentro l'else");
+          println ("Current chat: " + chat);
+        }
+    }
+    */
   }
   //println(globalCurrentInteraction.username);
   //println(globalCurrentInteraction.username instanceof String);
@@ -326,7 +394,7 @@ void checkCollisions() {
 
 
 void createBorgs(Interaction inter){
-  float center_x = random(width);
+  float center_x = random(width - chatWidth - 50);
   float center_y = random(height - codeScreenHeight - 50);
   float r = map(inter.value, 0, 1, 1, 50);
   

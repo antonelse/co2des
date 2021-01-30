@@ -195,7 +195,7 @@ void draw(){
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
-  println("Numero Borgs:  -->" + borgs.size());
+  //println("Numero Borgs:  -->" + borgs.size());
 }
 
 
@@ -206,8 +206,17 @@ void sendosc(String param, float value){
   oscP5.send(msg,remote);
 }
 
+float discretizeNoOdd(float val){ 
+  val = floor(val);
+  if(val%2 != 0) val++;
+  return val;
+}
+
+
 TidalParameter mapMessage(Interaction inter){
     TidalParameter map;
+    
+    //schermata 1
     if(inter.r==245 && inter.g==203 && inter.b==54) {
       map=new TidalParameter("slow",map(inter.value, 0, 1, 2, 6));
       return map;
@@ -220,10 +229,33 @@ TidalParameter mapMessage(Interaction inter){
       map=new TidalParameter("cutoff",map(inter.value, 0, 1, 400, 15000));
       return map;
     }
-    else{
+    else if(inter.r==6 && inter.g==48 && inter.b==189){
       map=new TidalParameter("offset",inter.value);
       return map;
+    
+    //schermata 2
+    }else if(inter.r==246 && inter.g==203 && inter.b==54) {
+      map=new TidalParameter("param1",map(inter.value, 0, 1, 0, 10));
+      map.value = discretizeNoOdd(map.value);
+      return map;
     }
+    else if(inter.r==11 && inter.g==209 && inter.b==183){
+      map=new TidalParameter("param2",map(inter.value, 0 ,1 , 0, 10));
+      map.value = discretizeNoOdd(map.value);
+      return map;
+    }
+    else if(inter.r==191 && inter.g==9 && inter.b==206) {
+      map=new TidalParameter("param3",map(inter.value, 0, 1, 0, 10));
+      map.value = discretizeNoOdd(map.value);
+      return map;
+    }else{
+      map=new TidalParameter("param4",inter.value);
+      map.value = discretizeNoOdd(map.value);
+      return map;
+    }
+   
+  
+    
 }
 
 void requestData(){
@@ -305,10 +337,16 @@ void showText(String textToShow){
 
 //DEFAULT PARAM RESET
 void setDefaultState(){
+  //schermata 1
   sendosc("slow",2);
   sendosc("crusher",1);
   sendosc("cutoff",400);
   sendosc("offset",0);
+  //schermata 2 DA SETTARE !!!!
+  sendosc("param1",1);
+  sendosc("param2",1);
+  sendosc("param3",1);
+  sendosc("param4",1);
   defaultParamSent = true;
 }
 

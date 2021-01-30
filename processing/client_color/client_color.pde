@@ -3,7 +3,7 @@ import netP5.*;
 
 /* PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
-float TIME_RELOAD=1;
+float TIME_RELOAD=0.5;
 NetAddress remote;
 OscP5 oscP5;
 
@@ -11,12 +11,10 @@ OscP5 oscP5;
 API_Client client;
 float reload_eta=0;
 String[] msgs;
-
 int counter=0;
-
+int overpopulationLimit=200;
 int msgN=0;
 int msgI=0;
-
 float mutationProbability = 0.1;
 
 //int cont=0;
@@ -112,9 +110,9 @@ void draw(){
   if(counter == reload_eta){
     thread("requestData"); //Executed on a different thread in order not to stop the animation
   }
+  counter++;
   
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
-
 
   //VISUAL
   fill(25, 14, 51, 10);
@@ -122,17 +120,23 @@ void draw(){
 
   int borgLength = borgs.size();
 
-  for (int i = 0; i < borgLength; i++) {
+  for (int i = 0; i < borgLength; i++) {  
     if (i < borgs.size()){
-
       Borg b = borgs.get(i);
+      
+      if(borgs.size()>overpopulationLimit){ 
+      b.lifetime-=random(0,5);
+      }
+      
       b.update();
+      
       if (b.lifetime<=0){
         borgs.remove(b);
         firstBorgRemoved = true;
       }
     }
   }
+  
   checkCollisions();
   
   //TEST BORG
@@ -146,7 +150,6 @@ void draw(){
   /*for (Borg b : borgs) {
     b.draw();
   }*/
-  counter++;
   
   //PROVA TEXT IN DRAW 
   if (oldTestoInDraw != testoInDraw){
@@ -156,8 +159,6 @@ void draw(){
     oldTestoInDraw = testoInDraw;
   }
    
-  
-  
   
   fill(newChildColor);
   PFont myFont = createFont("Courier New", 25);
@@ -192,7 +193,9 @@ void draw(){
   stroke(80);
   strokeWeight(2);
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
+  strokeWeight(1);
   
+  println("Numero Borgs:  -->" + borgs.size());
 }
 
 
@@ -322,7 +325,7 @@ void generateChild(Borg parent1, Borg parent2){
   float x_child = (parent1.x + parent2.x)/2;
   float y_child = (parent1.y + parent2.y)/2;
   color color_child = parent1.c;
-  String username_child = parent1.username + " ~ " + parent2.username;
+  String username_child = parent1.username + " § " + parent2.username;
   float value_child = (parent1.value + parent2.value)/2;
   
   newChildColor = color_child; //set the text color
@@ -337,7 +340,9 @@ void generateChild(Borg parent1, Borg parent2){
   
   println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
   stroke(color_child);
-  circle(x_child, y_child, 25);
+  strokeWeight(3);
+  circle(x_child, y_child, 30);
+  strokeWeight(1);
   
   borgs.add(child);
   
@@ -375,7 +380,7 @@ void checkCollisions() {
         //println("Line color: " + c);
         line(p.x, p.y, q.x, q.y);
         
-        if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2) generateChild(p,q);
+        if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2 && borgs.size()<overpopulationLimit) generateChild(p,q);
         
         /*float sim = p.vx * q.vx + p.vy * q.vy;
 

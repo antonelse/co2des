@@ -1,5 +1,6 @@
 import oscP5.*;
 import netP5.*; 
+import processing.sound.*;
 
 /* PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
@@ -57,6 +58,10 @@ String oldCodeInDraw = "";
 //boolean creation = false;
 //Interaction currentInteraction;
 
+/*AUDIO VARIABLES*/
+AudioIn in;
+Amplitude amp;
+
 
 void setup(){
   size(1550, 1000);
@@ -103,6 +108,12 @@ void setup(){
   
   //String[] fontList = PFont.list();
   //printArray(fontList);
+  
+  //AUDIO
+  amp = new Amplitude(this);
+  in = new AudioIn(this, 0);
+  in.start();
+  amp.input(in);
 }
 
 void draw(){
@@ -195,7 +206,11 @@ void draw(){
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
+  println("VOLO PERARIA: >>> " + amp.analyze());
+  
   //println("Numero Borgs:  -->" + borgs.size());
+  
+  //FINE DRAW
 }
 
 
@@ -297,7 +312,7 @@ void requestData(){
     chatYposition = chatYposition - (chatUpShift * msgs.length);
     chatLength += chatUpShift * msgs.length + 20;
     println(msgs.length + " nuovi messaggi");
-    println("Posizione y chat: " + chatYposition);
+    //println("Posizione y chat: " + chatYposition);
     //println ("Current chat: " + chat);
     
     

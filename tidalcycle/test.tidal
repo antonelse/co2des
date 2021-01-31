@@ -219,13 +219,7 @@ d1 $ s "supernoise/8" # midinote ((irand 10) + 30) # sustain "8" # accelerate "0
 
 
 
--- step
-
-
-
--- stutter
-
-d1 $ stutter 4 (1/16) $ s "bd cp"
+-- every
 
 
 
@@ -233,4 +227,6 @@ d1 $ stutter 4 (1/16) $ s "bd cp"
 
 
 
---stut
+-- slow SOLO QUI (vedi se riesci a creare funz)
+
+d1 $ slow 3 $ jux rev $ loopAt 8 $ striate 128 $ sound "theme:17" #gain 0.9

@@ -1,5 +1,6 @@
 class Borg {
   float x, y, vx, vy;
+  PVector pos, vel;
   color c;
   float lifetime;
   String username;
@@ -10,27 +11,29 @@ class Borg {
   public Borg(float x, float y, color c, String username, float value) {
     this.x = x;
     this.y = y;
+    this.pos = new PVector(x, y);
     this.vx = random(-1, 1);
     this.vy = random(-1, 1);
+    this.vel = new PVector(vx, vy);
     this.c = c;
     this.lifetime = random(5, 10);
     this.username = username;
     this.value = value;
   }
   void update() {
-    this.vx += random(-0.01, 0.01);
-    this.vy += random(-0.01, 0.01);
+    //this.vel.x += random(-0.01, 0.01);
+    //this.vel.y += random(-0.01, 0.01);
 
-    this.x += this.vx;
-    this.y += this.vy;
+    this.pos.x += this.vel.x;
+    this.pos.y += this.vel.y;
     //this.x = (this.x + width ) % width;
     //this.y = (this.y + height) % height;
 
-    if(this.x<0 || this.x>width-chatWidth){
-      this.vx = -this.vx;
+    if(this.pos.x<0 || this.pos.x>width-chatWidth - 1){
+      this.vel.x = -this.vel.x;
     }
-    if(this.y<0 || this.y>height-codeScreenHeight - 1){
-      this.vy = -this.vy;
+    if(this.pos.y<0 || this.pos.y>height-codeScreenHeight - 1){
+      this.vel.y = -this.vel.y;
     }
     this.lifetime -= 0.01;
   }

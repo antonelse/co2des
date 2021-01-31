@@ -1,6 +1,5 @@
 import oscP5.*;
-import netP5.*; 
-import processing.sound.*;
+import netP5.*;
 
 /* PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
@@ -58,10 +57,6 @@ String oldCodeInDraw = "";
 //boolean creation = false;
 //Interaction currentInteraction;
 
-/*AUDIO VARIABLES*/
-AudioIn in;
-Amplitude amp;
-
 
 void setup(){
   size(1550, 1000);
@@ -108,12 +103,7 @@ void setup(){
   
   //String[] fontList = PFont.list();
   //printArray(fontList);
-  
-  //AUDIO
-  amp = new Amplitude(this);
-  in = new AudioIn(this, 0);
-  in.start();
-  amp.input(in);
+
 }
 
 void draw(){
@@ -205,8 +195,6 @@ void draw(){
   strokeWeight(2);
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
-  
-  println("VOLO PERARIA: >>> " + amp.analyze());
   
   //println("Numero Borgs:  -->" + borgs.size());
   
@@ -375,8 +363,8 @@ boolean canBeParent(Borg parent1, Borg parent2){
 }
 
 void generateChild(Borg parent1, Borg parent2){
-  float x_child = (parent1.x + parent2.x)/2;
-  float y_child = (parent1.y + parent2.y)/2;
+  float x_child = (parent1.pos.x + parent2.pos.x)/2;
+  float y_child = (parent1.pos.y + parent2.pos.y)/2;
   color color_child = parent1.c;
   String username_child = parent1.username + " § " + parent2.username;
   float value_child = (parent1.value + parent2.value)/2;
@@ -421,7 +409,7 @@ void checkCollisions() {
     Borg p = borgs.get(a);
     for (int b = a+1; b < size; b++) {
       Borg q = borgs.get(b);
-      PVector pq = new PVector(q.x-p.x, q.y-p.y);
+      PVector pq = new PVector(q.pos.x-p.pos.x, q.pos.y-p.pos.y);
       
       if(size<=100) borgsDistance = 150;
       else if(size<=300) borgsDistance = 100;
@@ -431,7 +419,7 @@ void checkCollisions() {
         
         stroke(p.c);
         //println("Line color: " + c);
-        line(p.x, p.y, q.x, q.y);
+        line(p.pos.x, p.pos.y, q.pos.x, q.pos.y);
         
         if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2 && borgs.size()<overpopulationLimit) generateChild(p,q);
         

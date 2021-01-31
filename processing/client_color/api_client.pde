@@ -38,7 +38,7 @@ class API_Client{
   Interaction extractData(String msg){
       Interaction inter;
       String[] elements=msg.split("-");
-      inter=new Interaction(elements[0],int(elements[1]),int(elements[2]),int(elements[3]),float(elements[4]));
+      inter=new Interaction(elements[0],int(elements[2]),int(elements[3]),int(elements[4]),float(elements[5])); //Skipped elements[1] because it's the room value
       return inter;
   } 
 }

@@ -16,6 +16,7 @@ int overpopulationLimit=200;
 int msgN=0;
 int msgI=0;
 float mutationProbability = 0.1;
+int bpm;
 
 //int cont=0;
 ArrayList <Interaction> interaction=new ArrayList<Interaction>();
@@ -464,6 +465,14 @@ void oscEvent(OscMessage theOscMessage) {
     //println(incomingLine);
     if (!theOscMessage.get(0).stringValue().equals(":{") && !theOscMessage.get(0).stringValue().equals(":}") && !theOscMessage.get(0).stringValue().equals("")){
       //println("prima");
+      
+      if(incomingLine.contains("setcps")){    
+        String [] cps_segments = split(incomingLine, "(");
+        String [] cps_values = split(cps_segments[1], "/");
+        bpm = int(cps_values[0]); //This line takes the bmp value as a String. Then converts it into a int number
+        //println("La cassa va a: --> " + bpm);
+      }
+      
       codeBlock = codeBlock + " " + incomingLine;
       //codeBlock.concat("\n" + incomingLine); //not working
       println(codeBlock);

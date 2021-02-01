@@ -25,6 +25,7 @@ ArrayList <Interaction> interaction=new ArrayList<Interaction>();
 ArrayList <Borg> borgs;
 int newBorgQuantity = 3;
 int borgsDistance;
+int transparency=5;
 
 int codeScreenHeight = 300;
 
@@ -117,7 +118,7 @@ void draw(){
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
 
   //VISUAL
-  fill(25, 14, 51, 10);
+  fill(25, 14, 51, transparency);
   rect(0, 0, width-chatWidth, height - codeScreenHeight);
 
   int borgLength = borgs.size();
@@ -253,7 +254,7 @@ TidalParameter mapMessage(Interaction inter){
       map.value = discretizeNoOdd(map.value);
       return map;
     }else{
-      map=new TidalParameter("param4",inter.value);
+      map=new TidalParameter("param4",map(inter.value, 0, 1, 0, 10));
       map.value = discretizeNoOdd(map.value);
       return map;
     }
@@ -470,6 +471,7 @@ void oscEvent(OscMessage theOscMessage) {
         String [] cps_segments = split(incomingLine, "(");
         String [] cps_values = split(cps_segments[1], "/");
         bpm = int(cps_values[0]); //This line takes the bmp value as a String. Then converts it into a int number
+        transparency = int(map(bpm, 80, 180, 5, 50));
         //println("La cassa va a: --> " + bpm);
       }
       

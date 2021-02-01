@@ -7,8 +7,6 @@ class Borg {
   float value;
   float mappedValue;
 
-  public Borg() {
-  }
   public Borg(float x, float y, color c, String username, float value,float mappedValue) {
     this.x = x;
     this.y = y;
@@ -22,14 +20,11 @@ class Borg {
     this.value = value;
     this.mappedValue=mappedValue;
   }
+
   void update() {
-    //this.vel.x += random(-0.01, 0.01);
-    //this.vel.y += random(-0.01, 0.01);
 
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;
-    //this.x = (this.x + width ) % width;
-    //this.y = (this.y + height) % height;
 
     if(this.pos.x<0 || this.pos.x>width-chatWidth - 1){
       this.vel.x = -this.vel.x;
@@ -37,10 +32,12 @@ class Borg {
     if(this.pos.y<0 || this.pos.y>height-codeScreenHeight - 1){
       this.vel.y = -this.vel.y;
     }
+    
     this.lifetime -= 0.01;
   }
+
   void draw() {
-    //fill(255);
-    //ellipse(x, y, 10, 10);
+    fill(255);
+    ellipse(x, y, 10, 10);
   }
 }

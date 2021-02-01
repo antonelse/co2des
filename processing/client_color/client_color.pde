@@ -1,5 +1,6 @@
 import oscP5.*;
 import netP5.*;
+import processing.sound.*;
 
 /* PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
@@ -55,6 +56,11 @@ String oldTestoInDraw = "";
 String codeInDraw = "";
 String oldCodeInDraw = "";
 
+/*AUDIO VARIABLES*/
+Amplitude amp;
+AudioIn in;
+float amplitude_value;
+
 //TEST BORG
 //boolean creation = false;
 //Interaction currentInteraction;
@@ -69,10 +75,8 @@ void setup(){
   
   frameRate(15);
  
-  
   oscP5 = new OscP5(this,9000);
   remote = new NetAddress("127.0.0.1",6010);
-  
   
   client=new API_Client(API_URL);
   msgs= client.get_msgs();
@@ -106,6 +110,12 @@ void setup(){
   //String[] fontList = PFont.list();
   //printArray(fontList);
 
+  //AUDIO in for the strobe effect
+  amp = new Amplitude(this);
+  in = new AudioIn(this, 0);
+  in.start();
+  amp.input(in);
+  
 }
 
 void draw(){
@@ -113,7 +123,7 @@ void draw(){
   if(counter == reload_eta){
     thread("requestData"); //Executed on a different thread in order not to stop the animation
   }
-  counter++;
+  counter++; 
   
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
 
@@ -200,7 +210,13 @@ void draw(){
   
   //println("Numero Borgs:  -->" + borgs.size());
   
-  //FINE DRAW
+  //AUDIO in for the strobe effect
+  amplitude_value = map(amp.analyze(), 0, 1, 0, 20);
+  fill(255, 255, 255, amplitude_value);
+  rect(0, 0, width-chatWidth, height - codeScreenHeight);
+  //println("volume: " + amplitude_value +" valore: " + amp.analyze());
+  
+  //FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW
 }
 
 
@@ -222,38 +238,40 @@ TidalParameter mapMessage(Interaction inter){
     TidalParameter map;
     
     //schermata 1
+    //yellow
     if(inter.r==245 && inter.g==203 && inter.b==54) {
       map=new TidalParameter("slow",map(inter.value, 0, 1, 2, 6));
       return map;
-    }
+    }//light blue
     else if(inter.r==10 && inter.g==209 && inter.b==183){
       map=new TidalParameter("crusher",map(inter.value, 0 ,1 , 1, 15));
       return map;
-    }
+    }//magenta
     else if(inter.r==190 && inter.g==9 && inter.b==206) {
       map=new TidalParameter("cutoff",map(inter.value, 0, 1, 400, 15000));
       return map;
-    }
+    }//blue
     else if(inter.r==6 && inter.g==48 && inter.b==189){
       map=new TidalParameter("offset",inter.value);
       return map;
     
     //schermata 2
+    //yellow
     }else if(inter.r==246 && inter.g==203 && inter.b==54) {
       map=new TidalParameter("param1",map(inter.value, 0, 1, 0, 10));
       map.value = discretizeNoOdd(map.value);
       return map;
-    }
+    }//light blue
     else if(inter.r==11 && inter.g==209 && inter.b==183){
       map=new TidalParameter("param2",map(inter.value, 0 ,1 , 0, 10));
       map.value = discretizeNoOdd(map.value);
       return map;
-    }
+    }//magenta
     else if(inter.r==191 && inter.g==9 && inter.b==206) {
       map=new TidalParameter("param3",map(inter.value, 0, 1, 0, 10));
       map.value = discretizeNoOdd(map.value);
       return map;
-    }else{
+    }else{//blue
       map=new TidalParameter("param4",map(inter.value, 0, 1, 0, 10));
       map.value = discretizeNoOdd(map.value);
       return map;

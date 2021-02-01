@@ -63,6 +63,17 @@ d1 $ n "2 1 1 1" # s "hi" #gain 0.85 -- metronome
 /ctrl ss code msgn
 --the first value is a (s)tring and the second value is a(f)loat
 
+--if u want to change a "string" inside the " ", you can do this:
+(cF 1 "ciao")-- working
+setF "ciao" "clap:2" -- not working on tidal 1.5 maybe ??;
+setF "ciao" (slow 2 "0 3 4*2 2")
+d1 $ n "2 3 ^ciao 3" # s "cpu"
+
+--if u want to give a metric as an input, you can do this:
+setB "metric" "1(3,8)"
+d1 $ struct "^metric" $ n "1 2 3 4" # s "cpu"
+
+--examples
 (cF 0.7 "filter") --The first parameter (0.7) is the default value, for when tidal hasn't received that control.
 --cF is what you use for floating point controls. The second 0 or 1, for when tidal hasn't received that control yet.
 --cS for strings
@@ -78,7 +89,6 @@ d1 $ n "2 1 1 1" # s "hi" #gain 0.85 -- metronome
 --line (evaluate single line)
 --multi_line (evaluate code block)
 --whole_editor (evaluate all the editor)
-
 --row
 --column
 

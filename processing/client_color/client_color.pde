@@ -119,10 +119,21 @@ void draw(){
   
   checkCollisions();
   
+  //AUDIO in for the strobe effect
+  amplitude_value = map(amp.analyze(), 0, 1, 0, 40);
+  //fill(255, 255, 255, amplitude_value);
+  //noStroke();
+  stroke(255, 255, 255, amplitude_value);
+  strokeWeight(amplitude_value);
+  noFill();
+  rect(0, 0, width-chatWidth, height - codeScreenHeight);
+  //println("volume: " + amplitude_value +" valore: " + amp.analyze());
+  strokeWeight(1);
+  
   //Text to show after a new child is generated
   fill(0);
   noStroke();
-  rect(0, height-codeScreenHeight, width - chatWidth -1, codeScreenHeight/2);
+  rect(0, height-codeScreenHeight, width - chatWidth, codeScreenHeight/2);
   fill(newChildColor);
   PFont myFont = createFont("Courier New", 25);
   textFont(myFont);
@@ -151,14 +162,6 @@ void draw(){
   strokeWeight(1);
   
   //println("Numero Borgs: " + borgs.size());
-  
-  //AUDIO in for the strobe effect
-  amplitude_value = map(amp.analyze(), 0, 1, 0, 20);
-  fill(255, 255, 255, amplitude_value);
-  noStroke();
-  rect(0, 0, width-chatWidth, height - codeScreenHeight);
-  //println("volume: " + amplitude_value +" valore: " + amp.analyze());
-  
 }
 
 

@@ -5,10 +5,11 @@ class Borg {
   float lifetime;
   String username;
   float value;
+  float mappedValue;
 
   public Borg() {
   }
-  public Borg(float x, float y, color c, String username, float value) {
+  public Borg(float x, float y, color c, String username, float value,float mappedValue) {
     this.x = x;
     this.y = y;
     this.pos = new PVector(x, y);
@@ -19,6 +20,7 @@ class Borg {
     this.lifetime = random(5, 10);
     this.username = username;
     this.value = value;
+    this.mappedValue=mappedValue;
   }
   void update() {
     //this.vel.x += random(-0.01, 0.01);

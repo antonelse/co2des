@@ -155,12 +155,12 @@ void draw(){
   }*/
   
   //PROVA TEXT IN DRAW 
-  if (oldTestoInDraw != testoInDraw){
+  //if (oldTestoInDraw != testoInDraw){
     fill(0);
     noStroke();
     rect(0, height-codeScreenHeight, width - chatWidth, codeScreenHeight/2);
     oldTestoInDraw = testoInDraw;
-  }
+  //}
    
   
   fill(newChildColor);
@@ -182,7 +182,7 @@ void draw(){
   PFont myFontChat = createFont("Courier New", 16);
   textFont(myFontChat);
 
-  if(newMessageArrived){
+  //if(newMessageArrived){
     fill(0);
     noStroke();
     rect(width-chatWidth, 0, chatWidth, height);
@@ -191,7 +191,7 @@ void draw(){
     text(chat, width - chatWidth + 10, chatYposition, 330, chatLength);
     newMessageArrived = false;
     //chat = "";
-  }
+  //}
   
   stroke(80);
   strokeWeight(2);
@@ -287,7 +287,7 @@ void requestData(){
       //println(map.value);
       
       //TEST BORG
-      createBorgs(currentInteraction);
+      createBorgs(currentInteraction,map.value);
       //creation = true;
       //showText(currentInteraction.username);
       
@@ -370,16 +370,19 @@ void generateChild(Borg parent1, Borg parent2){
   color color_child = parent1.c;
   String username_child = parent1.username + " § " + parent2.username;
   float value_child = (parent1.value + parent2.value)/2;
+  float mappedValue=(parent1.mappedValue + parent2.mappedValue)/2;
   
   newChildColor = color_child; //set the text color
   
   //Mutation Process
   if(random(1)<mutationProbability){
     value_child = random(1);
+    Interaction tempInteraction=new Interaction("userfake",int(red(color_child)),int(green(color_child)),int(blue(color_child)),value_child);
+    mappedValue=mapMessage(tempInteraction).value;
     println("MutazioneGENETICA");
   }
   
-  Borg child = new Borg(x_child, y_child, color_child, username_child, value_child);
+  Borg child = new Borg(x_child, y_child, color_child, username_child, value_child,mappedValue);
   
   println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
   stroke(color_child);
@@ -421,7 +424,13 @@ void checkCollisions() {
         
         stroke(p.c);
         //println("Line color: " + c);
-        line(p.pos.x, p.pos.y, q.pos.x, q.pos.y);
+        
+        if(red(p.c)==245||red(p.c)==10||red(p.c)==190||red(p.c)==6){
+          line(p.pos.x, p.pos.y, q.pos.x, q.pos.y);
+        }else{
+          int numSides=computeNumSides(p.mappedValue,q.mappedValue);
+          polygon((p.pos.x+q.pos.x)/2,(p.pos.y+q.pos.y)/2,p.pos.dist(q.pos)/2,numSides);
+        }
         
         if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2 && borgs.size()<overpopulationLimit) generateChild(p,q);
         
@@ -441,20 +450,40 @@ void checkCollisions() {
 }
 
 
-void createBorgs(Interaction inter){
+int computeNumSides(float valueP, float valueQ){
+  int finalValue=ceil((valueP+valueQ)/2);
+  if(finalValue<3) finalValue=3;
+  return finalValue;
+}
+
+void createBorgs(Interaction inter, float mappedValue){
   float center_x = random(width - chatWidth - 50);
   float center_y = random(height - codeScreenHeight - 50);
   float r = map(inter.value, 0, 1, 1, 50);
   
   color c = color(inter.r, inter.g, inter.b);
   
+  if(inter.r==245||inter.r==10||inter.r==190||inter.r==6) newBorgQuantity=3;
+  else newBorgQuantity=1; 
+
   for (int i=0; i<newBorgQuantity; i++){
     float x = random(-1, 1)*random(10, r) + center_x;
     float y = random(-1, 1)*random(10, r) + center_y;
     
-    borgs.add(new Borg(x, y, c, inter.username, inter.value));
+    borgs.add(new Borg(x, y, c, inter.username, inter.value, mappedValue));
     defaultParamSent = false;
   }
+}
+
+void polygon(float x, float y, float radius, int npoints) {
+  float angle = TWO_PI / npoints;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius;
+    float sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
 }
 
 void oscEvent(OscMessage theOscMessage) {

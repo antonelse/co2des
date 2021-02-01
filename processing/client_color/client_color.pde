@@ -168,7 +168,7 @@ void draw(){
   //if (oldTestoInDraw != testoInDraw){
     fill(0);
     noStroke();
-    rect(0, height-codeScreenHeight, width - chatWidth, codeScreenHeight/2);
+    rect(0, height-codeScreenHeight, width - chatWidth -1, codeScreenHeight/2);
     oldTestoInDraw = testoInDraw;
   //}
    
@@ -213,6 +213,7 @@ void draw(){
   //AUDIO in for the strobe effect
   amplitude_value = map(amp.analyze(), 0, 1, 0, 20);
   fill(255, 255, 255, amplitude_value);
+  noStroke();
   rect(0, 0, width-chatWidth, height - codeScreenHeight);
   //println("volume: " + amplitude_value +" valore: " + amp.analyze());
   

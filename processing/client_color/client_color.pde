@@ -2,7 +2,7 @@ import oscP5.*;
 import netP5.*;
 import processing.sound.*;
 
-/* PARAMETERS */
+/* NETWORK PARAMETERS */
 String API_URL="https://wemakethings.pythonanywhere.com";
 float TIME_RELOAD=0.5;
 NetAddress remote;
@@ -19,78 +19,57 @@ int msgI=0;
 float mutationProbability = 0.1;
 int bpm;
 
-//int cont=0;
 ArrayList <Interaction> interaction=new ArrayList<Interaction>();
+Interaction globalCurrentInteraction;
 
 /*VISUAL VARIABLES*/
 ArrayList <Borg> borgs;
+boolean firstBorgRemoved = false;
+boolean defaultParamSent = false;
 int newBorgQuantity = 3;
-int borgsDistance;
 int transparency=5;
-
-int codeScreenHeight = 300;
+int borgsDistance;
 
 /*TEXT VARIABLES*/ 
-String codeBlock;
-String incomingLine;
-String codeToShow; 
+int codeScreenHeight = 300;
 color newChildColor;
+String testoInDraw = ""; //Text to show for a new child
+String codeInDraw = ""; //Text executed by the live-coder
+String incomingLine = "";
+String codeBlock = "";
 
 /*CHAT VARIABLES*/
-int chatWidth = 350;
 ArrayList <String> userMessages;
 boolean newMessageArrived = false;
 String chat = "";
-int chatLength = 0;
-int chatLimit = 7;
+int chatWidth = 350;
 float chatYposition = 995;
 float chatUpShift = 48.45;
-
-Interaction globalCurrentInteraction;
-
-boolean firstBorgRemoved = false;
-boolean defaultParamSent = false;
-
-String testoInDraw = ""; 
-String oldTestoInDraw = "";
-String codeInDraw = "";
-String oldCodeInDraw = "";
+int chatLength = 0;
 
 /*AUDIO VARIABLES*/
 Amplitude amp;
 AudioIn in;
 float amplitude_value;
 
-//TEST BORG
-//boolean creation = false;
-//Interaction currentInteraction;
 
 
 void setup(){
   size(1550, 1000);
-  //for fullscreen
-  //fullScreen();
-  //background(200);
-  //noStroke();
-  
+  //fullscreen();
   frameRate(15);
  
+  //NETWORK
   oscP5 = new OscP5(this,9000);
   remote = new NetAddress("127.0.0.1",6010);
-  
   client=new API_Client(API_URL);
   msgs= client.get_msgs();
   msgN= msgs.length;
   msgI=msgN-1;  
-  println("Found ", msgN, "new messages");
+  //println("Found ", msgN, "new messages");
   client.delete_all();
-  
   reload_eta = TIME_RELOAD*frameRate;
-  /*TIME_RELOAD*=frameRate; // period to try to reaload
-  if(msgN==0){reload_eta=TIME_RELOAD;}
-  else{reload_eta=0;}*/
-  //colorMode(HSB);
-
+  
   //VISUAL
   borgs = new ArrayList();
   
@@ -101,16 +80,7 @@ void setup(){
   //ChatScreen
   rect(width-chatWidth, 0, chatWidth, height);
   
-  
-  //initialize text variables
-  codeBlock = "";
-  incomingLine = "";
-  codeToShow = "";
-  
-  //String[] fontList = PFont.list();
-  //printArray(fontList);
-
-  //AUDIO in for the strobe effect
+  //AUDIO
   amp = new Amplitude(this);
   in = new AudioIn(this, 0);
   in.start();
@@ -137,12 +107,14 @@ void draw(){
     if (i < borgs.size()){
       Borg b = borgs.get(i);
       
+      //Life decreased for overpopulation
       if(borgs.size()>overpopulationLimit){ 
-      b.lifetime-=random(0,5);
+        b.lifetime-=random(0,5);
       }
       
       b.update();
       
+      //Life decreased for normal time flow
       if (b.lifetime<=0){
         borgs.remove(b);
         firstBorgRemoved = true;
@@ -152,63 +124,39 @@ void draw(){
   
   checkCollisions();
   
-  //TEST BORG
-  /*
-  if(creation){
-    createBorgs(currentInteraction);
-    creation = false;
-  }
-  */
-  
-  /*for (Borg b : borgs) {
-    b.draw();
-  }*/
-  
-  //PROVA TEXT IN DRAW 
-  //if (oldTestoInDraw != testoInDraw){
-    fill(0);
-    noStroke();
-    rect(0, height-codeScreenHeight, width - chatWidth -1, codeScreenHeight/2);
-    oldTestoInDraw = testoInDraw;
-  //}
-   
-  
+  //Text to show after a new child is generated
+  fill(0);
+  noStroke();
+  rect(0, height-codeScreenHeight, width - chatWidth -1, codeScreenHeight/2);
   fill(newChildColor);
   PFont myFont = createFont("Courier New", 25);
   textFont(myFont);
   text(testoInDraw, 10, height-codeScreenHeight + 20, width - chatWidth, codeScreenHeight/2 - 50);
   
-  
-  if (oldCodeInDraw != codeInDraw){
-    fill(0);
-    noStroke();
-    rect(0, height-codeScreenHeight/2 - 50, width - chatWidth, codeScreenHeight/2 + 50);
-    oldCodeInDraw = codeInDraw;
-  }
-  //AFXylem 
+  //Text to show after a new child is generated
+  fill(0);
+  noStroke();
+  rect(0, height-codeScreenHeight/2 - 50, width - chatWidth, codeScreenHeight/2 + 50);
   fill(255);
   text(codeInDraw, 10, height-codeScreenHeight/2 - 50, width - chatWidth, codeScreenHeight/2 + 50);
 
+  //User interactions shown as a sliding chat
   PFont myFontChat = createFont("Courier New", 16);
   textFont(myFontChat);
-
-  //if(newMessageArrived){
-    fill(0);
-    noStroke();
-    rect(width-chatWidth, 0, chatWidth, height);
-    
-    fill(250);
-    text(chat, width - chatWidth + 10, chatYposition, 330, chatLength);
-    newMessageArrived = false;
-    //chat = "";
-  //}
-  
+  fill(0);
+  noStroke();
+  rect(width-chatWidth, 0, chatWidth, height);
+  fill(250);
+  text(chat, width - chatWidth + 10, chatYposition, 330, chatLength);
+  newMessageArrived = false;
+ 
+  //Chat separator
   stroke(80);
   strokeWeight(2);
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
-  //println("Numero Borgs:  -->" + borgs.size());
+  //println("Numero Borgs: " + borgs.size());
   
   //AUDIO in for the strobe effect
   amplitude_value = map(amp.analyze(), 0, 1, 0, 20);
@@ -217,7 +165,6 @@ void draw(){
   rect(0, 0, width-chatWidth, height - codeScreenHeight);
   //println("volume: " + amplitude_value +" valore: " + amp.analyze());
   
-  //FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW FINE DRAW
 }
 
 
@@ -540,7 +487,6 @@ void oscEvent(OscMessage theOscMessage) {
      if(theOscMessage.get(0).stringValue().equals(":}")){
        codeInDraw = codeBlock.replaceAll("\t", " ");
        codeBlock = "";
-     
      }
     
    

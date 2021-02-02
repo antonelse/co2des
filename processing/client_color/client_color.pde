@@ -291,8 +291,8 @@ void generateChild(Borg parent1, Borg parent2){
   
   println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
   stroke(color_child);
-  strokeWeight(3);
-  circle(x_child, y_child, 30);
+  strokeWeight(6);
+  circle(x_child, y_child, parent1.pos.sub(parent2.pos).mag()/2);
   strokeWeight(1);
   
   borgs.add(child);
@@ -315,7 +315,7 @@ void checkCollisions() {
   int size = borgs.size();
 
   if(size<=100) borgsDistance = 150;
-  else if(size<=300) borgsDistance = 100;
+  else if(size<=overpopulationLimit) borgsDistance = 100;
   else borgsDistance = 75;
 
   for (int a = 0; a < size; a++) {
@@ -331,8 +331,10 @@ void checkCollisions() {
         if(red(p.c)==245||red(p.c)==10||red(p.c)==190||red(p.c)==6){
           line(p.pos.x, p.pos.y, q.pos.x, q.pos.y);
         }else{
-          int numSides=computeNumSides(p.mappedValue,q.mappedValue);
-          polygon((p.pos.x+q.pos.x)/2,(p.pos.y+q.pos.y)/2,p.pos.dist(q.pos)/2,numSides);
+          if(p.mappedValue == q.mappedValue){
+            int numSides=computeNumSides(p.mappedValue,q.mappedValue);
+            polygon(p.pos, q.pos,p.pos.dist(q.pos)/2,numSides);
+          }
         }
         
         if(canBeParent(p,q) && pq.mag()<=borgsDistance && pq.mag()>=borgsDistance-2 && borgs.size()<overpopulationLimit) generateChild(p,q);
@@ -347,15 +349,21 @@ int computeNumSides(float valueP, float valueQ){
   return finalValue;
 }
 
-void polygon(float x, float y, float radius, int npoints) {
+void polygon(PVector p, PVector q, float radius, int npoints) {
+  float x = (p.x+q.x)/2;
+  float y = (p.y+q.y)/2;
+  PVector position = new PVector(x, y);
   float angle = TWO_PI / npoints;
+  float angleShift = PVector.angleBetween(p, q);
+  angleShift += map(position.mag(), 0, pow(pow(width-chatWidth, 2) + pow(height - codeScreenHeight, 2), 1/2), 0, PI/1000);
   beginShape();
-  for (float a = 0; a < TWO_PI; a += angle) {
+  for (float a = angleShift; a < angleShift+TWO_PI; a += angle) {
     float sx = x + cos(a) * radius;
     float sy = y + sin(a) * radius;
     vertex(sx, sy);
   }
   endShape(CLOSE);
+  
 }
 
 void createBorgs(Interaction inter, float mappedValue){
@@ -366,7 +374,7 @@ void createBorgs(Interaction inter, float mappedValue){
   color c = color(inter.r, inter.g, inter.b);
   
   if(inter.r==245||inter.r==10||inter.r==190||inter.r==6) newBorgQuantity=3;
-  else newBorgQuantity=1; 
+  else newBorgQuantity=2; 
 
   for (int i=0; i<newBorgQuantity; i++){
     float x = random(-1, 1)*random(10, r) + center_x;

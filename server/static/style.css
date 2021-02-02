@@ -65,7 +65,6 @@ canvas{
 .text-room{
     position:absolute;
     display:inline-block;
-    align:center;
     margin:0;
     bottom:10%;
     height:20px;
@@ -106,11 +105,6 @@ canvas{
 .disabled{
     opacity: 0.3;
 }
-
-
-
-
-/*new stuff*/
 
 .squarecircle{
     width:0px;
@@ -371,8 +365,7 @@ canvas{
     height:57%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(0% 100%,0% 0%,100% 0%,90% 90%); 
+    clip-path: polygon(0% 95%,0% 0%,100% 0%,88% 87%); 
 }
 .button-transparent2{
     position:relative;
@@ -380,8 +373,8 @@ canvas{
     height:43%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(20% 80%,0% 0%,90% 0%,95% 90%);
+    clip-path: polygon(20% 80%,0% 5%,85% 0%,97% 100%);
+    transform: translateY(-10%);
 }
 .button-transparent3{
     position:relative;
@@ -389,8 +382,7 @@ canvas{
     height:55%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(0% 90%,10% 0%,80% 20%,100% 100%);
+    clip-path: polygon(0% 90%,10% 0%,80% 20%,100% 90%);
 }
 .button-transparent4{
     position:relative;
@@ -398,8 +390,8 @@ canvas{
     height:50%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
     clip-path: polygon(15% 100%,0% 0%,100% 0%,80% 80%);
+    transform: translateY(-10%);
 }
 
 .button-transparent5{
@@ -408,8 +400,7 @@ canvas{
     height:57%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(0% 100%,0% 0%,100% 0%,90% 90%); 
+    clip-path: polygon(0% 95%,0% 0%,100% 0%,88% 87%); 
 }
 .button-transparent6{
     position:relative;
@@ -417,8 +408,8 @@ canvas{
     height:43%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(20% 80%,0% 0%,90% 0%,95% 90%);
+    clip-path: polygon(20% 80%,0% 5%,85% 0%,97% 100%);
+    transform: translateY(-10%);
 }
 .button-transparent7{
     position:relative;
@@ -426,8 +417,7 @@ canvas{
     height:55%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
-    clip-path: polygon(0% 90%,10% 0%,80% 20%,100% 100%);
+    clip-path: polygon(0% 90%,10% 0%,80% 20%,100% 90%);
 }
 .button-transparent8{
     position:relative;
@@ -435,7 +425,7 @@ canvas{
     height:50%;
     box-sizing: border-box;
     cursor:pointer;
-    /*background-color:rgba(50,100,100,0.5);*/
     clip-path: polygon(15% 100%,0% 0%,100% 0%,80% 80%);
+    transform: translateY(-10%);
 }
 

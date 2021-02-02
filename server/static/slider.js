@@ -63,10 +63,6 @@ function draw(){
         document.querySelectorAll(".container-disco-transparent")[1].style.setProperty("display","inline-flex");
         noFill();
         strokeWeight(4);
-        /*let dimR1=dim1;
-        let dimR2=dim2+5;
-        let dimR3=dim3+15;
-        let dimR4=dim4;*/
         let dimR1=110;
         let dimR2=110;
         let dimR3=110;
@@ -119,45 +115,29 @@ function draw(){
 
     if(isDown){
         if(buttonPressed=="button-transparent1"){
-            //buttons=document.querySelectorAll(".squarecircle1");
             if(dim1<350) dim1+=2;
         } 
         else if(buttonPressed=="button-transparent2"){
-            //buttons=document.querySelectorAll(".squarecircle4");
             if(dim4<350) dim4+=2;
         } 
         else if(buttonPressed=="button-transparent3"){
-             buttons=document.querySelectorAll(".squarecircle2");
              if(dim2<350) dim2+=2;
         }
         else if(buttonPressed=="button-transparent4"){
-             //buttons=document.querySelectorAll(".squarecircle3");
              if(dim3<350) dim3+=2;
         }
 
         if(buttonPressed=="button-transparent5"){
-            //buttons=document.querySelectorAll(".squarecircle1");
-            //if(dim1<350) dim1+=2;
             if(numLines5<8)numLines5+=0.1;
         } 
         else if(buttonPressed=="button-transparent6"){
-            //buttons=document.querySelectorAll(".squarecircle4");
-            //if(dim4<350) dim4+=2;
             if(numLines8<7)numLines8+=0.1;
         } 
         else if(buttonPressed=="button-transparent7"){
-             //buttons=document.querySelectorAll(".squarecircle2");
-             //if(dim2<350) dim2+=2;
              if(numLines6<6)numLines6+=0.1;
         }
         else if(buttonPressed=="button-transparent8"){
-             //buttons=document.querySelectorAll(".squarecircle3");
-             //if(dim3<350) dim3+=2;
              if(numLines7<5)numLines7+=0.1;
         }       
-    }
-    else{
-        //console.log("up");
-        //noLoop();
     }
 }

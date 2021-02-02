@@ -11,7 +11,7 @@ let sliderValue = 0;
 let changingRoom=false;
 
 
-//disco
+//disk
 
 var isDown=false;
 var isUp=true;
@@ -47,7 +47,11 @@ function setUsername(){
 
 function setRoom(){
     room = urlParams.get("room");
-    if(room==null) room=1;
+    if(room==null){
+        room=Math.ceil(Math.random()*2);
+        if(room==0) room=1;
+    } 
+    console.log(room);
 }
 
 window.onload = function(){
@@ -59,12 +63,10 @@ window.onload = function(){
 
 function showTimer(){
     timerValue=parseInt(document.querySelector(".timer-container").innerHTML);
-    //console.log("initial timerValue: "+timerValue);
     if(username!=null){
         document.querySelector(".timer-container").style.setProperty("display","flex");
         document.querySelector(".wait-text").style.setProperty("display","flex");
         setInterval(countdown,1000);
-        //console.log("timerValue: "+timerValue);
     }
 }
 
@@ -96,13 +98,7 @@ function sendMessage(){
         });
         enableButtons();
         resetInitialValues();
-    } /*else if (selectedColor == null) {
-        swal({
-            title: "Warning!",
-            icon: "warning",
-            text: "select a color",
-        });
-    }*/ else {
+    } else {
         //blnm
             if(r!=null||g!=null||b!=null){
                 username = name;
@@ -123,7 +119,6 @@ function deleteAll(){
 
 function selectColor(id){
     var colors = document.querySelectorAll(".color-square");
-    //var colorsArray = Array.prototype.slice.call(colors);
 
     for (let i=0; i<colors.length; i++){
         if(colors[i].id != id){
@@ -170,9 +165,7 @@ function resetInitialValues(){
 }
 
 function toggleValueSlider(button){
-    //disableOtherButtons(button);
     if(isDown){
-        //noLoop();
         isDown=false;
         document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
         document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
@@ -221,11 +214,9 @@ function toggleValueSlider(button){
     } 
     else{
         isDown=true;
-        //buttonPressed=button.path[0].classList[0];
         buttonPressed=button;
         console.log("buttonPressed");
         if(buttonPressed=="button-transparent1"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle1")).borderRightWidth);
             traslations=80;
             rotation1=50;
             rotation2=30;
@@ -233,12 +224,10 @@ function toggleValueSlider(button){
             g=203;
             b=54;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="slow";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent2") {
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle4")).borderRightWidth);
             traslations=82;
             rotation1=300;
             rotation2=301.5;
@@ -246,12 +235,10 @@ function toggleValueSlider(button){
             g=9;
             b=206;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent3"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle2")).borderRightWidth);
             traslations=82;
             rotation1=140;
             rotation2=140;
@@ -259,12 +246,10 @@ function toggleValueSlider(button){
             g=48;
             b=189;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent4"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle3")).borderRightWidth);
             traslations=85;
             rotation1=220;
             rotation2=220;
@@ -272,12 +257,10 @@ function toggleValueSlider(button){
             g=209;
             b=183;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent5"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle1")).borderRightWidth);
             traslations=80;
             rotation1=50;
             rotation2=30;
@@ -285,12 +268,10 @@ function toggleValueSlider(button){
             g=203;
             b=54;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="slow";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent6") {
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle4")).borderRightWidth);
             traslations=82;
             rotation1=300;
             rotation2=301.5;
@@ -298,12 +279,10 @@ function toggleValueSlider(button){
             g=9;
             b=206;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent7"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle2")).borderRightWidth);
             traslations=82;
             rotation1=140;
             rotation2=140;
@@ -311,12 +290,10 @@ function toggleValueSlider(button){
             g=48;
             b=189;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent8"){
-            //dimensions=int(getComputedStyle(document.querySelector(".squarecircle3")).borderRightWidth);
             traslations=85;
             rotation1=220;
             rotation2=220;
@@ -324,7 +301,6 @@ function toggleValueSlider(button){
             g=209;
             b=183;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            //document.querySelectorAll(".parameter-changing")[1].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
@@ -374,129 +350,6 @@ function disableOtherButtons(){
     document.querySelector(".button-transparent8").onmouseup="none";
     document.querySelector(".button-transparent8").ontouchstart="none";
     document.querySelector(".button-transparent8").ontouchend="none";
-
-
-    /*if(button=="button-transparent1"){
-        document.querySelector(".button-transparent2").onmousedown="none";
-        document.querySelector(".button-transparent3").onmousedown="none";
-        document.querySelector(".button-transparent4").onmousedown="none";
-        document.querySelector(".button-transparent2").onmouseup="none";
-        document.querySelector(".button-transparent3").onmouseup="none";
-        document.querySelector(".button-transparent4").onmouseup="none";
-        
-        document.querySelector(".button-transparent2").ontouchstart="none";
-        document.querySelector(".button-transparent3").ontouchstart="none";
-        document.querySelector(".button-transparent4").ontouchstart="none";
-        document.querySelector(".button-transparent2").ontouchend="none";
-        document.querySelector(".button-transparent3").ontouchend="none";
-        document.querySelector(".button-transparent4").ontouchend="none";
-    }
-    if(button=="button-transparent2"){
-        document.querySelector(".button-transparent1").onmousedown="none";
-        document.querySelector(".button-transparent3").onmousedown="none";
-        document.querySelector(".button-transparent4").onmousedown="none";
-        document.querySelector(".button-transparent1").onmouseup="none";
-        document.querySelector(".button-transparent3").onmouseup="none";
-        document.querySelector(".button-transparent4").onmouseup="none";
-        
-        document.querySelector(".button-transparent1").ontouchstart="none";
-        document.querySelector(".button-transparent3").ontouchstart="none";
-        document.querySelector(".button-transparent4").ontouchstart="none";
-        document.querySelector(".button-transparent1").ontouchend="none";
-        document.querySelector(".button-transparent3").ontouchend="none";
-        document.querySelector(".button-transparent4").ontouchend="none";
-    }
-    if(button=="button-transparent3"){
-        document.querySelector(".button-transparent2").onmousedown="none";
-        document.querySelector(".button-transparent1").onmousedown="none";
-        document.querySelector(".button-transparent4").onmousedown="none";
-        document.querySelector(".button-transparent2").onmouseup="none";
-        document.querySelector(".button-transparent1").onmouseup="none";
-        document.querySelector(".button-transparent4").onmouseup="none";
-        
-        document.querySelector(".button-transparent2").ontouchstart="none";
-        document.querySelector(".button-transparent1").ontouchstart="none";
-        document.querySelector(".button-transparent4").ontouchstart="none";
-        document.querySelector(".button-transparent2").ontouchend="none";
-        document.querySelector(".button-transparent1").ontouchend="none";
-        document.querySelector(".button-transparent4").ontouchend="none";
-    }
-    if(button=="button-transparent4"){
-        document.querySelector(".button-transparent2").onmousedown="none";
-        document.querySelector(".button-transparent3").onmousedown="none";
-        document.querySelector(".button-transparent1").onmousedown="none";
-        document.querySelector(".button-transparent2").onmouseup="none";
-        document.querySelector(".button-transparent3").onmouseup="none";
-        document.querySelector(".button-transparent1").onmouseup="none";
-        
-        document.querySelector(".button-transparent2").ontouchstart="none";
-        document.querySelector(".button-transparent3").ontouchstart="none";
-        document.querySelector(".button-transparent1").ontouchstart="none";
-        document.querySelector(".button-transparent2").ontouchend="none";
-        document.querySelector(".button-transparent3").ontouchend="none";
-        document.querySelector(".button-transparent1").ontouchend="none";
-    }
-
-    if(button=="button-transparent5"){
-        document.querySelector(".button-transparent6").onmousedown="none";
-        document.querySelector(".button-transparent7").onmousedown="none";
-        document.querySelector(".button-transparent8").onmousedown="none";
-        document.querySelector(".button-transparent6").onmouseup="none";
-        document.querySelector(".button-transparent7").onmouseup="none";
-        document.querySelector(".button-transparent8").onmouseup="none";
-        
-        document.querySelector(".button-transparent6").ontouchstart="none";
-        document.querySelector(".button-transparent7").ontouchstart="none";
-        document.querySelector(".button-transparent8").ontouchstart="none";
-        document.querySelector(".button-transparent6").ontouchend="none";
-        document.querySelector(".button-transparent7").ontouchend="none";
-        document.querySelector(".button-transparent8").ontouchend="none";
-    }
-    if(button=="button-transparent6"){
-        document.querySelector(".button-transparent5").onmousedown="none";
-        document.querySelector(".button-transparent7").onmousedown="none";
-        document.querySelector(".button-transparent8").onmousedown="none";
-        document.querySelector(".button-transparent5").onmouseup="none";
-        document.querySelector(".button-transparent7").onmouseup="none";
-        document.querySelector(".button-transparent8").onmouseup="none";
-        
-        document.querySelector(".button-transparent5").ontouchstart="none";
-        document.querySelector(".button-transparent7").ontouchstart="none";
-        document.querySelector(".button-transparent8").ontouchstart="none";
-        document.querySelector(".button-transparent5").ontouchend="none";
-        document.querySelector(".button-transparent7").ontouchend="none";
-        document.querySelector(".button-transparent8").ontouchend="none";
-    }
-    if(button=="button-transparent7"){
-        document.querySelector(".button-transparent5").onmousedown="none";
-        document.querySelector(".button-transparent6").onmousedown="none";
-        document.querySelector(".button-transparent8").onmousedown="none";
-        document.querySelector(".button-transparent5").onmouseup="none";
-        document.querySelector(".button-transparent6").onmouseup="none";
-        document.querySelector(".button-transparent8").onmouseup="none";
-        
-        document.querySelector(".button-transparent5").ontouchstart="none";
-        document.querySelector(".button-transparent6").ontouchstart="none";
-        document.querySelector(".button-transparent8").ontouchstart="none";
-        document.querySelector(".button-transparent5").ontouchend="none";
-        document.querySelector(".button-transparent6").ontouchend="none";
-        document.querySelector(".button-transparent8").ontouchend="none";
-    }
-    if(button=="button-transparent8"){
-        document.querySelector(".button-transparent5").onmousedown="none";
-        document.querySelector(".button-transparent6").onmousedown="none";
-        document.querySelector(".button-transparent7").onmousedown="none";
-        document.querySelector(".button-transparent5").onmouseup="none";
-        document.querySelector(".button-transparent6").onmouseup="none";
-        document.querySelector(".button-transparent7").onmouseup="none";
-        
-        document.querySelector(".button-transparent5").ontouchstart="none";
-        document.querySelector(".button-transparent6").ontouchstart="none";
-        document.querySelector(".button-transparent7").ontouchstart="none";
-        document.querySelector(".button-transparent5").ontouchend="none";
-        document.querySelector(".button-transparent6").ontouchend="none";
-        document.querySelector(".button-transparent7").ontouchend="none";
-    }*/
 }
 
 function toggle1(){
@@ -525,7 +378,6 @@ function toggle8(){
 }
 
 function changeRoom(){
-    //loop();
     changingRoom=true;
     isChanging=true;
     if(room==1) room=2;
@@ -533,6 +385,7 @@ function changeRoom(){
 }
 
 function enableButtons(){
+    //disk1
     document.querySelector(".button-transparent1").onmousedown=toggle1;
     document.querySelector(".button-transparent1").onmouseup=toggle1;
     document.querySelector(".button-transparent2").onmousedown=toggle2;
@@ -556,8 +409,7 @@ function enableButtons(){
     document.querySelector(".button-transparent3").ondragend=toggle3;
     document.querySelector(".button-transparent4").ondragend=toggle4;
     
-    //schermata 2
-    
+    //disk 2
     document.querySelector(".button-transparent5").onmousedown=toggle5;
     document.querySelector(".button-transparent5").onmouseup=toggle5;
     document.querySelector(".button-transparent6").onmousedown=toggle6;

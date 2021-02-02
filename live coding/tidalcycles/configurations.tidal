@@ -1,0 +1,39 @@
+-- *********************** IMPORTANT ***********************
+
+-- [PLEASE, READ CAREFULLY !!!]
+-- in order to use the Processing app, you have to UPDATE the repl.js ATOM file with the PROCESSING IP address
+-- Atom "repl.js" path --> on MAC /Users/"your_username"/.atom/packages/tidalcycles/lib/repl.js
+-- Processing IP address --> directly on the console; it will be like "192.168.8.132"
+
+-- to execute a line press SHIFT + ENTER
+-- to execute multiple lines press CMD + ENTER
+
+-- *********************** pre live configuration ***********************
+
+
+-- FADE OUT function. Execute this line if you want to use thi function in you live session
+-- example of usage byeBye 8
+-- fades the patterns on 8 cycles
+byeBye t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
+
+
+-- [EXECUTE THESE LINES] before the live session in order to get the control from the audience through OSC messages
+let _slow = (cT 2 "slow")
+    _crusher = (cF 1 "crusher")
+    _cutoff = (cF 400 "cutoff")
+    _randomFloat = (cF 0 "randomFloat")
+    _every = (cI 2 "every")
+    _fast = (cT 1 "fast")
+    _offset = (cF 0 "offset")
+    _randomInt = (cI 0 "randomInt")
+
+
+--[PANIC ONLY] param control manual HARD RESET
+let _slow = 2
+    _crusher = 1
+    _cutoff = 400
+    _randomFloat = 0
+    _every = 2
+    _fast = 1
+    _offset = 0
+    _randomInt = 0

@@ -1,0 +1,125 @@
+-- *********************** LIVE TEST ***********************
+
+--tempo settings
+setcps (160/60/4)
+
+-- AUDIO TEST 1
+
+setcps (130/60/4)
+
+d2 $ stack [
+    slow _slow $ loopAt 1 $ striate 4 $ sound "break:1*4" #gain 0.95,
+    sound "clubkick:4(5,8)" #gain 0.98 #room 0.1
+    ]
+
+d3 $ speed "1*2 2 2 4*3" # s "jungbass:6"
+                        #gain 0.9
+                        # squiz _crusher
+
+d4 $ off 0.125 (# crush 3)
+    $ n "0 1 2 3" # sound "bass" |+ n "2 5 6" #cutoff (range 0 _cutoff sine)
+
+d5 $ off _offset (# crush 3)
+    $ sound "rave:3(5,8)" #gain 0.70
+
+d4 silence
+
+byeByeWithGas 4
+
+
+-- AUDIO TEST 2
+
+setcps (150/60/4)
+
+d2 $ off _offset (#gain 0.8) $ loopAt 4 $ sound "theme:15" #gain 1
+
+d3 $ n "1 ~ ~ 1 ~ 1 ~ ~" # s "jungbass:2" #squiz _crusher
+
+d4 $ stack[n "[1*2](5,8)" # s "808oh:5", n "1 ~ ~ 1 ~ 1 ~ ~" # s "808bd:1" #gain 1.5, every 2 (sometimes (#speed _crusher)) $ n "16(10,16)" # s "cpu"]
+
+d5 $ jux rev $ loopAt 3 $ splice 16 "4 6 ~ ~ 1 15 14 3 4 2! ~" $ sound "sr:4" #gain 0.95 #cutoff _cutoff
+
+byeByeWithGas 8
+
+d5 silence
+
+-- AUDIO TEST 3
+
+setcps(170/60/4)
+
+d2 $ off _offset (#gain (range 0.7 1 sine)) $ loopAt 16 $ splice 16 "0..15" $ sound "theme:4"
+
+d3 $ sometimes (hurry _slow . (#squiz 4)) $ jux rev $ n "2 2 6 7" |<| " [0 0 0] . 4 5" # s "rave2" #room 0.2 #sz 0.6 #gain 0.60
+
+d4 $ sometimes (#crush _crusher) $ n "3 3 [4 3?] 5?0.1" # s "gab" #delay 0.3 #delayt 0.33 #delayfb 0.4 #cutoff (range 400 15000 saw) #gain 0.92
+
+  -- $ n "6 6?*6"
+  -- $ n "6*4"
+
+d5 $ loopAt 4 $ splice 16 "0 2 6 9 12 7 14 2?" $ sound "sr:2" #cutoff _cutoff #gain 1
+
+d3 silence
+
+d4 silence
+
+d5 silence
+
+once $ s "cazzate:3" -- la scoteca
+
+once $ s "cazzate:6" -- horn
+
+byeByeWithGas 8
+
+
+
+
+-- **************************************************************************************
+
+
+-- *********************** function test ***********************
+
+-- drone pattern
+d1 $ n "[c2 e3 g4 c5 c4 c3]/3" # s "[superpwm supersaw supersquare]/24" # sustain "0.5" # voice "0.9" # semitone "7.9" # resonance "0.3" # lfo "3" # pitch1 "0.5" # speed "0.25 1"
+d1 $ s "supernoise/8" # midinote ((irand 10) + 30) # sustain "8" # accelerate "0.5" # voice "0.5" # pitch1 "0.15" # slide "-0.5" # resonance "0.7" # attack "1" # release "20" # room "0.9" # size "0.9" # orbit "1"
+d1 $ loopAt 4 $ s "crackle:3" #gain 0.85
+-- _every
+d6 $ every 4 ((#legato 0.8) . fast 2 . (#hpf (range 300 1400 sine)) . (0.25~>))
+  $ sound "amencutup*8" # n (irand 9)
+                        #room 0.5 #sz 0.2
+                        #gain 1
+
+d4 $ every 2 (0.125 <~) $ sometimesBy 0.7 (#speed (range 0.3 1 sine))
+  $ every 2 (density "<16 45 8 32>")
+  $ palindrome
+  $ s "stomp" # n (irand 10)
+                -- #squiz (range 0 10 saw)
+                #legato 10
+                #room 0.6 # sz 0.7
+                #gain 0.8
+
+-- _fast
+d9 $ fast 4 $ foldEvery [4, 2] (fast 4 . (#djf 0.8))
+    $ sound "ade:3" #legato 0.5 #room 0.5 #sz 0.8 #orbit 2
+
+-- _off
+
+
+-- _randInt (GENERICO)
+d6 $ every 4 ((#legato 0.8) . fast 2 . (#hpf (range 300 1400 sine)) . (0.25~>))
+  $ sound "amencutup*8" # n (range 3 5 rand)
+                        #room 0.5 #sz 0.2
+                        #gain 1
+
+
+-- _randomFloat
+
+
+
+
+
+
+
+
+-- slow SOLO QUI (vedi se riesci a creare funz)
+
+d1 $ slow 1 $ jux rev $ loopAt 8 $ striate 128 $ sound "theme:17" #gain 0.9

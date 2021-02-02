@@ -50,14 +50,21 @@ function setRoom(){
     if(room==null){
         room=Math.ceil(Math.random()*2);
         if(room==0) room=1;
-    } 
+    }
     console.log(room);
+}
+
+function setTimer(){
+    timer=urlParams.get("timer");
+    if(timer==null) timer=3;
+    document.querySelector(".timer-container").innerHTML=timer;
 }
 
 window.onload = function(){
     enableButtons();
     setUsername();
     setRoom();
+    setTimer();
     showTimer();
 }
 
@@ -148,7 +155,7 @@ function normalize(val, max, min) {
     value.toFixed(2);
     if(value>1) value=1;
     else if(value<0) value=0;
-    return value; 
+    return value;
 }
 
 function resetInitialValues(){
@@ -211,7 +218,7 @@ function toggleValueSlider(button){
             setValue(normalize(int(numLines7),5,0));
         }
         sendMessage();
-    } 
+    }
     else{
         isDown=true;
         buttonPressed=button;
@@ -248,7 +255,7 @@ function toggleValueSlider(button){
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="rndFloat";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
-        } 
+        }
         else if(buttonPressed=="button-transparent4"){
             traslations=85;
             rotation1=220;
@@ -259,7 +266,7 @@ function toggleValueSlider(button){
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="pan";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
-        } 
+        }
         else if(buttonPressed=="button-transparent5"){
             traslations=80;
             rotation1=50;
@@ -292,7 +299,7 @@ function toggleValueSlider(button){
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="fast";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
-        } 
+        }
         else if(buttonPressed=="button-transparent8"){
             traslations=85;
             rotation1=220;
@@ -303,7 +310,7 @@ function toggleValueSlider(button){
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
             document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
-        } 
+        }
 
         console.log(buttonPressed);
         loop();
@@ -394,7 +401,7 @@ function enableButtons(){
     document.querySelector(".button-transparent3").onmouseup=toggle3;
     document.querySelector(".button-transparent4").onmousedown=toggle4;
     document.querySelector(".button-transparent4").onmouseup=toggle4;
-    
+
     document.querySelector(".button-transparent1").ontouchstart=toggle1;
     document.querySelector(".button-transparent1").ontouchend=toggle1;
     document.querySelector(".button-transparent2").ontouchstart=toggle2;
@@ -403,12 +410,12 @@ function enableButtons(){
     document.querySelector(".button-transparent3").ontouchend=toggle3;
     document.querySelector(".button-transparent4").ontouchstart=toggle4;
     document.querySelector(".button-transparent4").ontouchend=toggle4;
-    
+
     document.querySelector(".button-transparent1").ondragend=toggle1;
     document.querySelector(".button-transparent2").ondragend=toggle2;
     document.querySelector(".button-transparent3").ondragend=toggle3;
     document.querySelector(".button-transparent4").ondragend=toggle4;
-    
+
     //disk 2
     document.querySelector(".button-transparent5").onmousedown=toggle5;
     document.querySelector(".button-transparent5").onmouseup=toggle5;
@@ -418,7 +425,7 @@ function enableButtons(){
     document.querySelector(".button-transparent7").onmouseup=toggle7;
     document.querySelector(".button-transparent8").onmousedown=toggle8;
     document.querySelector(".button-transparent8").onmouseup=toggle8;
-    
+
     document.querySelector(".button-transparent5").ontouchstart=toggle5;
     document.querySelector(".button-transparent5").ontouchend=toggle5;
     document.querySelector(".button-transparent6").ontouchstart=toggle6;
@@ -427,7 +434,7 @@ function enableButtons(){
     document.querySelector(".button-transparent7").ontouchend=toggle7;
     document.querySelector(".button-transparent8").ontouchstart=toggle8;
     document.querySelector(".button-transparent8").ontouchend=toggle8;
-    
+
     document.querySelector(".button-transparent5").ondragend=toggle5;
     document.querySelector(".button-transparent6").ondragend=toggle6;
     document.querySelector(".button-transparent7").ondragend=toggle7;

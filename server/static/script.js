@@ -62,6 +62,7 @@ function showTimer(){
     //console.log("initial timerValue: "+timerValue);
     if(username!=null){
         document.querySelector(".timer-container").style.setProperty("display","flex");
+        document.querySelector(".wait-text").style.setProperty("display","flex");
         setInterval(countdown,1000);
         //console.log("timerValue: "+timerValue);
     }
@@ -79,12 +80,14 @@ function countdown(){
 
 function hideTimer(){
     document.querySelector(".timer-container").style.setProperty("display","none");
+    document.querySelector(".wait-text").style.setProperty("display","none");
 }
 
 function sendMessage(){
-    //disableOtherButtons();
+    disableOtherButtons();
     scaling=1;
     var name = document.getElementById("username").value;
+    if(name.length>20) name=name.substr(0,19);
     if(name.length < 1 ){
         swal({
             title: "Warning!",
@@ -162,10 +165,12 @@ function resetInitialValues(){
     numLines6=0;
     numLines7=0;
     numLines8=0;
+    document.querySelectorAll(".parameter-changing")[0].style.setProperty("color", "rgb(0,0,0,0)");
+    document.querySelectorAll(".parameter-changing")[1].style.setProperty("color", "rgb(0,0,0,0)");
 }
 
 function toggleValueSlider(button){
-    disableOtherButtons(button);
+    //disableOtherButtons(button);
     if(isDown){
         //noLoop();
         isDown=false;
@@ -329,8 +334,8 @@ function toggleValueSlider(button){
     }
 }
 
-function disableOtherButtons(button){
-    /*document.querySelector(".button-transparent1").onmousedown="none";
+function disableOtherButtons(){
+    document.querySelector(".button-transparent1").onmousedown="none";
     document.querySelector(".button-transparent1").onmouseup="none";
     document.querySelector(".button-transparent1").ontouchstart="none";
     document.querySelector(".button-transparent1").ontouchend="none";
@@ -348,10 +353,30 @@ function disableOtherButtons(button){
     document.querySelector(".button-transparent4").onmousedown="none";
     document.querySelector(".button-transparent4").onmouseup="none";
     document.querySelector(".button-transparent4").ontouchstart="none";
-    document.querySelector(".button-transparent4").ontouchend="none";*/
+    document.querySelector(".button-transparent4").ontouchend="none";
+
+    document.querySelector(".button-transparent5").onmousedown="none";
+    document.querySelector(".button-transparent5").onmouseup="none";
+    document.querySelector(".button-transparent5").ontouchstart="none";
+    document.querySelector(".button-transparent5").ontouchend="none";
+
+    document.querySelector(".button-transparent6").onmousedown="none";
+    document.querySelector(".button-transparent6").onmouseup="none";
+    document.querySelector(".button-transparent6").ontouchstart="none";
+    document.querySelector(".button-transparent6").ontouchend="none";
+
+    document.querySelector(".button-transparent7").onmousedown="none";
+    document.querySelector(".button-transparent7").onmouseup="none";
+    document.querySelector(".button-transparent7").ontouchstart="none";
+    document.querySelector(".button-transparent7").ontouchend="none";
+
+    document.querySelector(".button-transparent8").onmousedown="none";
+    document.querySelector(".button-transparent8").onmouseup="none";
+    document.querySelector(".button-transparent8").ontouchstart="none";
+    document.querySelector(".button-transparent8").ontouchend="none";
 
 
-    if(button=="button-transparent1"){
+    /*if(button=="button-transparent1"){
         document.querySelector(".button-transparent2").onmousedown="none";
         document.querySelector(".button-transparent3").onmousedown="none";
         document.querySelector(".button-transparent4").onmousedown="none";
@@ -471,7 +496,7 @@ function disableOtherButtons(button){
         document.querySelector(".button-transparent5").ontouchend="none";
         document.querySelector(".button-transparent6").ontouchend="none";
         document.querySelector(".button-transparent7").ontouchend="none";
-    }
+    }*/
 }
 
 function toggle1(){

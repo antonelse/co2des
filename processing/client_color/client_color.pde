@@ -174,21 +174,30 @@ void sendosc(String param, float value){
 
 void setDefaultState(){
   //schermata 1
-  sendosc("slow",2);
+  sendosc("pan",0.5);
   sendosc("crusher",1);
   sendosc("cutoff",400);
-  sendosc("offset",0);
+  sendosc("randoFloat",0);
   //schermata 2
-  sendosc("param1",1);
-  sendosc("param2",1);
-  sendosc("param3",1);
-  sendosc("param4",1);
+  sendosc("every",2);
+  sendosc("fast",1);
+  sendosc("offset",0);
+  sendosc("randomInt",0);
   defaultParamSent = true;
 }
 
 float discretizeNoOdd(float val){ 
   val = floor(val);
   if(val%2 != 0) val++;
+  return val;
+}
+
+float discretizeScale(float val){ 
+  if(val<0.2) return 0;
+  else if(val<0.4) return 0.125;
+  else if(val<0.6) return 0.25;
+  else if(val<0.8) return 0.5;
+  else if(val<=1) return 1;
   return val;
 }
 
@@ -199,40 +208,40 @@ TidalParameter mapMessage(Interaction inter){
     //Disc 1
     //yellow
     if(inter.r==245 && inter.g==203 && inter.b==54) {
-      map=new TidalParameter("slow",map(inter.value, 0, 1, 2, 6));
+      map=new TidalParameter("cutoff",map(inter.value, 0, 1, 400, 15000));
       return map;
     }//light blue
     else if(inter.r==10 && inter.g==209 && inter.b==183){
-      map=new TidalParameter("crusher",map(inter.value, 0 ,1 , 1, 15));
+      map=new TidalParameter("pan",inter.value);
       return map;
     }//magenta
     else if(inter.r==190 && inter.g==9 && inter.b==206) {
-      map=new TidalParameter("cutoff",map(inter.value, 0, 1, 400, 15000));
+      map=new TidalParameter("crusher",map(inter.value, 0, 1, 1, 15));
       return map;
     }//blue
     else if(inter.r==6 && inter.g==48 && inter.b==189){
-      map=new TidalParameter("offset",inter.value);
+      map=new TidalParameter("randomFloat",inter.value);
       return map;
     
     //Disc 2
     //yellow
     }else if(inter.r==246 && inter.g==203 && inter.b==54) {
-      map=new TidalParameter("param1",map(inter.value, 0, 1, 0, 10));
-      map.value = discretizeNoOdd(map.value);
+      map=new TidalParameter("randomInt",map(inter.value, 0, 1, 0, 15));
+      map.value = ceil(map.value);
       return map;
     }//light blue
     else if(inter.r==11 && inter.g==209 && inter.b==183){
-      map=new TidalParameter("param2",map(inter.value, 0 ,1 , 0, 10));
-      map.value = discretizeNoOdd(map.value);
+      map=new TidalParameter("offset",inter.value);
+      map.value = discretizeScale(map.value);
       return map;
     }//magenta
     else if(inter.r==191 && inter.g==9 && inter.b==206) {
-      map=new TidalParameter("param3",map(inter.value, 0, 1, 0, 10));
-      map.value = discretizeNoOdd(map.value);
+      map=new TidalParameter("every",map(inter.value, 0, 1, 1, 6));
+      map.value = ceil(map.value);
       return map;
     }else{//blue
-      map=new TidalParameter("param4",map(inter.value, 0, 1, 0, 10));
-      map.value = discretizeNoOdd(map.value);
+      map=new TidalParameter("fast",map(inter.value, 0, 1, 1, 6));
+      map.value = floor(map.value);
       return map;
     }    
 }

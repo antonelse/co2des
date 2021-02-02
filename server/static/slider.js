@@ -20,6 +20,7 @@ function draw(){
         if(stretch<0){
             isChanging=false;
         }  
+        document.querySelector(".please-hold-me").style.setProperty("display","none");
     }
     else if(changingRoom&&!isChanging){
         stretch+=0.1;
@@ -47,6 +48,8 @@ function draw(){
         document.querySelector(".text-room").innerHTML="Audio parameters";
         document.querySelectorAll(".container-disco-transparent")[0].style.setProperty("display","inline-flex");
         document.querySelectorAll(".container-disco-transparent")[1].style.setProperty("display","none");
+        document.querySelector(".please-hold-me").style.setProperty("display","inline-block");
+
         fill(245, 203, 54);
         arc(xToStart,yToStart,dim1,dim1,PI-PI/20,PI+PI/30+PI/2);
         fill(6, 48, 189);
@@ -61,6 +64,8 @@ function draw(){
         document.querySelector(".text-room").innerHTML="Pattern parameters";
         document.querySelectorAll(".container-disco-transparent")[0].style.setProperty("display","none");
         document.querySelectorAll(".container-disco-transparent")[1].style.setProperty("display","inline-flex");
+        document.querySelector(".please-hold-me").style.setProperty("display","inline-block");
+
         noFill();
         strokeWeight(4);
         let dimR1=110;
@@ -114,6 +119,7 @@ function draw(){
     circle(xToStart,yToStart,100);
 
     if(isDown){
+        document.querySelector(".please-hold-me").style.setProperty("display","none");
         if(buttonPressed=="button-transparent1"){
             if(dim1<350) dim1+=2;
         } 

@@ -202,13 +202,13 @@ function toggleValueSlider(button){
         }
         if(button=="button-transparent7"){
             document.querySelectorAll(".parameter-changing")[1].innerHTML=int(numLines6);
-            console.log(normalize(int(numLines6),5,0))
-            setValue(normalize(int(numLines6),5,0));
+            console.log(normalize(int(numLines6),6,0))
+            setValue(normalize(int(numLines6),6,0));
         }
         if(button=="button-transparent8"){
             document.querySelectorAll(".parameter-changing")[1].innerHTML=int(numLines7);
-            console.log(normalize(int(numLines7),6,0))
-            setValue(normalize(int(numLines6),6,0));
+            console.log(normalize(int(numLines7),5,0))
+            setValue(normalize(int(numLines7),5,0));
         }
         sendMessage();
     } 
@@ -224,7 +224,7 @@ function toggleValueSlider(button){
             g=203;
             b=54;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="slow";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent2") {
@@ -235,7 +235,7 @@ function toggleValueSlider(button){
             g=9;
             b=206;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent3"){
@@ -246,7 +246,7 @@ function toggleValueSlider(button){
             g=48;
             b=189;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="rndFloat";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent4"){
@@ -257,7 +257,7 @@ function toggleValueSlider(button){
             g=209;
             b=183;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="pan";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent5"){
@@ -268,7 +268,7 @@ function toggleValueSlider(button){
             g=203;
             b=54;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="slow";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="rndInt";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent6") {
@@ -279,7 +279,7 @@ function toggleValueSlider(button){
             g=9;
             b=206;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="cutoff";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="every";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         }
         else if(buttonPressed=="button-transparent7"){
@@ -290,7 +290,7 @@ function toggleValueSlider(button){
             g=48;
             b=189;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="fast";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
         else if(buttonPressed=="button-transparent8"){
@@ -301,7 +301,7 @@ function toggleValueSlider(button){
             g=209;
             b=183;
             document.querySelectorAll(".parameter-changing")[0].style.color="rgb("+r+","+g+","+b+")";
-            document.querySelectorAll(".parameter-changing")[0].innerHTML="crusher";
+            document.querySelectorAll(".parameter-changing")[0].innerHTML="offset";
             document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling;
         } 
 

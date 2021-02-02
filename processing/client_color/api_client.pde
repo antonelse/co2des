@@ -5,11 +5,10 @@ class API_Client{
   GetRequest req;
   GetRequest del;
 
-  
   //PostRequest post;
   String get_msg_api="";
   String delete_msg_api="";
-  // ---- CONSTRUCTOR ----
+  
   API_Client(String mainUrl){
     this.get_msg_api=mainUrl+"/get_msgs";
     this.delete_msg_api=mainUrl+"/delete_all";
@@ -17,7 +16,6 @@ class API_Client{
     this.del = new GetRequest(this.delete_msg_api);   
   }
   
-  // ---- METHODS ----
   String[] get_msgs(){
     this.req.send();
     JSONObject JSONobj = parseJSONObject(req.getContent());
@@ -38,7 +36,7 @@ class API_Client{
   Interaction extractData(String msg){
       Interaction inter;
       String[] elements=msg.split("-");
-      inter=new Interaction(elements[0],int(elements[1]),int(elements[2]),int(elements[3]),float(elements[4]));
+      inter=new Interaction(elements[0],int(elements[2]),int(elements[3]),int(elements[4]),float(elements[5])); //Skipped elements[1] because it's the room value
       return inter;
   } 
 }

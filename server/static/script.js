@@ -14,6 +14,7 @@ let changingRoom=false;
 //disk
 
 var isDown=false;
+let colorSelected=false;
 var isUp=true;
 var buttonPressed;
 var dimensions;
@@ -167,12 +168,15 @@ function resetInitialValues(){
     numLines6=0;
     numLines7=0;
     numLines8=0;
+    colorSelected=false;
     document.querySelectorAll(".parameter-changing")[0].style.setProperty("color", "rgb(0,0,0,0)");
     document.querySelectorAll(".parameter-changing")[1].style.setProperty("color", "rgb(0,0,0,0)");
+    document.querySelector(".please-hold-me").style.setProperty("display","inline-block");
 }
 
 function toggleValueSlider(button){
     if(isDown){
+        document.querySelector(".please-hold-me").style.setProperty("display","none");
         isDown=false;
         document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
         document.querySelectorAll(".parameter-changing")[1].innerHTML=scaling.toFixed(2);
@@ -221,6 +225,7 @@ function toggleValueSlider(button){
     }
     else{
         isDown=true;
+        colorSelected=true;
         buttonPressed=button;
         console.log("buttonPressed");
         if(buttonPressed=="button-transparent1"){

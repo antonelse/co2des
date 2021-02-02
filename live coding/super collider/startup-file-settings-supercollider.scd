@@ -13,11 +13,14 @@ s.reboot { // server options are only updated on reboot
 	s.options.numWireBufs = 64; // increase this if you get "exceeded number of interconnect buffers" messages
 	s.options.maxNodes = 1024 * 32; // increase this if you are getting drop outs and the message "too many nodes"
 	s.options.numOutputBusChannels = 2; // set this to your hardware output channel size, if necessary
-	s.options.numInputBusChannels = 2; // set this to your hardware output channel size, if necessary
+	s.options.numInputBusChannels = 0; // set this to your hardware output channel size, if necessary
 	// boot the server and start SuperDirt
 	s.waitForBoot {
 		~dirt = SuperDirt(2, s); // two output channels, increase if you want to pan across more channels
-		~dirt.loadSoundFiles("/Users/antonelse/Documents/TidalCycle/tidalclub/samples-extra/*");
+		~dirt.loadSoundFiles("/Users/antoniogiganti/Documents/TidalCycles/samples/samples-extra/*");
+		~dirt.loadSoundFiles("/Users/antoniogiganti/Documents/TidalCycles/samples/antonelse-samples/*");
+		~dirt.loadSoundFiles("/Users/antoniogiganti/Documents/TidalCycles/samples/antonelse-samples/theme/selected by bars/*");
+		~dirt.loadSoundFiles("/Users/antoniogiganti/Documents/TidalCycles/samples/guest-samples/*");
 		~dirt.loadSoundFiles;   // load samples (path containing a wildcard can be passed in)
 		// for example: ~dirt.loadSoundFiles("/Users/myUserName/Dirt/samples/*");
 		// s.sync; // optionally: wait for samples to be read
@@ -32,6 +35,6 @@ s.reboot { // server options are only updated on reboot
 		);
 	};
 
-	s.latency = 0.3; // increase this if you get "late" messages
+	s.latency = 0.2; // increase this if you get "late" messages
 };
 );

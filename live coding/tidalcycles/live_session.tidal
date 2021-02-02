@@ -1,13 +1,10 @@
 -- *********************** LIVE TEST ***********************
-
--- available user input controls:
--- _pan   _crusher  _cutoff  _randomFloat       DISK 1: "continuous" audio values
--- _every _fast     _offset  _randomInt         DISK 2: "discrete" pattern values
+-- please, read the "configurations.tidal" file before using these patterns !!
 
 
 
--- AUDIO TEST 1
--- _offset / _randomFloat / _cutoff
+-- ********* AUDIO TEST 1
+-- USED PARAMETERS: _offset / _randomFloat / _cutoff
 
 setcps (130/60/4)
 
@@ -30,8 +27,8 @@ byeByeWithGas 8
 d5 silence
 
 
--- AUDIO TEST 3
--- _pan / _randomFloat / _randomInt /_fast / _every
+-- ********* AUDIO TEST 2
+-- USED PARAMETERS: _pan / _randomFloat / _randomInt /_fast / _every
 
 setcps(120/60/4)
 
@@ -57,8 +54,8 @@ d5 $ every _every ((#speed 2) . (#offset 0.125)) $ n "{1(7,16)}" # s "cpu2:9"
 d4 silence
 
 
--- AUDIO TEST 4
--- _every / _randomFloat / _fast / _cutoff
+-- ********* AUDIO TEST 3
+-- USED PARAMETERS: _every / _randomFloat / _fast / _cutoff
 
 setcps(170/60/4)
 
@@ -86,4 +83,22 @@ once $ s "cazzate:6" -- horn
 byeByeWithGas 8
 
 
--- **************************************************************************************
+-- ********* AUDIO TEST 4 (ambient)
+-- USED PARAMETERS: _offset / _every / _randomFloat / _pan
+
+setcps (80/60/4)
+
+d1 $ s "supernoise/8" # midinote ((irand 10) + 30)
+  # sustain 2 # accelerate 0.5 # voice 0.8
+  # pitch1 "<0.25 0.57 0.43 0.12>" # resonance _randomFloat
+  # attack 3 # release 30 # room 0.98 # size 0.98 #gain 0.75 #orbit 3
+
+d2 $ sometimesBy 0.7 ((#speed (range 0.1 1 tri)) . (_offset<~))
+  $ every _every (density "<13 7 14 3 9 1>")
+  $ s "tabla" # n (irand 14) #legato 10
+  #room 0.5 # sz 0.8 #gain 0.75 #orbit 2
+
+d3 $ sometimesBy _randomFloat (#speed (range 0 5 saw))
+  $ every 2 (density "<10 22 12 6 3>" . (#pan _pan))
+  $ s "wobble" # n (irand 16) #legato 10
+  #room 0.5 # sz 0.8 #gain 0.7 #orbit 1

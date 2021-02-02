@@ -1,4 +1,4 @@
--- *********************** IMPORTANT ***********************
+-- *********************** DISCLAIMER ***********************
 
 -- [PLEASE, READ THESE LINES CAREFULLY BEFORE THE LIVE SESSION]
 -- in order to use the Processing app, you have to UPDATE the repl.js ATOM file with the PROCESSING IP address
@@ -8,7 +8,7 @@
 -- to execute a line press [SHIFT + ENTER]
 -- to execute multiple lines press [CMD + ENTER]
 
--- *********************** pre live configuration ***********************
+-- *********************** PRE SESSION config ***************
 
 
 -- [EXECUTE THESE LINES] before the live session in order to get the control from the audience through OSC messages
@@ -41,21 +41,26 @@ let _pan = 0.5
     _randomInt = 0
 
 
+-- [NOTE] that these names are just for undertand better the possible matching,
+-- but BE FREE to experiment, putting these variables in different places !!
+-- [BE CAREFUL] to match the accepted type (T - time, I - int, F - float) of the tidacycles function !!!
 
--- *********************** additional information ***********************
+
+-- *********************** additional information ***************
 
 -- predefined parameter range
-_pan            [2 - 2]
-_crusher        [2 - 2]
-_cutoff         [2 - 2]
-_randomFloat    [2 - 2]
-_every          [2 - 2]
-_fast           [2 - 2]
-_offset         [2 - 2]
-_randomInt      [2 - 2]
+_pan            [0 - 1]
+_crusher        [1 - 15]
+_cutoff         [400 - 15000]
+_randomFloat    [0 - 1]
+_every          [1 - 6]
+_fast           [1 - 6]
+_offset         [0 - 1]
+_randomInt      [0 - 15]
 
 
--- Execute these line if you want to use this function in you live session
+-- Execute the lines below if you want to use this function in you live session
+
 -- FADE OUT function.
 -- example of usage byeBye 8
 -- fades the patterns on 8 cycles
@@ -68,17 +73,14 @@ rangeMap x y = range (-x) y $ cF 1 "cutoff" --ranging min max
 -- clipping addition
 rangeMapClip x = min x $ max (-x) $ range (-x) x $ cF 1 "cutoff" --ranging clipping
 
+
+-- Utility lines
+
 -- set tempo
 setcps (160/60/4)
 
 -- metronome
 d9 $ n "2 1 1 1" # s "hi" #gain 0.85
-
--- drone background sounds
-d9 $ s "supernoise/8" # midinote ((irand 10) + 30)
-  # sustain 8 # accelerate 0.5 # voice 0.8
-  # pitch1 0.15 # resonance 0.7
-  # attack 1 # release 20 # room 0.9 # size 0.9 #gain 1
 
 -- some analog crackle stuff :)))))
 d9 $ loopAt 4 $ s "crackle:3" #gain 0.85

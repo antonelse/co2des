@@ -93,11 +93,11 @@ void draw(){
   
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
 
-  if(!timerIncreased && borgs.size()>20){
+  if(!timerIncreased && borgs.size()>180){
     println("Invio richiesta per aumento timer");
     thread("increaseTimer");
     timerIncreased = true;
-  } else if(timerIncreased && borgs.size()<10){
+  } else if(timerIncreased && borgs.size()<150){
     println("Invio richiesta per settare timer predefinito");
     thread("setDefaultTimer");
     timerIncreased = false;

@@ -1,35 +1,37 @@
 -- *********************** IMPORTANT ***********************
 
--- [PLEASE, READ CAREFULLY !!!]
+-- [PLEASE, READ THESE LINES CAREFULLY BEFORE THE LIVE SESSION]
 -- in order to use the Processing app, you have to UPDATE the repl.js ATOM file with the PROCESSING IP address
 -- Atom "repl.js" path --> on MAC /Users/"your_username"/.atom/packages/tidalcycles/lib/repl.js
 -- Processing IP address --> directly on the console; it will be like "192.168.8.132"
 
--- to execute a line press SHIFT + ENTER
--- to execute multiple lines press CMD + ENTER
+-- to execute a line press [SHIFT + ENTER]
+-- to execute multiple lines press [CMD + ENTER]
 
 -- *********************** pre live configuration ***********************
 
 
--- FADE OUT function. Execute this line if you want to use thi function in you live session
--- example of usage byeBye 8
--- fades the patterns on 8 cycles
-byeBye t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
-
-
 -- [EXECUTE THESE LINES] before the live session in order to get the control from the audience through OSC messages
-let _slow = (cT 2 "slow")
+-- place this variables (the ones with the _) in the code where you want the user interaction.
+-- be careful to match the accepted type (T - time, I - int, F - float) of the tidacycles function !!!
+
+-- available user input controls:
+-- _pan   _crusher  _cutoff  _randomFloat      DISK 1: "continuous" audio values
+-- _every _fast     _offset  _randomInt        DISK 2: "discrete" pattern values
+
+
+let _pan = (cF 0.5 "pan")
     _crusher = (cF 1 "crusher")
     _cutoff = (cF 400 "cutoff")
     _randomFloat = (cF 0 "randomFloat")
     _every = (cI 2 "every")
     _fast = (cT 1 "fast")
-    _offset = (cF 0 "offset")
-    _randomInt = (cI 0 "randomInt")
+    _offset = (cT 0 "offset")
+    _randomInt = (cF 0 "randomInt")
 
 
 --[PANIC ONLY] param control manual HARD RESET
-let _slow = 2
+let _pan = 0.5
     _crusher = 1
     _cutoff = 400
     _randomFloat = 0
@@ -37,3 +39,46 @@ let _slow = 2
     _fast = 1
     _offset = 0
     _randomInt = 0
+
+
+
+-- *********************** additional information ***********************
+
+-- predefined parameter range
+_pan            [2 - 2]
+_crusher        [2 - 2]
+_cutoff         [2 - 2]
+_randomFloat    [2 - 2]
+_every          [2 - 2]
+_fast           [2 - 2]
+_offset         [2 - 2]
+_randomInt      [2 - 2]
+
+
+-- Execute these line if you want to use this function in you live session
+-- FADE OUT function.
+-- example of usage byeBye 8
+-- fades the patterns on 8 cycles
+byeBye t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
+
+-- VALUE RANGE mapping function.
+-- esample of usage: d1 $ sound "bd" # speed (rangeMap (-2) 3)
+-- same as: (range (-2) 3 $ cF 1 "cutoff")
+rangeMap x y = range (-x) y $ cF 1 "cutoff" --ranging min max
+-- clipping addition
+rangeMapClip x = min x $ max (-x) $ range (-x) x $ cF 1 "cutoff" --ranging clipping
+
+-- set tempo
+setcps (160/60/4)
+
+-- metronome
+d9 $ n "2 1 1 1" # s "hi" #gain 0.85
+
+-- drone background sounds
+d9 $ s "supernoise/8" # midinote ((irand 10) + 30)
+  # sustain 8 # accelerate 0.5 # voice 0.8
+  # pitch1 0.15 # resonance 0.7
+  # attack 1 # release 20 # room 0.9 # size 0.9 #gain 1
+
+-- some analog crackle stuff :)))))
+d9 $ loopAt 4 $ s "crackle:3" #gain 0.85

@@ -8,7 +8,7 @@
 
 setcps (130/60/4)
 
-d1 $ off _offset (#gain 0.85)
+d1 $ off _offset (#gain 0.75)
     $ loopAt 4
     $ sound "theme:16" #gain 1
 
@@ -39,14 +39,18 @@ d1 $ every 2 (0.125 <~) $ sometimesBy _randomFloat (#speed (range 0.3 1 sine))
 
 d2 $ fast 4 $ foldEvery [4, 2] (fast _fast . (#djf 0.8))
     $ sound "<ade:3 ade:3*2>" #speed 0.80 #legato 0.5 #room 0.5
-    #sz 0.8 #orbit 2 #pan _pan
+    #sz 0.8 #orbit 2 #pan _pan #gain 0.85
 
 d3 $ every 4 ((#legato 0.8) . fast 2 . (#hpf (range 300 1400 sine)) . (0.25~>))
-  $ sound "<amencutup*8 amencutup*12>" # n (range 0 _randomInt rand)
+  $ sound "<amencutup*8 amencutup*4>" # n (range 0 _randomInt rand)
   #room 0.5 #sz 0.2 #gain 1
 
 d4 $ loopAt 4 $  splice 16 "0..15"
     $ sound "theme:7" #gain 1 #room 0.9 #sz 0.7
+
+-- DA IMPLEMENTARE CARTELLE CON STESSO loopAt
+d4 $ loopAt 4 $  splice 16 "0..15"
+    $ sound "theme" # n (range 0 _randomInt rand) #gain 0.85 #room 0.9 #sz 0.7
 
 d5 $ every _every ((#speed 2) . (#offset 0.125)) $ n "{1(7,16)}" # s "cpu2:9"
 

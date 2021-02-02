@@ -249,7 +249,6 @@ TidalParameter mapMessage(Interaction inter){
 void requestData(){
   counter=0;
   msgs=client.get_msgs();
-  client.delete_all();
   if(msgs.length>0){
     for(int i=0;i<msgs.length;i++){
       
@@ -266,7 +265,8 @@ void requestData(){
     chatLength += chatUpShift * msgs.length + 20;
     println(msgs.length + " nuovi messaggi");
     
-  }
+  } 
+  client.delete_all();
 }
 
 boolean canBeParent(Borg parent1, Borg parent2){
@@ -406,7 +406,7 @@ void oscEvent(OscMessage theOscMessage) {
         String [] cps_segments = split(incomingLine, "(");
         String [] cps_values = split(cps_segments[1], "/");
         bpm = int(cps_values[0]);
-        transparency = int(map(bpm, 80, 180, 5, 50));
+        transparency = int(map(bpm, 80, 180, 5, 20));
       }
       
       codeBlock = codeBlock + " " + incomingLine;

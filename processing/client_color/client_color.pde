@@ -17,6 +17,7 @@ int counter=0;
 int overpopulationLimit=200;
 int msgN=0;
 int msgI=0;
+boolean timerIncreased = false;
 
 /*VISUAL VARIABLES*/
 ArrayList <Borg> borgs;
@@ -92,6 +93,16 @@ void draw(){
   
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
 
+  if(!timerIncreased && borgs.size()>20){
+    println("Invio richiesta per aumento timer");
+    thread("increaseTimer");
+    timerIncreased = true;
+  } else if(timerIncreased && borgs.size()<10){
+    println("Invio richiesta per settare timer predefinito");
+    thread("setDefaultTimer");
+    timerIncreased = false;
+  }
+  
   //VISUAL
   fill(25, 14, 51, transparency);
   rect(0, 0, width-chatWidth, height - codeScreenHeight);
@@ -161,7 +172,7 @@ void draw(){
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
-  //println("Numero Borgs: " + borgs.size());
+  println("Numero Borgs: " + borgs.size());
 }
 
 
@@ -267,6 +278,14 @@ void requestData(){
     
   } 
   client.delete_all();
+}
+
+void increaseTimer(){
+  client.increase_timer();
+}
+
+void setDefaultTimer(){
+  client.set_default_timer();
 }
 
 boolean canBeParent(Borg parent1, Borg parent2){

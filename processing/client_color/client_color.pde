@@ -18,6 +18,7 @@ int overpopulationLimit=200;
 int msgN=0;
 int msgI=0;
 boolean timerIncreased = false;
+int cont = 0;
 
 /*VISUAL VARIABLES*/
 ArrayList <Borg> borgs;
@@ -261,7 +262,7 @@ void requestData(){
   counter=0;
   msgs=client.get_msgs();
   if(msgs.length>0){
-    for(int i=0;i<msgs.length;i++){
+    for(int i=cont;i<msgs.length;i++){
       
       Interaction currentInteraction=interaction.get(i);
       
@@ -270,14 +271,21 @@ void requestData(){
       createBorgs(currentInteraction,map.value);
 
       chat = chat + " --> " + currentInteraction.username + "\n    :: _" + map.param + " " + map.value + "\n";
+      
+      cont ++;
+      
+      chatYposition = chatYposition - chatUpShift;
+      chatLength += chatUpShift + 20;
     }
     
-    chatYposition = chatYposition - (chatUpShift * msgs.length);
-    chatLength += chatUpShift * msgs.length + 20;
     println(msgs.length + " nuovi messaggi");
     
   } 
-  client.delete_all();
+  
+  if(msgs.length > 50) {
+    client.delete_all();
+    cont = 0;
+  }
 }
 
 void increaseTimer(){

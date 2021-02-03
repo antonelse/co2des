@@ -1,6 +1,6 @@
 -- *********************** DISCLAIMER ***********************
 
--- In order to use the full Processing app functionalities, you have to SUBSTITUTE and UPDATE 
+-- In order to use the full Processing app functionalities, you have to SUBSTITUTE and UPDATE
 -- the original repl.js ATOM file with our repl.js file the Processing IP Address.
 -- Atom "repl.js" path --> on MAC /Users/"your_username"/.atom/packages/tidalcycles/lib/repl.js
 -- Processing IP address --> directly on the console; it will be like "192.168.8.132"
@@ -64,7 +64,7 @@ _randomInt      [0 - 15]
 -- FADE OUT function.
 -- example of usage byeBye 8
 -- fades the patterns on 8 cycles
-byeBye t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
+byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
 
 -- VALUE RANGE mapping function.
 -- esample of usage: d1 $ sound "bd" # speed (rangeMap (-2) 3)

@@ -5,14 +5,15 @@
 -- if you want to add your personal samples, please visit tidalcycles.org
 
 
+
 -- ********* AUDIO TEST 1
 -- USED PARAMETERS: _offset / _randomFloat / _cutoff
 
 setcps (130/60/4)
 
-d1 $ off _offset (#gain 0.75)
+d1 $ off _offset ((#gain 0.75) . (#djf 0.8) . (#speed 0.998))
     $ loopAt 4
-    $ sound "theme:16" #gain 1
+    $ sound "theme:11" #gain 1
 
 d2 $ stack[
     n "[1*2](5,8)" # s "808oh:5" #gain 0.8,
@@ -24,9 +25,10 @@ d3  $ loopAt 3 $ fast 2
     $ splice 16 "4 [13 2] ~ 1 [9 11] 15 [14 2] 3 4 2! ~"
     $ sound "sr:4" #gain 0.95 #cutoff _cutoff
 
-byeByeWithGas 8
+byeByeWithGas 4
 
 d5 silence
+
 
 
 -- ********* AUDIO TEST 2
@@ -39,25 +41,27 @@ d1 $ every 2 (0.125 <~) $ sometimesBy _randomFloat (#speed (range 0.3 1 sine))
   $ s "stomp" # n (irand 15)
   #legato 10 #room 0.6 # sz 0.7 #gain 0.9
 
-d2 $ fast 4 $ foldEvery [4, 2] (fast _fast . (#djf 0.8))
+d2 $ fast 4 $ foldEvery [4, 2] (fast _fast . (#djf 0.8) . (#gain 1))
     $ sound "<ade:3 ade:3*2>" #speed 0.80 #legato 0.5 #room 0.5
     #sz 0.8 #orbit 2 #pan _pan #gain 0.85
 
 d3 $ every 4 ((#legato 0.8) . fast 2 . (#hpf (range 300 1400 sine)) . (0.25~>))
   $ sound "<amencutup*8 amencutup*4>" # n (range 0 _randomInt rand)
-  #room 0.5 #sz 0.2 #gain 1
+  #room 0.5 #sz 0.2 #gain 0.93
 
 d4 $ loopAt 4 $  splice 16 "0..15"
-    $ sound "theme:7" #gain 1 #room 0.9 #sz 0.7
+    $ sound "theme:7" #room 0.9 #sz 0.7 #gain 0.9
 
 d5 $ every _every ((#speed 2) . (#offset 0.125)) $ n "{1(7,16)}" # s "cpu2:9"
 
+byeByeWithGas 4
 
 d4 silence
 
 
+
 -- ********* AUDIO TEST 3
--- USED PARAMETERS: _every / _randomFloat / _fast / _cutoff
+-- USED PARAMETERS: _every / _randomFloat / _crusher / _fast / _cutoff
 
 setcps(170/60/4)
 
@@ -66,27 +70,29 @@ d1 $ every _every ((#bandf 800) . (#bandq (range 0 50 sine)))
     $ sound "theme:14" #gain 0.9
 
 d2 $ sometimesBy _randomFloat (#speed _crusher)
-    $ fast 2 $ shuffle 2 $ n "3 3 [4 3?] 5?0.1"
-    # s "gab" #delay 0.3 #delayt 0.33 #delayfb 0.4
+    $ fast 2 $ shuffle 2 $ n "3 2 [4 9?] 7?0.1"
+    # s "kick" #delay 0.3 #delayt 0.33 #delayfb 0.4
     #cutoff (range 400 15000 saw) #gain 0.8
 
 d3 $ loopAt 4 $ splice 16 "0 3 [6? 12] 9 12 7 [14 3?] 0"
     $ sound "sr:3" #cutoff _cutoff #gain 0.9
 
-d4 $ loopAt 8 $  splice 16 "0..15"
-    $ sound "8bars" # n (_randomInt) #room 0.9 #sz 0.7 #gain 1
+--variable samples
+d1 $ loopAt 8 $  splice 16 "0..15"
+    $ sound "8bars" # n (_randomInt) #room 0.9 #sz 0.7 #gain 0.95
 
-d5 silence
+d3 silence
 
-once $ s "cazzate:3" -- la scoteca
+once $ s "cazzate:3" #room 1 #size 0.95 -- la scoteca
 
 once $ s "cazzate:6" -- horn
 
 byeByeWithGas 8
 
 
+
 -- ********* AUDIO TEST 4 (ambient)
--- USED PARAMETERS: _offset / _every / _randomFloat / _pan
+-- USED PARAMETERS: _offset / _every / _randomFloat / _pan / _randomInt
 
 setcps (80/60/4)
 
@@ -97,10 +103,14 @@ d1 $ s "supernoise/8" # midinote ((irand 10) + 30)
 
 d2 $ sometimesBy 0.7 ((#speed (range 0.1 1 tri)) . (_offset<~))
   $ every _every (density "<13 7 14 3 9 1>")
-  $ s "tabla" # n (irand 14) #legato 10
-  #room 0.5 # sz 0.8 #gain 0.75 #orbit 2
+  $ s "tabla" # n (irand 14) #legato _randomFloat
+  #room 0.6 # sz 0.8 #gain 0.78 #orbit 2
 
 d3 $ sometimesBy _randomFloat (#speed (range 0 5 saw))
   $ every 2 (density "<10 22 12 6 3>" . (#pan _pan))
-  $ s "wobble" # n (irand 16) #legato 10
-  #room 0.5 # sz 0.8 #gain 0.7 #orbit 1
+  $ s "wobble" # n (irand 16) #legato _randomInt
+  #room 0.6 # sz 0.8 #gain 0.67 #orbit 1
+
+d3 silence
+
+byeByeWithGas 8

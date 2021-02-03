@@ -1,6 +1,6 @@
-# **co2des**
+# **co²des**
 
-**_co2des_** is an environment for enhanced live coding performances.
+**_co²des_** is an environment for enhanced live coding performances.
 It can be considered as an interactive artistic installation in which the most important part is the audience.
 It is based on the concept of making the people able to interact with the system so that they are active part of the creative process.
 The live coder executes some code to generate the music leaving some parameter free, they are filled thanks to the user interactions.
@@ -22,6 +22,8 @@ The people are able to see the result in a visual, better if projected on a big 
 
 + **Live coder executed code block visualization**
   One of the principles of live coding is "showing the code", so every code block executed by the coder will be clearly visualized in a defined part of the screen.
+
+<p align="center"><img src="./presentation/flowchart.png"></p>
 
 ## **Prerequisites**
 This app is based on different software. To use the entire functionalities you have to install the following software:
@@ -80,7 +82,11 @@ You can find these files inside our `./livecoding/tidalcycles` folder.
 
 
 ## Example Use
+An example of a single user interaction:
+<p align="center"><img src="./presentation/gif1co2des.gif"></p>
 
+An example of multiple users interactions with child generation:
+<p align="center"><img src="./presentation/gif2co2des.gif"></p>
 
 ## Hack The System
 + change the screen size - default `1550x1000`
@@ -96,7 +102,7 @@ Lorenzo Talone - [GitHub](https://github.com/carlopulv)
 ### License
 This project is licensed under the GNU General Public License v3 - see `LICENSE.txt` for details.
 
-**co2des** \
+**co²des** \
 Copyright© 2021, Antonio Giganti, Carlo Pulvirenti & Lorenzo Talone.
 
 ### Useful Links

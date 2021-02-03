@@ -1,6 +1,11 @@
 # **co2des**
 
-**_co2des_** is ...
+**_co2des_** is an environment for enhanced live coding performances.
+It can be considered as an interactive artistic installation in which the most important part is the audience.
+It is based on the concept of making the people able to interact with the system so that they are active part of the creative process.
+The live coder executes some code to generate the music leaving some parameter free, they are filled thanks to the user interactions.
+The interaction is made through a web app and sent to the system.
+The people are able to see the result in a visual, better if projected on a big screen, and obviously listening to the changes in the sound.
 
 ## **Prerequisites**
 This app is based on different software. To use the entire functionalities you have to install the following software:

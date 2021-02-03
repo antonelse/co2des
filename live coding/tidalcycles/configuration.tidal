@@ -30,7 +30,7 @@ let _pan = (cF 0.5 "pan")
     _randomInt = (cF 0 "randomInt")
 
 
---[PANIC ONLY] param control manual HARD RESET
+-- [PANIC ONLY] param control manual HARD RESET
 let _pan = 0.5
     _crusher = 1
     _cutoff = 400

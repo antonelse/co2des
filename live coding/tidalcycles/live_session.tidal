@@ -104,9 +104,3 @@ d3 $ sometimesBy _randomFloat (#speed (range 0 5 saw))
   $ every 2 (density "<10 22 12 6 3>" . (#pan _pan))
   $ s "wobble" # n (irand 16) #legato 10
   #room 0.5 # sz 0.8 #gain 0.7 #orbit 1
-
-
-
-
--
-setcps (140/60/4)

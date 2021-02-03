@@ -1,7 +1,7 @@
 -- *********************** DISCLAIMER ***********************
 
--- [PLEASE, READ THESE LINES CAREFULLY BEFORE THE LIVE SESSION]
--- in order to use the Processing app, you have to UPDATE the repl.js ATOM file with the PROCESSING IP address
+-- In order to use the full Processing app functionalities, you have to SUBSTITUTE and UPDATE 
+-- the original repl.js ATOM file with our repl.js file the Processing IP Address.
 -- Atom "repl.js" path --> on MAC /Users/"your_username"/.atom/packages/tidalcycles/lib/repl.js
 -- Processing IP address --> directly on the console; it will be like "192.168.8.132"
 

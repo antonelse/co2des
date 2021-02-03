@@ -27,19 +27,21 @@ In specific we have modified the `repl.js` file. \
 On macOs `/Users/[USERNAME]/.atom/packages/tidalcycles/lib/repl.js` \
 On Win `C:/Users/[USERNAME]/.atom/packages/tidalcycles/lib/repl.js`
 
-You have to substitute this file with the one provided by us in the `./live coding/atom` folder, and modify the IP Address with the one showed on the Processing console.
+You have to **substitute** this file with the one provided by us in the `./live coding/atom` folder, and **modify** the IP Address with the one showed on the Processing console.
 
 **For example**, if the Processing console is like this
 ``` shell
 ### [2021/2/3 10:52:16] INFO @ OscP5 is running. you (192.168.1.224) are listening @ port 9000
 ```
 the only thing you have to do is to copy this IP Address **from** Processing **to** the `repl.js` file. \
-After this change, this file will look like this (`line 128`):
+After this change, this file will look like this (`line 138`):
 ```javascript
 this.myUdp.send(buf, 0, buf.length, 9000, "192.168.1.224");
 ```
 After this operation you have to close and reopen the Atom editor. \
 **NOTE.** The IP Address (i.e.`192.168.1.224`) has to be the **same**.
+
+For more info, read the related `README.txt` in each sub-folder.
 
 ### Live coding session
 Before starting the session, you have to do some preliminary operation inside the `configuration.tidal` file. After that, you can try the system by executing some lines inside the `live_session.tidal` file. \
@@ -70,7 +72,7 @@ Lorenzo Talone - [GitHub](https://github.com/carlopulv)
 This project is licensed under the GNU General Public License v3 - see `LICENSE.txt` for details.
 
 **co2des** \
-Copyright (C) 2021, Antonio Giganti, Carlo Pulvirenti & Lorenzo Talone.
+Copyright© 2021, Antonio Giganti, Carlo Pulvirenti & Lorenzo Talone.
 
 ### Useful Links
 

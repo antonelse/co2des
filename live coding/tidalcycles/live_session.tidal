@@ -54,9 +54,9 @@ d4 $ loopAt 4 $  splice 16 "0..15"
 
 d5 $ every _every ((#speed 2) . (#offset 0.125)) $ n "{1(7,16)}" # s "cpu2:9"
 
-byeByeWithGas 4
+byeByeWithGas 8
 
-d4 silence
+d3 silence
 
 
 
@@ -84,7 +84,7 @@ d1 $ loopAt 8 $  splice 16 "0..15"
 
 d3 silence
 
-once $ s "cazzate:3" #room 1 #size 0.95 -- la scoteca
+once $ s "cazzate:4" #room 1 #size 0.95 -- la scoteca
 
 once $ s "cazzate:6" -- horn
 

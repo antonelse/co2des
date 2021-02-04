@@ -64,6 +64,7 @@ _randomInt      [0 - 15]
 -- FADE OUT function.
 -- example of usage byeBye 8
 -- fades the patterns on 8 cycles
+
 byeByeWithGas t = mapM_ (\i -> xfadeIn i t silence) [1 .. 16]
 
 -- VALUE RANGE mapping function.

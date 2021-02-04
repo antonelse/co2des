@@ -23,5 +23,7 @@ urlpatterns = [
     path('send_msg', apps.send_msg, name="send_msg"),
     path('get_msgs', apps.get_msgs, name="get_msgs"),
     path('delete_all', apps.delete_all, name="delete_all"),
+    path('increase_timer', apps.increase_timer, name="increase_timer"),
+    path('set_default_timer', apps.set_default_timer, name="set_default_timer"),
     path('/redirect/', views.redirect_view),
 ]

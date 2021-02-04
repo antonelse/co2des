@@ -42,8 +42,12 @@ def increase_timer(request):
     global timer
     timer="10"
     timer.save()
+    response={"msgs":[]}
+    return JsonResponse(response)
 
 def set_default_timer(request):
     global timer
-    timer.save()
     timer="3"
+    timer.save()
+    response={"msgs":[]}
+    return JsonResponse(response)

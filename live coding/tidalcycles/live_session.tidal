@@ -65,7 +65,7 @@ d4 silence
 
 setcps(170/60/4)
 
-d1 $ every _every ((#bandf 800) . (#bandq (range 0 50 sine)))
+d1 $ every _every ((#bandf 800) . (#bandq (range 0 50 sine)) . (#gain 0.9))
     $ loopAt 8 $  splice 16 "0..15"
     $ sound "theme:14" #gain 0.9
 
@@ -78,8 +78,9 @@ d3 $ loopAt 4 $ splice 16 "0 3 [6? 12] 9 12 7 [14 3?] 0"
     $ sound "sr:3" #cutoff _cutoff #gain 0.9
 
 --variable samples
+
 d1 $ loopAt 8 $  splice 16 "0..15"
-    $ sound "8bars" # n (_randomInt) #room 0.9 #sz 0.7 #gain 0.95
+    $ sound "8bars" # n (_randomInt) #room 0.9 #sz 0.7 #gain 0.85
 
 d3 silence
 

@@ -97,11 +97,11 @@ void draw(){
   
   if(counter != reload_eta){
     if(!timerIncreased && borgs.size()>overpopulationLimit){
-      println("Invio richiesta per aumento timer");
+      //println("Invio richiesta per aumento timer");
       thread("increaseTimer");
       timerIncreased = true;
     } else if(timerIncreased && borgs.size()<overpopulationLimit - 50){
-      println("Invio richiesta per settare timer predefinito");
+      //println("Invio richiesta per settare timer predefinito");
       thread("setDefaultTimer");
       timerIncreased = false;
     }
@@ -176,7 +176,7 @@ void draw(){
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
-  println("Numero Borgs: " + borgs.size());
+  //println("Numero Borgs: " + borgs.size());
 
 }
 

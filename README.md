@@ -82,16 +82,21 @@ You can find these files inside our `./livecoding/tidalcycles` folder.
 
 
 ## Example Use
+**VIDEO DEMO** - [YouTube](https://youtu.be/t5EOgvYc9z4)
+
 An example of a single user interaction:
 <p align="center"><img src="./presentation/gif1co2des.gif"></p>
 
 An example of multiple users interactions with child generation:
 <p align="center"><img src="./presentation/gif2co2des.gif"></p>
 
+
 ## Hack The System
-+ change the screen size - default `1550x1000`
++ change the screen size - default: `1550x1000`
 + different parameter mapping - see the `configuration.tidal` file
 + code with your own samples - [here](https://tidalcycles.org/Custom_Samples)
++ Change the audio input - default: _Internal Microphone_
+
 
 
 ### Authors

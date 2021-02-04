@@ -143,7 +143,7 @@ export default class REPL {
 
 
   initTidal() {
-    // OSC TEST
+    //by co2des creators, OSC addition
     this.myUdp = myDgram.createSocket('udp4');
     //console.log('Socket created');
 

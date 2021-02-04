@@ -95,11 +95,11 @@ void draw(){
   if(borgs.size() == 0 && firstBorgRemoved && !defaultParamSent) thread("setDefaultState");
 
   if(!timerIncreased && borgs.size()>180){
-    println("Invio richiesta per aumento timer");
+    //println("Invio richiesta per aumento timer");
     thread("increaseTimer");
     timerIncreased = true;
   } else if(timerIncreased && borgs.size()<150){
-    println("Invio richiesta per settare timer predefinito");
+    //println("Invio richiesta per settare timer predefinito");
     thread("setDefaultTimer");
     timerIncreased = false;
   }
@@ -173,7 +173,7 @@ void draw(){
   line(width-chatWidth, height - codeScreenHeight + 30, width-chatWidth, height - 30);
   strokeWeight(1);
   
-  println("Numero Borgs: " + borgs.size());
+  //println("Numero Borgs: " + borgs.size());
 }
 
 
@@ -278,7 +278,7 @@ void requestData(){
       chatLength += chatUpShift + 20;
     }
     
-    println(msgs.length + " nuovi messaggi");
+    //println(msgs.length + " messaggi in msgs");
     
   } 
   
@@ -320,12 +320,12 @@ void generateChild(Borg parent1, Borg parent2){
     value_child = random(1);
     Interaction tempInteraction=new Interaction("userfake",int(red(color_child)),int(green(color_child)),int(blue(color_child)),value_child);
     mappedValue=mapMessage(tempInteraction).value;
-    println("MutazioneGENETICA");
+    //println("MutazioneGENETICA");
   }
   
   Borg child = new Borg(x_child, y_child, color_child, username_child, value_child,mappedValue);
   
-  println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
+  //println("Nuovo figlio Generato. ** "+username_child+" **, value: "+ value_child);
   stroke(color_child);
   strokeWeight(6);
   circle(x_child, y_child, parent1.pos.sub(parent2.pos).mag()/2);
@@ -342,7 +342,7 @@ void generateChild(Borg parent1, Borg parent2){
   
   TidalParameter map=mapMessage(currentInteraction);
   sendosc(map.param,map.value);
-  println("messaggio OSC inviato" + map.value);
+  //println("messaggio OSC inviato" + map.value);
   testoInDraw = currentInteraction.username + " ::  _" + map.param + " " + map.value;
 }
 
@@ -422,9 +422,9 @@ void createBorgs(Interaction inter, float mappedValue){
 }
 
 void oscEvent(OscMessage theOscMessage) {
-  println("message arrived");
+  //println("message arrived");
   if (theOscMessage.checkAddrPattern("/tidalcode")) {
-    println(theOscMessage.get(0));
+    //println(theOscMessage.get(0));
     incomingLine = (String)theOscMessage.get(0).stringValue();
     
     if (!theOscMessage.get(0).stringValue().equals(":{") && !theOscMessage.get(0).stringValue().equals(":}") && !theOscMessage.get(0).stringValue().equals("")){

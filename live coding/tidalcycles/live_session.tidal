@@ -56,7 +56,7 @@ d5 $ every _every ((#speed 2) . (#offset 0.125)) $ n "{1(7,16)}" # s "cpu2:9"
 
 byeByeWithGas 8
 
-d3 silence
+d4 silence
 
 
 
@@ -104,12 +104,12 @@ d1 $ s "supernoise/8" # midinote ((irand 10) + 30)
 
 d2 $ sometimesBy 0.7 ((#speed (range 0.1 1 tri)) . (_offset<~))
   $ every _every (density "<13 7 14 3 9 1>")
-  $ s "tabla" # n (irand 14) #legato _randomFloat
+  $ s "tabla" # n (irand 14) #legato (_randomFloat + 1)
   #room 0.6 # sz 0.8 #gain 0.78 #orbit 2
 
 d3 $ sometimesBy _randomFloat (#speed (range 0 5 saw))
   $ every 2 (density "<10 22 12 6 3>" . (#pan _pan))
-  $ s "wobble" # n (irand 16) #legato _randomInt
+  $ s "wobble" # n (irand 16) #legato (_randomInt + 1)
   #room 0.6 # sz 0.8 #gain 0.67 #orbit 1
 
 d3 silence
